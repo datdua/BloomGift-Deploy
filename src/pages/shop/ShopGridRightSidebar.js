@@ -57,7 +57,7 @@ const ShopGridRightSidebar = ({ location, products }) => {
         <title>Flone | Shop Page</title>
         <meta
           name="description"
-          content="Shop page of flone react minimalist eCommerce template."
+          content="Shop page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
 

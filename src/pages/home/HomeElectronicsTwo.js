@@ -15,7 +15,7 @@ const HomeElectronicsTwo = () => {
         <title>Flone | Electronics Home</title>
         <meta
           name="description"
-          content="Electronics home of flone react minimalist eCommerce template."
+          content="Electronics home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutOne

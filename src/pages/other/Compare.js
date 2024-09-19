@@ -29,7 +29,7 @@ const Compare = ({
         <title>Flone | Compare</title>
         <meta
           name="description"
-          content="Compare page of flone react minimalist eCommerce template."
+          content="Compare page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>

@@ -16,7 +16,7 @@ const HomeOrganicFood = () => {
         <title>Flone | Organic Food Home</title>
         <meta
           name="description"
-          content="Organic food home of flone react minimalist eCommerce template."
+          content="Organic food home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutThree

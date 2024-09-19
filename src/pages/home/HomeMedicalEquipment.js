@@ -17,7 +17,7 @@ const HomeMedicalEquipment = () => {
         <title>Flone | Medical Equipment Home</title>
         <meta
           name="description"
-          content="Medical Equipment home of flone react minimalist eCommerce template."
+          content="Medical Equipment home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutOne

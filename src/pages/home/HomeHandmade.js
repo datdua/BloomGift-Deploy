@@ -17,7 +17,7 @@ const HomeHandmade = () => {
         <title>Flone | Handmade Home</title>
         <meta
           name="description"
-          content="Handmade home of flone react minimalist eCommerce template."
+          content="Handmade home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutOne headerTop="visible">

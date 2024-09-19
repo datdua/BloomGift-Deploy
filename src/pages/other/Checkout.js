@@ -18,7 +18,7 @@ const Checkout = ({ location, cartItems, currency }) => {
         <title>Flone | Checkout</title>
         <meta
           name="description"
-          content="Checkout page of flone react minimalist eCommerce template."
+          content="Checkout page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>

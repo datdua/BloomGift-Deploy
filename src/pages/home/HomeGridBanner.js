@@ -11,7 +11,7 @@ const HomeGridBanner = () => {
         <title>Flone | Grid Banner Home</title>
         <meta
           name="description"
-          content="Grid banner home of flone react minimalist eCommerce template."
+          content="Grid banner home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutThree

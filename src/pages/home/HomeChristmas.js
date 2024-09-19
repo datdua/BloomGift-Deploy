@@ -15,7 +15,7 @@ const HomeChristmas = () => {
         <title>Flone | Christmas Home</title>
         <meta
           name="description"
-          content="Christmas home of flone react minimalist eCommerce template."
+          content="Christmas home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutNine

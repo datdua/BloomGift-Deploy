@@ -16,7 +16,7 @@ const HomeBookStoreTwo = () => {
         <title>Flone | Book store Home</title>
         <meta
           name="description"
-          content="Book store home of flone react minimalist eCommerce template."
+          content="Book store home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
         />
       </MetaTags>
       <LayoutOne headerTop="visible">
