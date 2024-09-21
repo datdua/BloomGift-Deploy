@@ -14,7 +14,7 @@ const HomeBlackFridayTwo = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Black friday Home</title>
+        <title>Bán Hàng | Black friday Home</title>
         <meta
           name="description"
           content="Black friday home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

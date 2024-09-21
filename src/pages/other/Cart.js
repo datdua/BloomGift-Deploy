@@ -33,7 +33,7 @@ const Cart = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Cart</title>
+        <title>Bán Hàng | Cart</title>
         <meta
           name="description"
           content="Cart page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

@@ -11,7 +11,7 @@ const HomePlants = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Plants Home</title>
+        <title>Bán Hàng | Plants Home</title>
         <meta
           name="description"
           content="Plants home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

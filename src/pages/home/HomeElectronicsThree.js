@@ -13,7 +13,7 @@ const HomeElectronicsThree = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Electronics Home</title>
+        <title>Bán Hàng | Electronics Home</title>
         <meta
           name="description"
           content="Electronics home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

@@ -12,7 +12,7 @@ const Contact = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Contact</title>
+        <title>Bán Hàng | Contact</title>
         <meta
           name="description"
           content="Contact of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

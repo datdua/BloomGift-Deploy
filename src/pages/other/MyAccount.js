@@ -13,7 +13,7 @@ const MyAccount = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | My Account</title>
+        <title>Bán Hàng | My Account</title>
         <meta
           name="description"
           content="Compare page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

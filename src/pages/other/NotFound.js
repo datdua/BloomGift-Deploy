@@ -12,7 +12,7 @@ const NotFound = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Not Found</title>
+        <title>Bán Hàng | Not Found</title>
         <meta
           name="description"
           content="404 page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

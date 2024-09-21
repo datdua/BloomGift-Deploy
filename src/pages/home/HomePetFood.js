@@ -13,7 +13,7 @@ const HomePetFood = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Pet food Home</title>
+        <title>Bán Hàng | Pet food Home</title>
         <meta
           name="description"
           content="Pet food home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

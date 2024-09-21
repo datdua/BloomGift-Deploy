@@ -8,7 +8,7 @@ const HomeGridBanner = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Grid Banner Home</title>
+        <title>Bán Hàng | Grid Banner Home</title>
         <meta
           name="description"
           content="Grid banner home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

@@ -15,7 +15,7 @@ const ProductSticky = ({ location, product }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Product Page</title>
+        <title>Bán Hàng | Product Page</title>
         <meta
           name="description"
           content="Product page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

@@ -14,7 +14,7 @@ const HomeHandmade = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Handmade Home</title>
+        <title>Bán Hàng | Handmade Home</title>
         <meta
           name="description"
           content="Handmade home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

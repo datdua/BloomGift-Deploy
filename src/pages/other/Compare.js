@@ -26,7 +26,7 @@ const Compare = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Compare</title>
+        <title>Bán Hàng | Compare</title>
         <meta
           name="description"
           content="Compare page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

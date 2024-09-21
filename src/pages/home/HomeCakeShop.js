@@ -12,7 +12,7 @@ const HomeCakeShop = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Cake shop Home</title>
+        <title>Bán Hàng | Cake shop Home</title>
         <meta
           name="description"
           content="Cake shop home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

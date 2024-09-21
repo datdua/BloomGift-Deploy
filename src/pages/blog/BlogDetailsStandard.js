@@ -14,7 +14,7 @@ const BlogDetailsStandard = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Blog Post</title>
+        <title>Bán Hàng | Blog Post</title>
         <meta
           name="description"
           content="Blog post page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

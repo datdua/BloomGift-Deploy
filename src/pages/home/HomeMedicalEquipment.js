@@ -14,7 +14,7 @@ const HomeMedicalEquipment = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Medical Equipment Home</title>
+        <title>Bán Hàng | Medical Equipment Home</title>
         <meta
           name="description"
           content="Medical Equipment home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

@@ -15,7 +15,7 @@ const Checkout = ({ location, cartItems, currency }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Checkout</title>
+        <title>Bán Hàng | Checkout</title>
         <meta
           name="description"
           content="Checkout page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

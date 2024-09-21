@@ -12,7 +12,7 @@ const HomeChristmas = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Christmas Home</title>
+        <title>Bán Hàng | Christmas Home</title>
         <meta
           name="description"
           content="Christmas home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

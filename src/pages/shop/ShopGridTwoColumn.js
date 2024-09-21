@@ -54,7 +54,7 @@ const ShopGridTwoColumn = ({ location, products }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Shop Page</title>
+        <title>Bán Hàng | Shop Page</title>
         <meta
           name="description"
           content="Shop page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
