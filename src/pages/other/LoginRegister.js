@@ -188,7 +188,7 @@ const LoginRegister = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Bloom Gift | Đăng Nhập</title>
+        <title>Bán Hàng |Đăng Nhập</title>
         <meta name="description" content="Compare page of flone Nền tảng kết nối các cửa hàng bán hoa và quà." />
       </MetaTags>
       <BreadcrumbsItem to={publicUrl + "/"}>Trang chủ</BreadcrumbsItem>

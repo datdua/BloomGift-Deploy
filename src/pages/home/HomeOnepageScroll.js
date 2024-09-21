@@ -26,7 +26,7 @@ const HomeOnepageScroll = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Bloom Gift | Home</title>
+        <title>Bán Hàng |Home</title>
         <meta
           name="description"
           content="Fashion home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
