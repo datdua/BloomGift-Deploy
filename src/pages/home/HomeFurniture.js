@@ -12,7 +12,7 @@ const HomeFurniture = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Furniture Home</title>
+        <title>BloomGift | Furniture Home</title>
         <meta
           name="description"
           content="Furniture home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

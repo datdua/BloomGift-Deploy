@@ -12,7 +12,7 @@ const HomeAutoParts = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Auto parts Home</title>
+        <title>BloomGift | Auto parts Home</title>
         <meta
           name="description"
           content="Auto parts home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."

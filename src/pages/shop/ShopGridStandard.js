@@ -50,7 +50,7 @@ const ShopGridStandard = ({location, products}) => {
     return (
         <Fragment>
             <MetaTags>
-                <title>Flone | Shop Page</title>
+                <title>BloomGift | Shop Page</title>
                 <meta name="description" content="Shop page of flone Nền tảng kết nối các cửa hàng bán hoa và quà." />
             </MetaTags>
 
