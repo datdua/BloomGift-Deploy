@@ -27,32 +27,8 @@ const LanguageCurrencyChanger = ({
         <span>
           {currentLanguageCode === "vi"
             ? "Tiếng Việt"
-            : currentLanguageCode === "en"
-              ? "English"
-              : currentLanguageCode === "de"
-                ? "Germany"
                   : ""}{" "}
-          <i className="fa fa-angle-down" />
         </span>
-        <div className="lang-car-dropdown">
-          <ul>
-          <li>
-            <button value="vi" onClick={e => changeLanguageTrigger(e)}>
-                Tiếng Việt
-              </button>
-            </li>
-            <li>
-              <button value="en" onClick={e => changeLanguageTrigger(e)}>
-                English
-              </button>
-            </li>
-            <li>
-              <button value="de" onClick={e => changeLanguageTrigger(e)}>
-                Germany
-              </button>
-            </li>
-          </ul>
-        </div>
       </div>
       <div className="same-language-currency">
         <p>Hotline 0905558630</p>

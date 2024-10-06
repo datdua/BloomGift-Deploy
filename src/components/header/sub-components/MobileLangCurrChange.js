@@ -30,18 +30,7 @@ const MobileLangCurrChange = ({
   return (
     <div className="mobile-menu-middle">
       <div className="lang-curr-style">
-        <span className="title mb-2">Choose Language </span>
-        <select
-          value={currentLanguageCode}
-          onChange={e => {
-            changeLanguageTrigger(e);
-            closeMobileMenu();
-          }}
-        >
-          <option value="en">English</option>
-          <option value="fn">French</option>
-          <option value="de">Germany</option>
-        </select>
+          <div value="vi">Tiếng Việt</div>
       </div>
       <div className="lang-curr-style">
         <span className="title mb-2">Choose Currency</span>
