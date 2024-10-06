@@ -25,27 +25,25 @@ const LanguageCurrencyChanger = ({
     <div className="language-currency-wrap">
       <div className="same-language-currency language-style">
         <span>
-          {currentLanguageCode === "en"
-            ? "English"
-            : currentLanguageCode === "fn"
-              ? "French"
+          {currentLanguageCode === "vi"
+            ? "Tiếng Việt"
+            : currentLanguageCode === "en"
+              ? "English"
               : currentLanguageCode === "de"
                 ? "Germany"
-                : currentLanguageCode === "vi"
-                  ? "Vietnamese"
                   : ""}{" "}
           <i className="fa fa-angle-down" />
         </span>
         <div className="lang-car-dropdown">
           <ul>
-            <li>
-              <button value="en" onClick={e => changeLanguageTrigger(e)}>
-                English
+          <li>
+            <button value="vi" onClick={e => changeLanguageTrigger(e)}>
+                Tiếng Việt
               </button>
             </li>
             <li>
-              <button value="fn" onClick={e => changeLanguageTrigger(e)}>
-                French
+              <button value="en" onClick={e => changeLanguageTrigger(e)}>
+                English
               </button>
             </li>
             <li>
@@ -53,40 +51,11 @@ const LanguageCurrencyChanger = ({
                 Germany
               </button>
             </li>
-            <li>
-              <button value="vi" onClick={e => changeLanguageTrigger(e)}>
-                Vietnamese
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="same-language-currency use-style">
-        <span>
-          {currency.currencyName} <i className="fa fa-angle-down" />
-        </span>
-        <div className="lang-car-dropdown">
-          <ul>
-            <li>
-              <button value="USD" onClick={e => setCurrencyTrigger(e)}>
-                USD
-              </button>
-            </li>
-            <li>
-              <button value="EUR" onClick={e => setCurrencyTrigger(e)}>
-                EUR
-              </button>
-            </li>
-            <li>
-              <button value="GBP" onClick={e => setCurrencyTrigger(e)}>
-                GBP
-              </button>
-            </li>
           </ul>
         </div>
       </div>
       <div className="same-language-currency">
-        <p>Call Us 3965410</p>
+        <p>Hotline 0905558630</p>
       </div>
     </div>
   );

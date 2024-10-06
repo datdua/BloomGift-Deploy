@@ -1,16 +1,14 @@
 [
   {
     "id": 1,
-    "title": "Chào mừng!",
-    "subtitle": "Nền tảng kết nối các cửa hàng hoa",
-    "image": "/assets/img/slider/single-slide-hm1-2.png",
-    "url": "/shop-grid-standard"
+    "title": "Chào mừng! đã đến với BloomGift",
+    "subtitle": "Hoa tươi, quà tặng, chỉ một chạm.",
+    "image": "https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Fvecto%2Fbanner3.png?alt=media&token=faad708c-d1d7-4310-aad7-4d5d3f59ede8"
   },
   {
     "id": 2,
-    "title": "Để mọi dịp đặc biệt trở nên ý nghĩa hơn.",
-    "subtitle": "BloomGift",
-    "image": "/assets/img/slider/single-slide-1.png",
-    "url": "/shop-grid-standard"
+    "title": "Đại tiệc khuyến mãi",
+    "subtitle": "20/10, hoa nói thay lòng bạn",
+    "image": "https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Fvecto%2Fbanner-20_10-2.png?alt=media&token=d3b49d4a-e1d3-4a2e-b019-c8f425f4f391"
   }
 ]

@@ -50,18 +50,11 @@ const HeaderOne = ({
         </div>
       </div>
 
-      <div
-        className={`${
-          headerPaddingClass ? headerPaddingClass : ""
-        } sticky-bar header-res-padding clearfix ${
-          scroll > headerTop ? "stick" : ""
-        }`}
-      >
+      <div>
         <div className={layout === "container-fluid" ? layout : "container"}>
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
-              {/* header logo */}
-              <Logo imageUrl="https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Flogo%2Flogo-header.png?alt=media&token=6d5a2b95-b887-4b2b-820e-2482681fffb4" logoClass="logo" />
+              <Logo imageUrl="https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/test%2Flogo-header1.png?alt=media&token=e095574d-abd6-4ac8-be64-9f8d61e5c72e" logoClass="logo" />
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}

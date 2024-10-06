@@ -45,7 +45,7 @@ const OrderHistory = ({ orders, location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Lịch sử đơn hàng</title>
+        <title>BloomGift | Lịch sử đơn hàng</title>
         <meta
           name="description"
           content="Trang lịch sử đơn hàng của Flone - mẫu eCommerce React tối giản."
