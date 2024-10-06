@@ -13,10 +13,10 @@ const HomeOrganicFoodTwo = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Organic Food Home</title>
+        <title>Flone | Organic Food Home</title>
         <meta
           name="description"
-          content="Organic food home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
+          content="Organic food home of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <LayoutOne headerTop="visible">

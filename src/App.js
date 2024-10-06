@@ -14,6 +14,9 @@ import Dashboard from "./components/sidebar/DashBoard";
 import ShopManagement from "./components/sidebar/ShopManagement";
 import StoreProfile from "./components/sidebar/ProductManager/StoreProfile";
 import Header from "./components/sidebar/HeaderSidebar";
+import ProductList from "./components/sidebar/ProductManager/ProductList";
+import OrderHistory from "./pages/other/Order";
+
 
 
 // home pages
@@ -111,6 +114,7 @@ const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
 
+
 const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Compare = lazy(() => import("./pages/other/Compare"));
@@ -126,7 +130,8 @@ const App = (props) => {
         languages: {
           en: require("./translations/english.json"),
           fn: require("./translations/french.json"),
-          de: require("./translations/germany.json")
+          de: require("./translations/germany.json"),
+          vi: require("./translations/vietnamese.json")
         }
       })
     );
@@ -326,7 +331,7 @@ const App = (props) => {
                   component={ShopGridNoSidebar}
                 />
                 <Route
-                  path={publicUrl + "/shop-grid-full-width"}
+                  path={publicUrl + "/cuahang"}
                   component={ShopGridFullWidth}
                 />
                 <Route
@@ -338,7 +343,7 @@ const App = (props) => {
                   component={ShopListStandard}
                 />
                 <Route
-                  path={publicUrl + "/shop-list-full-width"}
+                  path={publicUrl + "/combo"}
                   component={ShopListFullWidth}
                 />
                 <Route
@@ -447,12 +452,17 @@ const App = (props) => {
                   path={publicUrl + "/not-found"}
                   component={NotFound}
                 />
+                <Route 
+                  path={publicUrl + "/donhang"}
+                  component={OrderHistory}
+                />
                 <Route path="/seller">
                   <SalerSidebar>
                     <Switch>
                       <Route path="/seller/dashboard" component={Dashboard} />
                       <Route path="/seller/shop-management" component={ShopManagement} />
                       <Route path="/seller/shop-profile" component={StoreProfile} />
+                      <Route path="/seller/all-products" component={ProductList} />
                     </Switch>
                   </SalerSidebar>
                 </Route>

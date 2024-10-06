@@ -14,10 +14,10 @@ const HomeBlackFridayTwo = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Black friday Home</title>
+        <title>Flone | Black friday Home</title>
         <meta
           name="description"
-          content="Black friday home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
+          content="Black friday home of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <LayoutOne

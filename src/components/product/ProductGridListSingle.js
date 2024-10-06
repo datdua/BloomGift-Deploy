@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
 
@@ -12,108 +11,88 @@ const ProductGridListSingle = ({
   addToCart,
   addToWishlist,
   addToCompare,
-  cartItem,
-  wishlistItem,
-  compareItem,
+  cartItems = [],
+  wishlistItems = [],
+  compareItems = [],
   sliderClassName,
   spaceBottomClass
 }) => {
+  console.log('Rendering product:', product);
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  const discountedPrice = product.discount > 0
+    ? product.price * (1 - product.discount / 100)
+    : null;
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  const finalDiscountedPrice = discountedPrice
+    ? +(discountedPrice * currency.currencyRate).toFixed(2)
+    : null;
+
+  const cartItem = cartItems.find((item) => item.productID === product.productID);
+  const wishlistItem = wishlistItems.find((item) => item.productID === product.productID);
+  const compareItem = compareItems.find((item) => item.productID === product.productID);
 
   return (
     <Fragment>
       <div
-        className={`col-xl-4 col-sm-6 ${
-          sliderClassName ? sliderClassName : ""
-        }`}
+        className={`col-xl-4 col-sm-6 ${sliderClassName ? sliderClassName : ""}`}
       >
         <div
           className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
         >
           <div className="product-img">
-            <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+            <Link to={`${process.env.PUBLIC_URL}/product/${product.productID}`}>
               <img
                 className="default-img"
-                src={process.env.PUBLIC_URL + product.image[0]}
-                alt=""
+                src={
+                  product.images && product.images.length > 0
+                    ? product.images[0].productImage
+                    : `${process.env.PUBLIC_URL}/assets/img/product/fashion/1.jpg`
+                }
+                alt={product.productName || "Product Image"}
               />
-              {product.image.length > 1 ? (
+              {product.images && product.images.length > 1 && (
                 <img
                   className="hover-img"
-                  src={process.env.PUBLIC_URL + product.image[1]}
-                  alt=""
+                  src={product.images[1].productImage}
+                  alt={product.productName || "Product Image"}
                 />
-              ) : (
-                ""
               )}
             </Link>
-            {product.discount || product.new ? (
+            {product.discount > 0 || product.featured ? (
               <div className="product-img-badges">
-                {product.discount ? (
+                {product.discount > 0 ? (
                   <span className="pink">-{product.discount}%</span>
                 ) : (
                   ""
                 )}
-                {product.new ? <span className="purple">New</span> : ""}
+                {product.featured ? <span className="purple">Featured</span> : ""}
               </div>
             ) : (
               ""
             )}
-
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
                 <button
-                  className={wishlistItem !== undefined ? "active" : ""}
-                  disabled={wishlistItem !== undefined}
-                  title={
-                    wishlistItem !== undefined
-                      ? "Added to wishlist"
-                      : "Add to wishlist"
-                  }
+                  className={wishlistItem ? "active" : ""}
+                  disabled={!!wishlistItem}
+                  title={wishlistItem ? "Added to wishlist" : "Add to wishlist"}
                   onClick={() => addToWishlist(product, addToast)}
                 >
                   <i className="pe-7s-like" />
                 </button>
               </div>
               <div className="pro-same-action pro-cart">
-                {product.affiliateLink ? (
-                  <a
-                    href={product.affiliateLink}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {" "}
-                    Buy now{" "}
-                  </a>
-                ) : product.variation && product.variation.length >= 1 ? (
-                  <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                    Select Option
-                  </Link>
-                ) : product.stock && product.stock > 0 ? (
+                {product.quantity && product.quantity > 0 ? (
                   <button
                     onClick={() => addToCart(product, addToast)}
-                    className={
-                      cartItem !== undefined && cartItem.quantity > 0
-                        ? "active"
-                        : ""
-                    }
-                    disabled={cartItem !== undefined && cartItem.quantity > 0}
-                    title={
-                      cartItem !== undefined ? "Added to cart" : "Add to cart"
-                    }
+                    className={cartItem ? "active" : ""}
+                    disabled={!!cartItem}
+                    title={cartItem ? "Added to cart" : "Add to cart"}
                   >
-                    {" "}
                     <i className="pe-7s-cart"></i>{" "}
-                    {cartItem !== undefined && cartItem.quantity > 0
-                      ? "Added"
-                      : "Add to cart"}
+                    {cartItem ? "Added" : "Add to cart"}
                   </button>
                 ) : (
                   <button disabled className="active">
@@ -130,11 +109,11 @@ const ProductGridListSingle = ({
           </div>
           <div className="product-content text-center">
             <h3>
-              <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                {product.name}
+              <Link to={`${process.env.PUBLIC_URL}/product/${product.productID}`}>
+                {product.productName}
               </Link>
             </h3>
-            {product.rating && product.rating > 0 ? (
+            {product.rating ? (
               <div className="product-rating">
                 <Rating ratingValue={product.rating} />
               </div>
@@ -160,30 +139,32 @@ const ProductGridListSingle = ({
             <div className="col-xl-4 col-md-5 col-sm-6">
               <div className="product-list-image-wrap">
                 <div className="product-img">
-                  <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                  <Link to={`${process.env.PUBLIC_URL}/product/${product.productID}`}>
                     <img
-                      className="default-img img-fluid"
-                      src={process.env.PUBLIC_URL + product.image[0]}
-                      alt=""
+                      className="default-img"
+                      src={
+                        product.images && product.images.length > 0
+                          ? product.images[0].productImage
+                          : `${process.env.PUBLIC_URL}/assets/img/product/fashion/1.jpg`
+                      }
+                      alt={product.productName || "Product Image"}
                     />
-                    {product.image.length > 1 ? (
+                    {product.images && product.images.length > 1 && (
                       <img
-                        className="hover-img img-fluid"
-                        src={process.env.PUBLIC_URL + product.image[1]}
-                        alt=""
+                        className="hover-img"
+                        src={product.images[1].productImage}
+                        alt={product.productName || "Product Image"}
                       />
-                    ) : (
-                      ""
                     )}
                   </Link>
-                  {product.discount || product.new ? (
+                  {product.discount > 0 || product.featured ? (
                     <div className="product-img-badges">
-                      {product.discount ? (
+                      {product.discount > 0 ? (
                         <span className="pink">-{product.discount}%</span>
                       ) : (
                         ""
                       )}
-                      {product.new ? <span className="purple">New</span> : ""}
+                      {product.featured ? <span className="purple">Featured</span> : ""}
                     </div>
                   ) : (
                     ""
@@ -194,8 +175,8 @@ const ProductGridListSingle = ({
             <div className="col-xl-8 col-md-7 col-sm-6">
               <div className="shop-list-content">
                 <h3>
-                  <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                    {product.name}
+                  <Link to={`${process.env.PUBLIC_URL}/product/${product.productID}`}>
+                    {product.productName}
                   </Link>
                 </h3>
                 <div className="product-list-price">
@@ -212,7 +193,7 @@ const ProductGridListSingle = ({
                     <span>{currency.currencySymbol + finalProductPrice} </span>
                   )}
                 </div>
-                {product.rating && product.rating > 0 ? (
+                {product.rating ? (
                   <div className="rating-review">
                     <div className="product-list-rating">
                       <Rating ratingValue={product.rating} />
@@ -221,51 +202,23 @@ const ProductGridListSingle = ({
                 ) : (
                   ""
                 )}
-                {product.shortDescription ? (
-                  <p>{product.shortDescription}</p>
+                {product.description ? (
+                  <p>{product.description}</p>
                 ) : (
                   ""
                 )}
 
                 <div className="shop-list-actions d-flex align-items-center">
                   <div className="shop-list-btn btn-hover">
-                    {product.affiliateLink ? (
-                      <a
-                        href={product.affiliateLink}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {" "}
-                        Buy now{" "}
-                      </a>
-                    ) : product.variation && product.variation.length >= 1 ? (
-                      <Link
-                        to={`${process.env.PUBLIC_URL}/product/${product.id}`}
-                      >
-                        Select Option
-                      </Link>
-                    ) : product.stock && product.stock > 0 ? (
+                    {product.quantity && product.quantity > 0 ? (
                       <button
                         onClick={() => addToCart(product, addToast)}
-                        className={
-                          cartItem !== undefined && cartItem.quantity > 0
-                            ? "active"
-                            : ""
-                        }
-                        disabled={
-                          cartItem !== undefined && cartItem.quantity > 0
-                        }
-                        title={
-                          cartItem !== undefined
-                            ? "Added to cart"
-                            : "Add to cart"
-                        }
+                        className={cartItem ? "active" : ""}
+                        disabled={!!cartItem}
+                        title={cartItem ? "Added to cart" : "Add to cart"}
                       >
-                        {" "}
                         <i className="pe-7s-cart"></i>{" "}
-                        {cartItem !== undefined && cartItem.quantity > 0
-                          ? "Added"
-                          : "Add to cart"}
+                        {cartItem ? "Added" : "Add to cart"}
                       </button>
                     ) : (
                       <button disabled className="active">
@@ -276,13 +229,9 @@ const ProductGridListSingle = ({
 
                   <div className="shop-list-wishlist ml-10">
                     <button
-                      className={wishlistItem !== undefined ? "active" : ""}
-                      disabled={wishlistItem !== undefined}
-                      title={
-                        wishlistItem !== undefined
-                          ? "Added to wishlist"
-                          : "Add to wishlist"
-                      }
+                      className={wishlistItem ? "active" : ""}
+                      disabled={!!wishlistItem}
+                      title={wishlistItem ? "Added to wishlist" : "Add to wishlist"}
                       onClick={() => addToWishlist(product, addToast)}
                     >
                       <i className="pe-7s-like" />
@@ -290,13 +239,9 @@ const ProductGridListSingle = ({
                   </div>
                   <div className="shop-list-compare ml-10">
                     <button
-                      className={compareItem !== undefined ? "active" : ""}
-                      disabled={compareItem !== undefined}
-                      title={
-                        compareItem !== undefined
-                          ? "Added to compare"
-                          : "Add to compare"
-                      }
+                      className={compareItem ? "active" : ""}
+                      disabled={!!compareItem}
+                      title={compareItem ? "Added to compare" : "Add to compare"}
                       onClick={() => addToCompare(product, addToast)}
                     >
                       <i className="pe-7s-shuffle" />
@@ -314,16 +259,15 @@ const ProductGridListSingle = ({
         onHide={() => setModalShow(false)}
         product={product}
         currency={currency}
-        discountedprice={discountedPrice}
-        finalproductprice={finalProductPrice}
-        finaldiscountedprice={finalDiscountedPrice}
-        cartitem={cartItem}
-        wishlistitem={wishlistItem}
-        compareitem={compareItem}
-        addtocart={addToCart}
-        addtowishlist={addToWishlist}
-        addtocompare={addToCompare}
-        addtoast={addToast}
+        discountedPrice={finalDiscountedPrice}
+        finalPrice={finalProductPrice}
+        cartItem={cartItem}
+        wishlistItem={wishlistItem}
+        compareItem={compareItem}
+        addToCart={addToCart}
+        addToWishlist={addToWishlist}
+        addToCompare={addToCompare}
+        addToast={addToast}
       />
     </Fragment>
   );
@@ -333,13 +277,13 @@ ProductGridListSingle.propTypes = {
   addToCart: PropTypes.func,
   addToCompare: PropTypes.func,
   addToWishlist: PropTypes.func,
-  cartItem: PropTypes.object,
-  compareItem: PropTypes.object,
+  cartItems: PropTypes.array,
+  compareItems: PropTypes.array,
   currency: PropTypes.object,
   product: PropTypes.object,
   sliderClassName: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  wishlistItem: PropTypes.object
+  wishlistItems: PropTypes.array
 };
 
 export default ProductGridListSingle;

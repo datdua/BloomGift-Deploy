@@ -1,95 +1,71 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import { getDiscountPrice } from "../../../helpers/product";
+import { deleteFromCart, getCartItems } from "../../../redux/actions/cartActions";
+import { useDispatch } from "react-redux";
 
-const MenuCart = ({ cartData, currency, deleteFromCart }) => {
-  let cartTotalPrice = 0;
+const MenuCart = ({ cartData, currency }) => {
   const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const cartItemsArray = Object.values(cartData);
+  const totalPriceCart = cartItemsArray.reduce((total, item) => total + (item.price * item.quantity), 0);
+  
+  useEffect(() => {
+    dispatch(getCartItems(addToast));
+  }, [dispatch, addToast]);
+  
   return (
     <div className="shopping-cart-content">
-      {cartData && cartData.length > 0 ? (
+      {cartItemsArray.length > 0 ? (
         <Fragment>
           <ul>
-            {cartData.map((single, key) => {
-              const discountedPrice = getDiscountPrice(
-                single.price,
-                single.discount
-              );
-              const finalProductPrice = (
-                single.price * currency.currencyRate
-              ).toFixed(2);
-              const finalDiscountedPrice = (
-                discountedPrice * currency.currencyRate
-              ).toFixed(2);
-
-              discountedPrice != null
-                ? (cartTotalPrice += finalDiscountedPrice * single.quantity)
-                : (cartTotalPrice += finalProductPrice * single.quantity);
-
-              return (
-                <li className="single-shopping-cart" key={key}>
-                  <div className="shopping-cart-img">
-                    <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
-                      <img
-                        alt=""
-                        src={process.env.PUBLIC_URL + single.image[0]}
-                        className="img-fluid"
-                      />
+            {cartItemsArray.map((item) => (
+              <li className="single-shopping-cart" key={item.productID}>
+                <div className="shopping-cart-img">
+                  <Link to={`${process.env.PUBLIC_URL}/product/${item.productID}`}>
+                    <img
+                      alt={item.productName}
+                      src={item.image1}
+                      className="img-fluid"
+                    />
+                  </Link>
+                </div>
+                <div className="shopping-cart-title">
+                  <h4>
+                    <Link to={`${process.env.PUBLIC_URL}/product/${item.productID}`}>
+                      {item.productName}
                     </Link>
+                  </h4>
+                  <h6>Qty: {item.quantity}</h6>
+                  <span>{currency.currencySymbol + item.price.toFixed(2)}</span>
+                  <div className="cart-item-variation">
+                    <span>Size: {item.sizeText}</span>
+                    <span>Store: {item.storeName}</span>
                   </div>
-                  <div className="shopping-cart-title">
-                    <h4>
-                      <Link
-                        to={process.env.PUBLIC_URL + "/product/" + single.id}
-                      >
-                        {" "}
-                        {single.name}{" "}
-                      </Link>
-                    </h4>
-                    <h6>Qty: {single.quantity}</h6>
-                    <span>
-                      {discountedPrice !== null
-                        ? currency.currencySymbol + finalDiscountedPrice
-                        : currency.currencySymbol + finalProductPrice}
-                    </span>
-                    {single.selectedProductColor &&
-                    single.selectedProductSize ? (
-                      <div className="cart-item-variation">
-                        <span>Color: {single.selectedProductColor}</span>
-                        <span>Size: {single.selectedProductSize}</span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div className="shopping-cart-delete">
-                    <button onClick={() => deleteFromCart(single, addToast)}>
-                      <i className="fa fa-times-circle" />
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
+                </div>
+                <div className="shopping-cart-delete">
+                  <button onClick={() => deleteFromCart(item, addToast)}>
+                    <i className="fa fa-times-circle" />
+                  </button>
+                </div>
+              </li>
+            ))}
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total :{" "}
+              Total:{" "}
               <span className="shop-total">
-                {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                {currency.currencySymbol + totalPriceCart.toFixed(2)}
               </span>
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">
             <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
-              view cart
+              View Cart
             </Link>
-            <Link
-              className="default-btn"
-              to={process.env.PUBLIC_URL + "/checkout"}
-            >
-              checkout
+            <Link className="default-btn" to={process.env.PUBLIC_URL + "/checkout"}>
+              Checkout
             </Link>
           </div>
         </Fragment>
@@ -101,7 +77,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
 };
 
 MenuCart.propTypes = {
-  cartData: PropTypes.array,
+  cartData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   currency: PropTypes.object,
   deleteFromCart: PropTypes.func
 };

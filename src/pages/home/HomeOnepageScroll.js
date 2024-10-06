@@ -29,7 +29,7 @@ const HomeOnepageScroll = () => {
         <title>Bloom Gift | Home</title>
         <meta
           name="description"
-          content="Fashion home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
+          content="Fashion home of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <div className="fullpage-slider-wrapper">

@@ -26,10 +26,10 @@ const Compare = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Compare</title>
+        <title>Flone | Compare</title>
         <meta
           name="description"
-          content="Compare page of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
+          content="Compare page of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
@@ -52,7 +52,7 @@ const Compare = ({
                             <th className="title-column">Product Info</th>
                             {compareItems.map((compareItem, key) => {
                               const cartItem = cartItems.filter(
-                                item => item.id === compareItem.id
+                                item => item.id === compareItem.productID
                               )[0];
                               return (
                                 <td className="product-image-title" key={key}>
@@ -69,17 +69,18 @@ const Compare = ({
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product/" +
-                                      compareItem.id
+                                      compareItem.productID
                                     }
                                     className="image"
                                   >
                                     <img
                                       className="img-fluid"
                                       src={
-                                        process.env.PUBLIC_URL +
-                                        compareItem.image[0]
+                                        compareItem.images && compareItem.images.length > 0 
+                                        ? process.env.PUBLIC_URL + compareItem.images[0].productImage
+                                        : process.env.PUBLIC_URL + "/assets/img/product/fashion/1.jpg"
                                       }
-                                      alt=""
+                                      alt={compareItem.productName}
                                     />
                                   </Link>
                                   <div className="product-title">
@@ -87,10 +88,10 @@ const Compare = ({
                                       to={
                                         process.env.PUBLIC_URL +
                                         "/product/" +
-                                        compareItem.id
+                                        compareItem.productID
                                       }
                                     >
-                                      {compareItem.name}
+                                      {compareItem.productName}
                                     </Link>
                                   </div>
                                   <div className="compare-btn">
@@ -224,7 +225,7 @@ const Compare = ({
                     </div>
                     <div className="item-empty-area__text">
                       No items found in compare <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/cuahang"}>
                         Add Items
                       </Link>
                     </div>

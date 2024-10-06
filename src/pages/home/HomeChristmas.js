@@ -12,10 +12,10 @@ const HomeChristmas = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Christmas Home</title>
+        <title>Flone | Christmas Home</title>
         <meta
           name="description"
-          content="Christmas home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
+          content="Christmas home of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <LayoutNine

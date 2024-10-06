@@ -5,20 +5,20 @@ import HeroSliderOne from "../../wrappers/hero-slider/HeroSliderOne";
 import FeatureIcon from "../../wrappers/feature-icon/FeatureIcon";
 import TabProduct from "../../wrappers/product/TabProduct";
 import BlogFeatured from "../../wrappers/blog-featured/BlogFeatured";
+import BrandLogoSliderTwo from "../../wrappers/brand-logo/BrandLogoSliderOne";
 
 const HomeFashion = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Bloom Gift | Home</title>
+        <title>Bloom Gift | Trang chủ</title>
         <meta
           name="description"
-          content="Fashion home of flone Nền tảng kết nối các cửa hàng bán hoa và quà."
+          content="Fashion home of flone react minimalist eCommerce template."
         />
       </MetaTags>
       <LayoutOne
-        headerContainerClass="container-fluid"
-        headerPaddingClass="header-padding-1"
+        headerTop="visible"
       >
         {/* hero slider */}
         <HeroSliderOne />
@@ -28,6 +28,7 @@ const HomeFashion = () => {
 
         {/* tab product */}
         <TabProduct spaceBottomClass="pb-60" category="fashion" />
+        <BrandLogoSliderTwo spaceBottomClass="pb-95" spaceTopClass="pt-100" />
 
         {/* blog featured */}
         <BlogFeatured spaceBottomClass="pb-55" />

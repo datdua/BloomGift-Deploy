@@ -50,8 +50,8 @@ const ShopListFullWidth = ({location, products}) => {
     return (
         <Fragment>
             <MetaTags>
-                <title>BloomGift | Shop Page</title>
-                <meta name="description" content="Shop page of flone Nền tảng kết nối các cửa hàng bán hoa và quà." />
+                <title>Flone | Shop Page</title>
+                <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
             </MetaTags>
 
             <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
