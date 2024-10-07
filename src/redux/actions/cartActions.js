@@ -243,12 +243,6 @@ export const getCartItems = (addToast) => {
       const accountID = getAccountIDFromToken();
       if (!accountID) {
         console.error("No valid account ID found");
-        if (addToast) {
-          addToast("Lỗi xác thực, vui lòng đăng nhập lại", {
-            appearance: "error",
-            autoDismiss: true,
-          });
-        }
         return;
       }
 
