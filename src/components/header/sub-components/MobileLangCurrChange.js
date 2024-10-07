@@ -15,10 +15,12 @@ const MobileLangCurrChange = ({
     dispatch(changeLanguage(languageCode));
   };
 
+
   const setCurrencyTrigger = e => {
     const currencyName = e.target.value;
     setCurrency(currencyName);
   };
+
 
   const closeMobileMenu = () => {
     const offcanvasMobileMenu = document.querySelector(
@@ -27,21 +29,11 @@ const MobileLangCurrChange = ({
     offcanvasMobileMenu.classList.remove("active");
   };
 
+
   return (
     <div className="mobile-menu-middle">
       <div className="lang-curr-style">
-        <span className="title mb-2">Choose Language </span>
-        <select
-          value={currentLanguageCode}
-          onChange={e => {
-            changeLanguageTrigger(e);
-            closeMobileMenu();
-          }}
-        >
-          <option value="en">English</option>
-          <option value="fn">French</option>
-          <option value="de">Germany</option>
-        </select>
+          <div value="vi">Tiếng Việt</div>
       </div>
       <div className="lang-curr-style">
         <span className="title mb-2">Choose Currency</span>
@@ -61,6 +53,7 @@ const MobileLangCurrChange = ({
   );
 };
 
+
 MobileLangCurrChange.propTypes = {
   setCurrency: PropTypes.func,
   currency: PropTypes.object,
@@ -68,11 +61,13 @@ MobileLangCurrChange.propTypes = {
   dispatch: PropTypes.func
 };
 
+
 const mapStateToProps = state => {
   return {
     currency: state.currencyData
   };
 };
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -81,6 +76,7 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
+
 
 export default connect(
   mapStateToProps,

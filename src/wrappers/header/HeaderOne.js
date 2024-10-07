@@ -50,13 +50,6 @@ const HeaderOne = ({
         </div>
       </div>
 
-      <div
-        className={`${
-          headerPaddingClass ? headerPaddingClass : ""
-        } sticky-bar header-res-padding clearfix ${
-          scroll > headerTop ? "stick" : ""
-        }`}
-      >
         <div className={layout === "container-fluid" ? layout : "container"}>
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
@@ -74,7 +67,6 @@ const HeaderOne = ({
         </div>
         {/* mobile menu */}
         <MobileMenu />
-      </div>
     </header>
   );
 };
