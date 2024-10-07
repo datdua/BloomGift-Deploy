@@ -1,10 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { ArrowUpDown, CreditCard, X, Eye } from 'lucide-react';
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { getOrder } from '../../redux/actions/orderAction.js'; // Assume this is where your action is
 
 const OrderHistory = ({ orders, location }) => {
   const [sortField, setSortField] = useState('');
@@ -140,41 +142,24 @@ const OrderHistory = ({ orders, location }) => {
   );
 };
 
-// Example orders to view the layout of the table
-const exampleOrders = [
-  {
-    orderID: 1,
-    oderPrice: 1000,
-    orderStatus: 'Pending',
-    startDate: '2024-09-18T14:45:25.790+00:00',
-    deliveryDateTime: '2024-09-20T14:45:25.790+00:00',
-    deliveryAddress: '123 Main St, Hanoi',
-    phone: '0123456789'
-  },
-  {
-    orderID: 2,
-    oderPrice: 2000,
-    orderStatus: 'Completed',
-    startDate: '2024-09-19T14:45:25.790+00:00',
-    deliveryDateTime: '2024-09-21T14:45:25.790+00:00',
-    deliveryAddress: '456 Elm St, Hanoi',
-    phone: '0987654321'
-  },
-  {
-    orderID: 3,
-    oderPrice: 1500,
-    orderStatus: 'Cancelled',
-    startDate: '2024-09-20T14:45:25.790+00:00',
-    deliveryDateTime: '2024-09-22T14:45:25.790+00:00',
-    deliveryAddress: '789 Oak St, Hanoi',
-    phone: '0123456789'
-  }
-];
-
-// Example usage of OrderHistory with example orders
-const ExampleOrderHistory = (props) => {
+// Main component to fetch orders and pass to OrderHistory
+const OrderHistoryPage = (props) => {
+  const dispatch = useDispatch();
+  const [orders, setOrders] = useState([]);
   const location = { pathname: '/order-history' };
-  return <OrderHistory orders={exampleOrders} location={location} {...props} />;
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const result = await dispatch(getOrder((msg) => console.error(msg)));
+      if (result) {
+        setOrders(result);
+      }
+    };
+
+    fetchOrders();
+  }, [dispatch]);
+
+  return <OrderHistory orders={orders} location={location} />;
 };
 
-export default ExampleOrderHistory;
+export default OrderHistoryPage;

@@ -53,3 +53,33 @@ export const createOrder = (formData, addToast) => {
         }
     }
 };
+
+export const getOrder = ( addToast) => {
+    return async (dispatch) => {
+        const accountID = getAccountIDFromToken();
+        try {
+            const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/customer/order/history-order/${accountID}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (response.status === 200) {
+                dispatch({
+                    type: 'GET_ORDER_SUCCESS',
+                    payload: response.data
+                });
+                return response.data;
+            }
+        } catch (error) {
+            // Log the error and dispatch fail action
+            console.error('Error getting order:', error);
+            addToast('Lỗi khi lấy đơn hàng', { appearance: 'error', autoDismiss: true });
+            dispatch({
+                type: 'GET_ORDER_FAIL',
+                payload: error.response ? error.response.data : error.message,
+            });
+            return null;
+        }
+    }
+};

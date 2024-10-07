@@ -40,7 +40,7 @@ export const getAllProducts = (addToast) => {
       const response = await axios.get("https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/list-product-by-customer", {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
+          
       }});
       dispatch(fetchProductsSuccess(response.data));
       return response.data;
@@ -81,11 +81,11 @@ export const searchProduct = (
       params.size = size;
 
       const response = await axios.get(
-        "https://bloomgift-bloomgift.azuremicroservices.io/api/auth/product-customer/search-product",
+        "https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/search-product",
         { params }, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token') 
+             
         }
         }
       );
@@ -109,7 +109,7 @@ export const getProductDetail = (addToast, productId) => {
       const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/product/${productId}`,{
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+           
       }});
       dispatch({
         type: GET_PRODUCT_DETAIL,
@@ -133,7 +133,7 @@ export const getProductBestSeller = (addToast, top) => {
       const response = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
+          
       }});
       
       dispatch({
@@ -158,7 +158,7 @@ export const getNewProduct = (addToast) => {
       const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/new-product`,{
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+           
       }});
       dispatch({
         type: GET_NEW_PRODUCT,
@@ -179,7 +179,7 @@ export const getFeatureProduct = (addToast) => {
       const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/get-product-feature-true`,{
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+           
       }});
       dispatch({
         type: GET_FEATURE_PRODUCT,
@@ -273,7 +273,7 @@ export const getProductImages = (productID) => {
       const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/product-images/${productID}/images`,{
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
+           
       }});
       if (response.status !== 200) {
         throw new Error(`Failed to fetch images: ${response.status}`);

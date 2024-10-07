@@ -6,15 +6,17 @@ import compareReducer from "./compareReducer";
 import storeReducer from "./storeReducer";
 import { combineReducers } from "redux";
 import { createMultilanguageReducer } from "redux-multilanguage";
+import categoryReducer from "./categoryReducer";
 
 const rootReducer = combineReducers({
-  multilanguage: createMultilanguageReducer({ currentLanguageCode: "vi" }),
+  multilanguage: createMultilanguageReducer({ currentLanguageCode: "en" }),
   currencyData: currencyReducer,
   productData: productReducer,
   cartData: cartReducer,
   wishlistData: wishlistReducer,
   compareData: compareReducer,
-  seller: storeReducer
+  seller: storeReducer,
+  category: categoryReducer
 });
 
 export default rootReducer;

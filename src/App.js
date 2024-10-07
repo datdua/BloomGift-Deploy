@@ -128,7 +128,10 @@ const App = (props) => {
     props.dispatch(
       loadLanguages({
         languages: {
-          vi: require("./translations/vietnamese.json"),
+          en: require("./translations/english.json"),
+          fn: require("./translations/french.json"),
+          de: require("./translations/germany.json"),
+          vi: require("./translations/vietnamese.json")
         }
       })
     );
