@@ -15,6 +15,10 @@ const MenuCart = ({ cartData, currency }) => {
     dispatch(getCartItems(addToast));
   }, [dispatch, addToast]);
   
+  const handleDeleteFromCart = async (item) => {
+    await dispatch(deleteFromCart(item, addToast));
+    dispatch(getCartItems(addToast));
+  };
   return (
     <div className="shopping-cart-content">
       {cartItemsArray.length > 0 ? (
@@ -38,14 +42,14 @@ const MenuCart = ({ cartData, currency }) => {
                     </Link>
                   </h4>
                   <h6>Qty: {item.quantity}</h6>
-                  <span>{currency.currencySymbol + item.price.toFixed(2)}</span>
+                  <span>{currency.currencySymbol + item.price}</span>
                   <div className="cart-item-variation">
                     <span>Size: {item.sizeText}</span>
                     <span>Store: {item.storeName}</span>
                   </div>
                 </div>
                 <div className="shopping-cart-delete">
-                  <button onClick={() => deleteFromCart(item, addToast)}>
+                  <button onClick={() => handleDeleteFromCart(item, addToast)}>
                     <i className="fa fa-times-circle" />
                   </button>
                 </div>

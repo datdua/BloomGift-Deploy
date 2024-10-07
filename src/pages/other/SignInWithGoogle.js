@@ -16,10 +16,10 @@ function SignInWithGoogle() {
         const result = await dispatch(signInWithGoogle(addToast));
         if (result.ok) {
           console.log("Google login successful:", result.data);
-          history.push("/home-fashion");
+          history.push("/");
         } else {
           console.error("Google login failed:", result.error);
-          history.push("/login");
+          history.push("/login-register");
         }
       } catch (error) {
         console.error("Google login error:", error);
