@@ -158,7 +158,7 @@ export const signInWithGoogle = (addToast) => {
             });
 
             if (response.data && response.data.jwt) {
-                localStorage.setItem("token", response.data.jwt);
+                localStorage.setItem("jwt", response.data.jwt);
             }
 
             if (addToast) addToast("Đăng nhập thành công!", { appearance: "success", autoDismiss: true });
