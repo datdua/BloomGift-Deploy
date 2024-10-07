@@ -7,6 +7,8 @@
   @media #{$xs-layout} {
     height: 400px;
   }
+
+  margin-top: -40px;
 }
 
 .contact-info-wrap {
@@ -43,8 +45,8 @@
         transition: all 0.3s ease 0s;
         text-align: center;
 
-        color: #252525;
-        border: 1px solid #252525;
+        color: #f56285;
+        border: 1px solid #f56285;
         border-radius: 100%;
       }
     }
@@ -68,7 +70,7 @@
     }
     &:hover .contact-icon i {
       color: #fff;
-      background-color: #252525;
+      background-color: #f56285;
     }
   }
 }

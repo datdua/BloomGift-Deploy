@@ -69,7 +69,7 @@ const FooterOne = ({
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/about"}>Giới thiệu</Link>
+                    <Link to={process.env.PUBLIC_URL + "/gioi-thieu"}>Giới thiệu</Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/contact"}>

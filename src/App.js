@@ -251,7 +251,7 @@ const App = (props) => {
 
                 {/* Other pages */}
                 <Route
-                  path={publicUrl + "/about"}
+                  path={publicUrl + "/gioi-thieu"}
                   component={About}
                 />
                 <Route

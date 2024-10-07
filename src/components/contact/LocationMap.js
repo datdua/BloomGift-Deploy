@@ -11,14 +11,14 @@ const FooterMap = props => {
   return (
     <Map
       google={props.google}
-      zoom={10}
+      zoom={13.1199}
       style={mapStyles}
       initialCenter={{ lat: props.latitude, lng: props.longitude }}
     >
       <Marker
         position={{ lat: props.latitude, lng: props.longitude }}
         icon={{
-          url: `${process.env.PUBLIC_URL + "/assets/img/icon-img/2.png"}`
+          url: `${process.env.PUBLIC_URL + "/assets/img/icon-img/3.png"}`
         }}
         animation={props.google.maps.Animation.BOUNCE}
       />

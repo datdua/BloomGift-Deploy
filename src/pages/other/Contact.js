@@ -12,7 +12,7 @@ const Contact = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Contact</title>
+        <title>BloomGift | Liên hệ</title>
         <meta
           name="description"
           content="Contact of flone react minimalist eCommerce template."
@@ -20,7 +20,7 @@ const Contact = ({ location }) => {
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Contact
+        Liên hệ
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -28,7 +28,7 @@ const Contact = ({ location }) => {
         <div className="contact-area pt-100 pb-100">
           <div className="container">
             <div className="contact-map mb-10">
-              <LocationMap latitude="47.444" longitude="-122.176" />
+              <LocationMap latitude="10.841275" longitude="106.809840" />
             </div>
             <div className="custom-row-2">
               <div className="col-lg-4 col-md-5">
@@ -38,7 +38,7 @@ const Contact = ({ location }) => {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>+012 345 678 102</p>
+                      <p>+84 9055 558 630</p>
                       <p>+012 345 678 102</p>
                     </div>
                   </div>
@@ -48,13 +48,13 @@ const Contact = ({ location }) => {
                     </div>
                     <div className="contact-info-dec">
                       <p>
-                        <a href="mailto:yourname@email.com">
-                          yourname@email.com
+                        <a href="mailto:bloomgift.info@gmail.com">
+                        bloomgift.info@gmail.com
                         </a>
                       </p>
                       <p>
-                        <a href="https://yourwebsitename.com">
-                          yourwebsitename.com
+                        <a href="https://www.bloomgift.shop/">
+                        bloomgift.shop
                         </a>
                       </p>
                     </div>
@@ -64,8 +64,8 @@ const Contact = ({ location }) => {
                       <i className="fa fa-map-marker" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>Address goes here, </p>
-                      <p>street, Crossroad 123.</p>
+                      <p>Địa chỉ ở đây,</p>
+                      <p>Lô E2a-7, TP. Thủ Đức</p>
                     </div>
                   </div>
                   <div className="contact-social text-center">
