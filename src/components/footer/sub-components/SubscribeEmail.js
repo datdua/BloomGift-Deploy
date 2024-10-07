@@ -24,12 +24,12 @@ const CustomForm = ({ status, message, onValidated }) => {
             className="email"
             ref={node => (email = node)}
             type="email"
-            placeholder="Enter your email address..."
+            placeholder="Nhập địa chỉ email của bạn..."
           />
         </div>
         <div className="clear">
           <button className="button" onClick={submit}>
-            SUBSCRIBE
+            ĐĂNG KÝ
           </button>
         </div>
       </div>

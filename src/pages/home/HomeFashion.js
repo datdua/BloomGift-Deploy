@@ -13,8 +13,8 @@ const HomeFashion = () => {
       <MetaTags>
         <title>Bloom Gift | Trang chủ</title>
         <meta
-          name="description"
-          content="Fashion home of flone react minimalist eCommerce template."
+          name="Bloom Gift"
+          content="Nền Tảng Liên Kết Cửa Hàng Bán Hoa Và Quà Tại TP. Hồ Chí Minh"
         />
       </MetaTags>
       <LayoutOne
@@ -28,10 +28,11 @@ const HomeFashion = () => {
 
         {/* tab product */}
         <TabProduct spaceBottomClass="pb-60" category="fashion" />
-        <BrandLogoSliderTwo spaceBottomClass="pb-95" spaceTopClass="pt-100" />
 
         {/* blog featured */}
         <BlogFeatured spaceBottomClass="pb-55" />
+
+        <BrandLogoSliderTwo spaceBottomClass="pb-95" spaceTopClass="pt-100" />
       </LayoutOne>
     </Fragment>
   );

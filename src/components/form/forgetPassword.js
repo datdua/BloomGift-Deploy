@@ -60,7 +60,7 @@ const ForgetPasswordForm = ({ setEmail, setShowForgetPasswordForm, setShowResetP
                       </button>
                       <button
                         type="submit"
-                        onClick={() => history.push("/login-register")}
+                        onClick={() => history.push("/dangky-dangnhap")}
                       >
                         <span>Quay lại đăng nhập</span>
                       </button>

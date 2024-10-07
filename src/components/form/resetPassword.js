@@ -94,7 +94,7 @@ const ResetPasswordForm = ({ setShowResetPasswordForm }) => {
                       </button>
                       <button
                         type="button"
-                        onClick={() => history.push("/login-register")}
+                        onClick={() => history.push("/dangky-dangnhap")}
                       >
                         <span>Quay lại đăng nhập</span>
                       </button>
