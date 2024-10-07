@@ -37,7 +37,7 @@ const IconGroup = ({
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    history.push("/login-register");
+    history.push("/dangky-dangnhap");
     dispatch(clearCart());
   };
 
@@ -81,10 +81,10 @@ const IconGroup = ({
             ) : (
               <>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + "/login-register"}>Đăng nhập</Link>
+                  <Link to={process.env.PUBLIC_URL + "/dangky-dangnhap"}>Đăng nhập</Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + "/login-register"}>Đăng ký</Link>
+                  <Link to={process.env.PUBLIC_URL + "/dangky-dangnhap"}>Đăng ký</Link>
                 </li>
               </>
             )}

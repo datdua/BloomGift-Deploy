@@ -39,13 +39,13 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu, currentLanguageCode }) 
             </Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/cuahang"}>
-              {getString("shop")}
+            <Link to={process.env.PUBLIC_URL + "/gioi-thieu"}>
+              {getString("about")}
             </Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/combo"}>
-              {getString("collection")}
+            <Link to={process.env.PUBLIC_URL + "/cuahang"}>
+              {getString("shop")}
             </Link>
           </li>
           <li>

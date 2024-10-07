@@ -19,7 +19,7 @@ function SignInWithGoogle() {
           history.push("/");
         } else {
           console.error("Google login failed:", result.error);
-          history.push("/login-register");
+          history.push("/dangky-dangnhap");
         }
       } catch (error) {
         console.error("Google login error:", error);

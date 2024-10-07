@@ -53,7 +53,7 @@ const FooterOne = ({
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo="https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Flogo%2Flogo-header.png?alt=media&token=6d5a2b95-b887-4b2b-820e-2482681fffb4"
+              footerLogo="https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Fvecto%2Flogo-footer.png?alt=media&token=2806e55e-0ce2-40e0-b978-f2366e6ef482"
               spaceBottomClass="mb-30"
             />
           </div>
@@ -64,27 +64,25 @@ const FooterOne = ({
           >
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
-                <h3>ABOUT US</h3>
+                <h3>GIỚI THIỆU</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/about"}>About us</Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Store location
-                    </Link>
+                    <Link to={process.env.PUBLIC_URL + "/gioi-thieu"}>Giới thiệu</Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/contact"}>
-                      Contact
+                      Liên hệ
                     </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Orders tracking
-                    </Link>
+                    <a href="https://www.facebook.com/bloomgift201" target="_blank" rel="noopener noreferrer">
+                      Fanpage
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:bloomgift.info@gmail.com?subject=Liên hệ từ website BloomGift">Email</a>
                   </li>
                 </ul>
               </div>
@@ -103,23 +101,25 @@ const FooterOne = ({
               }`}
             >
               <div className="footer-title">
-                <h3>USEFUL LINKS</h3>
+                <h3>CỬA HÀNG</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Returns</Link>
+                    <Link to={process.env.PUBLIC_URL + "/cuahang"}>Sản phẩm</Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Support Policy
+                    <Link to={process.env.PUBLIC_URL + "/dangky-dangnhap"}>
+                      Đăng ký
                     </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Size guide</Link>
+                    <Link to={process.env.PUBLIC_URL + "/blog"}>
+                      Blog
+                    </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>FAQs</Link>
+                    <a href="tel:0905558630">Hotline</a>
                   </li>
                 </ul>
               </div>
@@ -138,7 +138,7 @@ const FooterOne = ({
               }`}
             >
               <div className="footer-title">
-                <h3>FOLLOW US</h3>
+                <h3>THEO DÕI</h3>
               </div>
               <div className="footer-list">
                 <ul>
@@ -149,15 +149,6 @@ const FooterOne = ({
                       rel="noopener noreferrer"
                     >
                       Facebook
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="//www.twitter.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Twitter
                     </a>
                   </li>
                   <li>

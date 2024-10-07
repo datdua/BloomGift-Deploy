@@ -120,7 +120,7 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
   return (
     <Fragment>
       <MetaTags>
-        <title>Bloom Gift | Gian hàng</title>
+        <title>Bloom Gift | Cửa hàng</title>
         <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
       </MetaTags>
 

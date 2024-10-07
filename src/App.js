@@ -164,154 +164,6 @@ const App = (props) => {
                   path={publicUrl + "/home-fashion"}
                   component={HomeFashion}
                 />
-                <Route
-                  path={publicUrl + "/home-fashion-two"}
-                  component={HomeFashionTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-fashion-three"}
-                  component={HomeFashionThree}
-                />
-                <Route
-                  path={publicUrl + "/home-fashion-four"}
-                  component={HomeFashionFour}
-                />
-                <Route
-                  path={publicUrl + "/home-fashion-five"}
-                  component={HomeFashionFive}
-                />
-                <Route
-                  path={publicUrl + "/home-fashion-six"}
-                  component={HomeFashionSix}
-                />
-                <Route
-                  path={publicUrl + "/home-fashion-seven"}
-                  component={HomeFashionSeven}
-                />
-                <Route
-                  path={publicUrl + "/home-fashion-eight"}
-                  component={HomeFashionEight}
-                />
-                <Route
-                  path={publicUrl + "/home-kids-fashion"}
-                  component={HomeKidsFashion}
-                />
-                <Route
-                  path={publicUrl + "/home-cosmetics"}
-                  component={HomeCosmetics}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture"}
-                  component={HomeFurniture}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture-two"}
-                  component={HomeFurnitureTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture-three"}
-                  component={HomeFurnitureThree}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture-four"}
-                  component={HomeFurnitureFour}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture-five"}
-                  component={HomeFurnitureFive}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture-six"}
-                  component={HomeFurnitureSix}
-                />
-                <Route
-                  path={publicUrl + "/home-furniture-seven"}
-                  component={HomeFurnitureSeven}
-                />
-                <Route
-                  path={publicUrl + "/home-electronics"}
-                  component={HomeElectronics}
-                />
-                <Route
-                  path={publicUrl + "/home-electronics-two"}
-                  component={HomeElectronicsTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-electronics-three"}
-                  component={HomeElectronicsThree}
-                />
-                <Route
-                  path={publicUrl + "/home-book-store"}
-                  component={HomeBookStore}
-                />
-                <Route
-                  path={publicUrl + "/home-book-store-two"}
-                  component={HomeBookStoreTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-plants"}
-                  component={HomePlants}
-                />
-                <Route
-                  path={publicUrl + "/home-flower-shop"}
-                  component={HomeFlowerShop}
-                />
-                <Route
-                  path={publicUrl + "/home-flower-shop-two"}
-                  component={HomeFlowerShopTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-organic-food"}
-                  component={HomeOrganicFood}
-                />
-                <Route
-                  path={publicUrl + "/home-organic-food-two"}
-                  component={HomeOrganicFoodTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-onepage-scroll"}
-                  component={HomeOnepageScroll}
-                />
-                <Route
-                  path={publicUrl + "/home-grid-banner"}
-                  component={HomeGridBanner}
-                />
-                <Route
-                  path={publicUrl + "/home-auto-parts"}
-                  component={HomeAutoParts}
-                />
-                <Route
-                  path={publicUrl + "/home-cake-shop"}
-                  component={HomeCakeShop}
-                />
-                <Route
-                  path={publicUrl + "/home-handmade"}
-                  component={HomeHandmade}
-                />
-                <Route
-                  path={publicUrl + "/home-pet-food"}
-                  component={HomePetFood}
-                />
-                <Route
-                  path={publicUrl + "/home-medical-equipment"}
-                  component={HomeMedicalEquipment}
-                />
-                <Route
-                  path={publicUrl + "/home-christmas"}
-                  component={HomeChristmas}
-                />
-                <Route
-                  path={publicUrl + "/home-black-friday"}
-                  component={HomeBlackFriday}
-                />
-                <Route
-                  path={publicUrl + "/home-black-friday-two"}
-                  component={HomeBlackFridayTwo}
-                />
-                <Route
-                  path={publicUrl + "/home-valentines-day"}
-                  component={HomeValentinesDay}
-                />
 
                 {/* Shop pages */}
                 <Route
@@ -399,7 +251,7 @@ const App = (props) => {
 
                 {/* Other pages */}
                 <Route
-                  path={publicUrl + "/about"}
+                  path={publicUrl + "/gioi-thieu"}
                   component={About}
                 />
                 <Route
@@ -411,7 +263,7 @@ const App = (props) => {
                   component={MyAccount}
                 />
                 <Route
-                  path={publicUrl + "/login-register"}
+                  path={publicUrl + "/dangky-dangnhap"}
                   component={LoginRegister}
                 />
 

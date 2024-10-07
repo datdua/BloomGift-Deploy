@@ -3,6 +3,7 @@ import React from "react";
 import Swiper from "react-id-swiper";
 import BrandLogoOneSingle from "../../components/brand-logo/BrandLogoOneSingle";
 import brandLogoData from "../../data/brand-logos/brand-logo-one.json";
+import SectionTitle from "../../components/section-title/SectionTitle";
 
 const BrandLogoSliderOne = ({ spaceBottomClass, spaceTopClass }) => {
   const settings = {
@@ -30,11 +31,15 @@ const BrandLogoSliderOne = ({ spaceBottomClass, spaceTopClass }) => {
 
   return (
     <div
-      className={`brand-logo-area ${
-        spaceBottomClass ? spaceBottomClass : ""
-      }  ${spaceTopClass ? spaceTopClass : ""}`}
+      className={`brand-logo-area ${spaceBottomClass ? spaceBottomClass : ""
+        }  ${spaceTopClass ? spaceTopClass : ""}`}
     >
       <div className="container">
+        <SectionTitle
+          titleText="CÁC ĐỐI TÁC TIỀM NĂNG"
+          positionClass="text-center"
+          spaceClass="mb-55"
+        />
         <div className="brand-logo-active">
           <Swiper {...settings}>
             {brandLogoData &&
