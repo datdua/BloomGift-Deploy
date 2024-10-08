@@ -74,7 +74,7 @@ const MenuCart = ({ cartData, currency }) => {
           </div>
         </Fragment>
       ) : (
-        <p className="text-center">No items added to cart</p>
+        <p className="text-center">Không có sản phẩm trong giỏ hàng</p>
       )}
     </div>
   );
