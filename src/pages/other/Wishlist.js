@@ -27,6 +27,8 @@ const Wishlist = ({
   const { addToast } = useToasts();
   const { pathname } = location;
 
+  console.log("Wishlist Item:", wishlistItems)
+
   return (
     <Fragment>
       <MetaTags>
@@ -65,23 +67,21 @@ const Wishlist = ({
                         </thead>
                         <tbody>
                           {wishlistItems.map((wishlistItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              wishlistItem.price,
-                              wishlistItem.discount
-                            );
-                            const finalProductPrice = (
-                              wishlistItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
-                            const cartItem = cartItems.filter(
-                              item => item.id === wishlistItem.id
-                            )[0];
+                            // Ensure wishlistItem is not null or undefined
+                            if (!wishlistItem) return null;
+
+                            const price = wishlistItem.price || 0;
+                            const discount = wishlistItem.discount || 0;
+
+                            const discountedPrice = getDiscountPrice(price, discount);
+                            const finalProductPrice = (price * currency.currencyRate).toFixed(2);
+                            const finalDiscountedPrice = (discountedPrice * currency.currencyRate).toFixed(2);
+                            const cartItem = cartItems.find(item => item?.productID === wishlistItem?.productID);
+
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link to={process.env.PUBLIC_URL + "/product/" + wishlistItem.id}>
+                                  <Link to={process.env.PUBLIC_URL + "/product/" + wishlistItem.productID}>
                                     <img
                                       className="img-fluid"
                                       src={
@@ -94,13 +94,7 @@ const Wishlist = ({
                                   </Link>
                                 </td>
                                 <td className="product-name text-center">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      wishlistItem.productID
-                                    }
-                                  >
+                                  <Link to={process.env.PUBLIC_URL + "/product/" + wishlistItem.productID}>
                                     {wishlistItem.productName}
                                   </Link>
                                 </td>
@@ -109,65 +103,36 @@ const Wishlist = ({
                                   {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
+                                        {currency.currencySymbol + finalProductPrice}
                                       </span>
                                       <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
+                                        {currency.currencySymbol + finalDiscountedPrice}
                                       </span>
                                     </Fragment>
                                   ) : (
                                     <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
+                                      {currency.currencySymbol + finalProductPrice}
                                     </span>
                                   )}
                                 </td>
 
                                 <td className="product-wishlist-cart">
                                   {wishlistItem.affiliateLink ? (
-                                    <a
-                                      href={wishlistItem.affiliateLink}
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      {" "}
-                                      Buy now{" "}
+                                    <a href={wishlistItem.affiliateLink} rel="noopener noreferrer" target="_blank">
+                                      Buy now
                                     </a>
-                                  ) : wishlistItem.variation &&
-                                    wishlistItem.variation.length >= 1 ? (
-                                    <Link
-                                      to={`${process.env.PUBLIC_URL}/product/${wishlistItem.id}`}
-                                    >
+                                  ) : wishlistItem.variation && wishlistItem.variation.length >= 1 ? (
+                                    <Link to={`${process.env.PUBLIC_URL}/product/${wishlistItem.productID}`}>
                                       Select option
                                     </Link>
-                                  ) : wishlistItem.stock &&
-                                    wishlistItem.stock > 0 ? (
+                                  ) : wishlistItem.stock && wishlistItem.stock > 0 ? (
                                     <button
-                                      onClick={() =>
-                                        addToCart(wishlistItem, addToast)
-                                      }
-                                      className={
-                                        cartItem !== undefined &&
-                                          cartItem.quantity > 0
-                                          ? "active"
-                                          : ""
-                                      }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity > 0
-                                      }
-                                      title={
-                                        wishlistItem !== undefined
-                                          ? "Added to cart"
-                                          : "Add to cart"
-                                      }
+                                      onClick={() => addToCart(wishlistItem, addToast)}
+                                      className={cartItem !== undefined && cartItem.quantity > 0 ? "active" : ""}
+                                      disabled={cartItem !== undefined && cartItem.quantity > 0}
+                                      title={cartItem !== undefined ? "Added to cart" : "Add to cart"}
                                     >
-                                      {cartItem !== undefined &&
-                                        cartItem.quantity > 0
-                                        ? "Added"
-                                        : "Add to cart"}
+                                      {cartItem !== undefined && cartItem.quantity > 0 ? "Added" : "Add to cart"}
                                     </button>
                                   ) : (
                                     <button disabled className="active">
@@ -177,11 +142,7 @@ const Wishlist = ({
                                 </td>
 
                                 <td className="product-remove">
-                                  <button
-                                    onClick={() =>
-                                      deleteFromWishlist(wishlistItem, addToast)
-                                    }
-                                  >
+                                  <button onClick={() => deleteFromWishlist(wishlistItem, addToast)}>
                                     <i className="fa fa-times"></i>
                                   </button>
                                 </td>
@@ -193,7 +154,6 @@ const Wishlist = ({
                     </div>
                   </div>
                 </div>
-
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">

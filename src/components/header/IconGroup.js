@@ -77,6 +77,9 @@ const IconGroup = ({
                     marginRight: '0px'
                   }}>Đăng xuất</button>
                 </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/donhang"}>Đơn hàng</Link>
+                </li>
               </>
             ) : (
               <>

@@ -16,6 +16,8 @@ import StoreProfile from "./components/sidebar/ProductManager/StoreProfile";
 import Header from "./components/sidebar/HeaderSidebar";
 import ProductList from "./components/sidebar/ProductManager/ProductList";
 import OrderHistory from "./pages/other/Order";
+import OrderDetail from "./pages/other/OrderDetail";
+import PaymentPage from "./pages/other/Payment";
 
 
 
@@ -345,6 +347,14 @@ const App = (props) => {
                 <Route 
                   path={publicUrl + "/donhang"}
                   component={OrderHistory}
+                />
+                <Route
+                  path={publicUrl + "/chitietdonhang/:orderID"}
+                  component={OrderDetail}
+                />
+                <Route
+                  path={publicUrl + "/thanhtoan/:orderID"}
+                  component={PaymentPage}
                 />
                 <Route path="/seller">
                   <SalerSidebar>

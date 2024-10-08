@@ -23,13 +23,7 @@ const getAccountIDFromToken = () => {
   }
 };
 
-export const addToCart = (
-  item,
-  addToast,
-  quantityCount,
-  selectedProductColor,
-  selectedProductSize
-) => {
+export const addToCart = (item, addToast, quantityCount) => {
   return async (dispatch, getState) => {
     try {
       const accountID = getAccountIDFromToken();
@@ -37,41 +31,25 @@ export const addToCart = (
         throw new Error("No valid account ID found");
       }
 
-      const cartItems = (getState().cartData && getState().cartData.cartItems) || [];
-      console.log("Current state:", getState());
-
-      const existingCartItem = cartItems.find(
-        (cartItem) =>
-          cartItem.productID === item.productID &&
-          cartItem.selectedProductSize === selectedProductSize
+      const url = `https://bloomgift-bloomgift.azuremicroservices.io/api/customer/cart/add`;
+      
+      const response = await axios.post(
+        url,
+        null,
+        {
+          params: {
+            accountId: accountID,
+            productId: item.productID,
+            quantity: quantityCount
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
 
-      if (existingCartItem) {
-        dispatch(
-          updateCartQuantity(
-            existingCartItem,
-            existingCartItem.quantity + quantityCount,
-            addToast
-          )
-        );
-      } else {
-        let url = `https://bloomgift-bloomgift.azuremicroservices.io/api/customer/cart/add?accountId=${accountID}&productId=${item.productID}&quantity=${quantityCount}`;
-
-        if (selectedProductSize) {
-          url = `https://bloomgift-bloomgift.azuremicroservices.io/api/customer/cart/add-with-size?accountId=${accountID}&productId=${item.productID}&quantity=${quantityCount}&sizeID=${selectedProductSize}`;
-        }
-
-        await axios.post(
-          url,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-
+      if (response.status === 200) {
         if (addToast) {
           addToast("Đã thêm vào giỏ hàng", {
             appearance: "success",
@@ -84,8 +62,64 @@ export const addToCart = (
           payload: {
             ...item,
             quantity: quantityCount,
-            selectedProductColor: selectedProductColor || item.selectedProductColor || null,
-            selectedProductSize: selectedProductSize || item.selectedProductSize || null,
+            selectedProductSize: null,
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      if (addToast) {
+        addToast("Lỗi khi thêm vào giỏ hàng", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+};
+
+// Function to add to cart with size
+export const addToCartWithSize = (item, addToast, quantityCount, selectedProductSize) => {
+  return async (dispatch, getState) => {
+    try {
+      const accountID = getAccountIDFromToken();
+      if (!accountID) {
+        throw new Error("No valid account ID found");
+      }
+
+      const url = `https://bloomgift-bloomgift.azuremicroservices.io/api/customer/cart/add-with-size`;
+      
+      const response = await axios.post(
+        url,
+        null,
+        {
+          params: {
+            accountId: accountID,
+            productId: item.productID,
+            quantity: quantityCount,
+            sizeID: selectedProductSize
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        if (addToast) {
+          addToast("Đã thêm vào giỏ hàng", {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+
+        dispatch({
+          type: ADD_TO_CART,
+          payload: {
+            ...item,
+            quantity: quantityCount,
+            selectedProductSize: selectedProductSize,
           },
         });
       }

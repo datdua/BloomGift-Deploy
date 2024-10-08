@@ -14,6 +14,10 @@ const MenuCart = ({ cartData, currency }) => {
   useEffect(() => {
     dispatch(getCartItems(addToast));
   }, [dispatch, addToast]);
+
+  const handleDeleteFromCart = (item) => {
+    dispatch(deleteFromCart(item, addToast));
+  };
  
   return (
     <div className="shopping-cart-content">
@@ -45,7 +49,7 @@ const MenuCart = ({ cartData, currency }) => {
                   </div>
                 </div>
                 <div className="shopping-cart-delete">
-                  <button onClick={() => deleteFromCart(item, addToast)}>
+                  <button onClick={() => handleDeleteFromCart(item)}>
                     <i className="fa fa-times-circle" />
                   </button>
                 </div>
@@ -70,7 +74,7 @@ const MenuCart = ({ cartData, currency }) => {
           </div>
         </Fragment>
       ) : (
-        <p className="text-center">No items added to cart</p>
+        <p className="text-center">Không có sản phẩm trong giỏ hàng</p>
       )}
     </div>
   );
@@ -79,8 +83,6 @@ const MenuCart = ({ cartData, currency }) => {
 MenuCart.propTypes = {
   cartData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   currency: PropTypes.object,
-  deleteFromCart: PropTypes.func
 };
-
 
 export default MenuCart;

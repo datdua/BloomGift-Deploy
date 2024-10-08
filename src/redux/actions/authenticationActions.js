@@ -13,14 +13,10 @@ export const LOGIN_GOOGLE = "LOGIN_GOOGLE"
 export const registerAccount = (userData, addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('https://bloomgift-bloomgift.azuremicroservices.io/api/auth/register', {
-                email: userData.email,
-                phone: userData.phone,
-                address: userData.address,
-                fullname: userData.fullname,
-                gender: userData.gender,
-                birthday: userData.birthday,
-                password: userData.password,
+            const response = await axios.post('https://bloomgift-bloomgift.azuremicroservices.io/api/auth/register', userData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
 
             dispatch({
@@ -175,20 +171,10 @@ export const signInWithGoogle = (addToast) => {
 export const registerStoreAccount = (storeData, addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('https://bloomgift-bloomgift.azuremicroservices.io/api/auth/store/register', {
-                storeName: storeData.storeName,
-                email: storeData.email,
-                type: storeData.type,
-                storePhone: storeData.storePhone,
-                storeAddress: storeData.storeAddress,               
-                password: storeData.password,
-                bankAccountName: storeData.bankAccountName,
-                bankNumber: storeData.bankNumber,
-                bankAddress: storeData.bankAddress,
-                taxNumber: storeData.taxNumber,
-                storeAvatar: storeData.storeAvatar,
-                identityCard: storeData.identityCard,
-                identityName: storeData.identityName
+            const response = await axios.post('https://bloomgift-bloomgift.azuremicroservices.io/api/auth/store/register', storeData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
 
             dispatch({
@@ -205,4 +191,4 @@ export const registerStoreAccount = (storeData, addToast) => {
             return Promise.reject(error);
         }
     }
-}  
+};

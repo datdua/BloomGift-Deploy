@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProductCartQuantity } from "../../helpers/product";
-import { addToCart } from "../../redux/actions/cartActions";
+import { addToCart, addToCartWithSize } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
@@ -19,6 +19,7 @@ const ProductDescriptionInfo = ({
   compareItem,
   addToast,
   addToCart,
+  addToCartWithSize,
   addToWishlist,
   addToCompare
 }) => {
@@ -26,11 +27,12 @@ const ProductDescriptionInfo = ({
   const [selectedProductSize, setSelectedProductSize] = useState("");
   const [productStock, setProductStock] = useState(0);
   const [quantityCount, setQuantityCount] = useState(1);
+  const { productId } = useParams();
 
   useEffect(() => {
     if (product) {
       setSelectedProductColor(product.colour ? product.colour.trim() : "");
-      setSelectedProductSize(product.sizes && product.sizes[0] ? product.sizes[0].text : "");
+      setSelectedProductSize(product.sizes && product.sizes[0] ? product.sizes[0].sizeID : "");
       setProductStock(product.sizes && product.sizes[0] ? product.sizes[0].sizeQuantity : product.quantity);
     }
   }, [product]);
@@ -47,11 +49,32 @@ const ProductDescriptionInfo = ({
       addToast("Số lượng không thể bé hơn 1", { appearance: "error" });
       return;
     }
-    if (newQuantity > product.quantity) {
-      addToast(`Sản phẩm không đủ hàng! Chỉ còn ${product.quantity} sản phẩm tồn kho`, { appearance: "error" });
+    if (newQuantity > productStock) {
+      addToast(`Sản phẩm không đủ hàng! Chỉ còn ${productStock} sản phẩm tồn kho`, { appearance: "error" });
       return;
     }
     setQuantityCount(newQuantity);
+  };
+
+  const handleAddToCart = () => {
+    if (product.sizes && product.sizes.length > 0) {
+      if (!selectedProductSize) {
+        addToast("Vui lòng chọn kích thước", { appearance: "error" });
+        return;
+      }
+      addToCartWithSize(
+        product,
+        addToast,
+        quantityCount,
+        selectedProductSize
+      );
+    } else {
+      addToCart(
+        product,
+        addToast,
+        quantityCount
+      );
+    }
   };
 
   if (!product) {
@@ -83,7 +106,7 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
-      
+
       <div className="pro-details-list">
         <p>{product.description}</p>
       </div>
@@ -155,17 +178,9 @@ const ProductDescriptionInfo = ({
           </button>
         </div>
         <div className="pro-details-cart btn-hover">
-          {product.quantity && product.quantity > 0 ? (
+          {product.quantity > 0 ? (
             <button
-              onClick={() =>
-                addToCart(
-                  product,
-                  addToast,
-                  quantityCount,
-                  selectedProductColor,
-                  selectedProductSize
-                )
-              }
+              onClick={handleAddToCart}
               disabled={productCartQty >= product.quantity}
             >
               {" "}
@@ -299,22 +314,11 @@ ProductDescriptionInfo.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: (
-      item,
-      addToast,
-      quantityCount,
-      selectedProductColor,
-      selectedProductSize
-    ) => {
-      dispatch(
-        addToCart(
-          item,
-          addToast,
-          quantityCount,
-          selectedProductColor,
-          selectedProductSize
-        )
-      );
+    addToCart: (item, addToast, quantityCount) => {
+      dispatch(addToCart(item, addToast, quantityCount));
+    },
+    addToCartWithSize: (item, addToast, quantityCount, selectedProductSize) => {
+      dispatch(addToCartWithSize(item, addToast, quantityCount, selectedProductSize));
     },
     addToWishlist: (item, addToast) => {
       dispatch(addToWishlist(item, addToast));

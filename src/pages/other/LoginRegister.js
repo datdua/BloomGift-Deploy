@@ -52,6 +52,9 @@ const LoginRegister = ({ location }) => {
   const [identityCard, setIdentityCard] = useState('');
   const [identityName, setIdentityName] = useState('');
   const [image, setImage] = useState(null);
+  const [userAvatar, setUserAvatar] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+  const [storeImage, setStoreImage] = useState(null);
 
   useEffect(() => {
     let timer;
@@ -83,24 +86,34 @@ const LoginRegister = ({ location }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const userData = {
-      email: e.target["user-email"].value,
-      phone: e.target["user-phone"].value,
-      password: e.target["user-password"].value,
+
+    // Prepare the request body
+    const registerRequest = {
       fullname: e.target["user-fullname"].value,
+      email: e.target["user-email"].value,
+      password: e.target["user-password"].value,
       address: e.target["user-address"].value,
       gender: e.target["user-gender"].value,
       birthday: e.target["user-birthday"].value,
+      phone: parseInt(e.target["user-phone"].value),
     };
 
-    if (userData.password !== e.target["user-confirm-password"].value) {
-      addToast("Mật khẩu xác nhận không khớp!", { appearance: "error", autoDismiss: true });
-      return;
+    // Convert the registerRequest object to a JSON string
+    const registerRequestJson = JSON.stringify(registerRequest);
+
+    // Prepare form data to send as multipart
+    const formData = new FormData();
+    formData.append('registerRequest', registerRequestJson);
+
+    // If an avatar is selected, append it to the form data
+    if (userAvatar) {
+      formData.append('avatar', userAvatar);
     }
 
-    dispatch(registerAccount(userData, addToast))
-      .then(() => {
-        setEmail(userData.email);
+    // Dispatch the registration request (including avatar if provided)
+    dispatch(registerAccount(formData, addToast))
+      .then((response) => {
+        setEmail(e.target["user-email"].value);
         setCountdown(60);
         setShowVerifyButton(true);
         setShowRegenerateButton(false);
@@ -114,42 +127,49 @@ const LoginRegister = ({ location }) => {
       });
   };
 
+
   const handleStoreRegister = (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-
-    const storeData = {
-      storeName: formData.get("store-name"),
-      type: formData.get("store-type"),
-      storePhone: formData.get("store-phone"),
-      storeAddress: formData.get("store-store-address"),
-      email: formData.get("store-email"),
-      bankAccountName: formData.get("store-bank-account-name"),
-      bankNumber: formData.get("store-bank-number"),
-      bankAddress: formData.get("store-bank-address"),
-      taxNumber: formData.get("store-tax-number"),
-      storeAvatar: formData.get("store-store-avatar") || null, 
-      password: formData.get("store-password"),
-      identityCard: formData.get("store-identity-card"),
-      identityName: formData.get("store-identity-name"),
+    // Prepare the store request body
+    const storeRequest = {
+      storeName: e.target["store-name"].value,
+      type: e.target["store-type"].value,
+      storePhone: parseInt(e.target["store-phone"].value),
+      storeAddress: e.target["store-store-address"].value,
+      email: e.target["store-email"].value,
+      bankAccountName: e.target["store-bank-account-name"].value,
+      bankNumber: e.target["store-bank-number"].value,
+      bankAddress: e.target["store-bank-address"].value,
+      taxNumber: e.target["store-tax-number"].value,
+      password: e.target["store-password"].value,
+      identityCard: e.target["store-identity-card"].value,
+      identityName: e.target["store-identity-name"].value,
     };
 
-    if (storeData.password !== formData.get("store-confirm-password")) {
-      addToast("Mật khẩu xác nhận không khớp!", { appearance: "error", autoDismiss: true });
-      return;
+    // Convert the storeRequest object to a JSON string
+    const storeRequestJson = JSON.stringify(storeRequest);
+
+    // Prepare form data to send as multipart
+    const formData = new FormData();
+    formData.append('storeRequest', storeRequestJson);
+
+    // If a store avatar is selected, append it to the form data
+    if (storeAvatar) {
+      formData.append('storeAvatar', storeAvatar);
     }
 
-    dispatch(registerStoreAccount(storeData, addToast))
-      .then(() => {
-        setEmail(storeData.email);
+    // Dispatch the store registration request (including avatar if provided)
+    dispatch(registerStoreAccount(formData, addToast))
+      .then((response) => {
+        setEmail(e.target["store-email"].value);
         setCountdown(60);
         setShowVerifyButton(true);
         setShowRegenerateButton(false);
         setRegistrationSuccess(true);
       })
       .catch((error) => {
-        console.error("Registration error:", error);
+        console.error("Store registration error:", error);
         setShowVerifyButton(false);
         setShowRegenerateButton(false);
         setRegistrationSuccess(false);
@@ -223,23 +243,73 @@ const LoginRegister = ({ location }) => {
     setShowModal(false);
   };
 
-  const onDrop = (acceptedFiles) => {
+  const onDropUser = (acceptedFiles) => {
     const file = acceptedFiles[0];
-    setStoreAvatar(file);
-    setImage(Object.assign(file, {
+    if (file.size > 1024 * 1024) {
+      addToast("Kích thước ảnh phải nhỏ hơn 1MB", { appearance: 'error', autoDismiss: true });
+      return;
+    } else if (!file.type.startsWith('image/')) {
+      addToast("File phải là định dạng hình ảnh", { appearance: 'error', autoDismiss: true });
+    }
+    setUserAvatar(file);
+    setUserImage(Object.assign(file, {
       preview: URL.createObjectURL(file)
     }));
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: 'image/*',
-    multiple: false
-  });
+  const onDropStore = (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (file.size > 1024 * 1024) {
+      addToast("Kích thước ảnh phải nhỏ hơn 1MB", { appearance: 'error', autoDismiss: true });
+      return;
+    } else if (!file.type.startsWith('image/')) {
+      addToast("File phải là định dạng hình ảnh", { appearance: 'error', autoDismiss: true });
+    } 
+    setStoreAvatar(file);
+    setStoreImage(Object.assign(file, {
+      preview: URL.createObjectURL(file)
+    }));
+  };
 
-  const handleDeleteImage = () => {
-    setStoreAvatar(null);
-    setImage(null);
+  const ImageUploadComponent = ({ image, setImage, onDrop, handleDeleteImage, title }) => {
+    const { getRootProps, getInputProps } = useDropzone({
+      onDrop,
+      accept: 'image/*',
+      multiple: false,
+      maxSize: 1024 * 1024, // 1MB
+      onDropRejected: (rejectedFiles) => {
+        const file = rejectedFiles[0];
+        if (file.size > 1024 * 1024) {
+          addToast("Kích thước ảnh phải nhỏ hơn 1MB", { appearance: 'error', autoDismiss: true });
+        } else if (!file.type.startsWith('image/')) {
+          addToast("File phải là định dạng hình ảnh", { appearance: 'error', autoDismiss: true });
+        }
+      }
+    });
+
+    return (
+      <div className="card">
+        <h2 className="card-title">{title}</h2>
+        <div {...getRootProps()} className="dropzone">
+          <input {...getInputProps()} name="avatar" />
+          {image ? (
+            <div className="avatar-wrapper">
+              <img src={image.preview} alt="Avatar" className="avatar-image" />
+            </div>
+          ) : (
+            <div className="avatar-wrapper">
+              <div className="empty-avatar">
+                <span>Chọn file</span>
+              </div>
+            </div>
+          )}
+          {image && (
+            <Button variant="danger" onClick={handleDeleteImage} className="delete-image-button mb-3">Xoá</Button>
+          )}
+          <p className="instruction-text">Kéo & thả ảnh vào đây, hoặc nhấn để chọn hình ảnh</p>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -331,6 +401,16 @@ const LoginRegister = ({ location }) => {
                           <div className="login-register-form">
                             {activeSubTab === "customer" ? (
                               <form onSubmit={handleRegister}>
+                                <ImageUploadComponent
+                                  image={userImage}
+                                  setImage={setUserImage}
+                                  onDrop={onDropUser}
+                                  handleDeleteImage={() => {
+                                    setUserAvatar(null);
+                                    setUserImage(null);
+                                  }}
+                                  title="Chọn avatar"
+                                />
                                 <input name="user-fullname" placeholder="Họ tên" type="text" required />
                                 <input name="user-email" placeholder="Email" type="email" required />
                                 <input name="user-phone" placeholder="Số điện thoại" type="tel" required />
@@ -373,6 +453,16 @@ const LoginRegister = ({ location }) => {
                               </form>
                             ) : (
                               <form onSubmit={handleStoreRegister}>
+                                <ImageUploadComponent
+                                  image={storeImage}
+                                  setImage={setStoreImage}
+                                  onDrop={onDropStore}
+                                  handleDeleteImage={() => {
+                                    setStoreAvatar(null);
+                                    setStoreImage(null);
+                                  }}
+                                  title="Chọn avatar cửa hàng"
+                                />
                                 <input name="store-name" placeholder="Tên cửa hàng" type="text" required />
                                 <label htmlFor="store-type">Loại cửa hàng</label>
                                 <select placeholder="Loại cửa hàng" name="store-type" className="form-control mb-5">
@@ -389,16 +479,16 @@ const LoginRegister = ({ location }) => {
                                     <div className="bank-card">
                                       <div className="bank-card-field">
                                         <label htmlFor="store-bank-account-name">Tên chủ tài khoản</label>
-                                        <input name="store-bank-account-name" placeholder="Số CMND/CCCD" type="text" required />
+                                        <input name="store-bank-account-name" placeholder="Tên chủ tài khoản ngân hàng" type="text" required />
                                       </div>
                                       <div className="bank-card-field">
                                         <label htmlFor="store-bank-number">Số tài khoản</label>
-                                        <input name="store-bank-number" placeholder="Tên chủ tài khoản" type="text" required />
+                                        <input name="store-bank-number" placeholder="Số tài khoản chủ ngân hàng" type="text" required />
                                       </div>
                                       <div className="bank-card-field">
                                         <label htmlFor="store-bank-address">Chi nhánh</label>
                                         <input name="store-bank-address" placeholder="Chi nhánh" type="text" required />
-                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -419,29 +509,6 @@ const LoginRegister = ({ location }) => {
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
-
-                                <div className="card">
-                                  <h2 className="card-title">Chọn avatar</h2>
-                                  <div {...getRootProps()} className="dropzone">
-                                    <input {...getInputProps()} name="store-avatar" />
-
-                                    {image ? (
-                                      <div className="avatar-wrapper">
-                                        <img src={image.preview} alt="Avatar" className="avatar-image" />
-                                      </div>
-                                    ) : (
-                                      <div className="avatar-wrapper">
-                                        <div className="empty-avatar">
-                                          <span>Chọn file</span>
-                                        </div>
-                                      </div>
-                                    )}
-                                    {image && (
-                                      <Button variant="danger" onClick={handleDeleteImage} className="delete-image-button mb-3">Xoá</Button>
-                                    )}
-                                    <p className="instruction-text">Kéo & thả ảnh vào đây, hoặc nhấn để chọn hình ảnh</p>
                                   </div>
                                 </div>
                                 <input name="store-tax-number" placeholder="Mã số thuế" type="text" required />
