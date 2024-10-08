@@ -6,9 +6,9 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogComment from "../../wrappers/blog/BlogComment";
-import BlogPost1 from "../../wrappers/blog/BlogPost1";
+import BlogPost4 from "../../wrappers/blog/BlogPost4";
 
-const BlogDetailsStandard = ({ location }) => {
+const BlogDetailsStandard_4 = ({ location }) => {
   const { pathname } = location;
 
   return (
@@ -33,7 +33,7 @@ const BlogDetailsStandard = ({ location }) => {
               <div className="col-lg-12">
                 <div className="blog-details-wrapper ml-20">
                   {/* blog post */}
-                  <BlogPost1 />
+                  <BlogPost4 />
 
                   {/* blog post comment */}
                   <BlogComment />
@@ -47,8 +47,8 @@ const BlogDetailsStandard = ({ location }) => {
   );
 };
 
-BlogDetailsStandard.propTypes = {
+BlogDetailsStandard_4.propTypes = {
   location: PropTypes.object
 };
 
-export default BlogDetailsStandard;
+export default BlogDetailsStandard_4;
