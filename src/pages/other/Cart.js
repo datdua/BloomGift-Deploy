@@ -218,7 +218,7 @@ const Cart = ({
                         <i className="pe-7s-cart"></i>
                       </div>
                       <div className="item-empty-area__text">
-                        No items found in cart <br />{" "}
+                        Không có sản phẩm trong giỏ hàng <br />{" "}
                         <Link to={process.env.PUBLIC_URL + "/cuahang"}>
                           Shop Now
                         </Link>
