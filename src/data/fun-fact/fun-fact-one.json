@@ -2,25 +2,25 @@
   {
     "id": "1",
     "iconClass": "pe-7s-portfolio",
-    "countNum": 360,
-    "title": "project done"
+    "countNum": 20,
+    "title": "Đối Tác"
   },
   {
     "id": "2",
     "iconClass": "pe-7s-cup",
-    "countNum": 690,
-    "title": "cups of coffee"
+    "countNum": 10,
+    "title": "Danh Hiệu"
   },
   {
     "id": "3",
     "iconClass": "pe-7s-light",
-    "countNum": 100,
-    "title": "branding"
+    "countNum": 40,
+    "title": "Mở Rộng"
   },
   {
     "id": "4",
     "iconClass": "pe-7s-smile",
-    "countNum": 420,
-    "title": "happy clients"
+    "countNum": 500,
+    "title": "Hài Lòng"
   }
 ]

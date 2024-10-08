@@ -107,6 +107,21 @@ const BlogRightSidebar = lazy(() => import("./pages/blog/BlogRightSidebar"));
 const BlogDetailsStandard = lazy(() =>
   import("./pages/blog/BlogDetailsStandard")
 );
+const BlogDetailsStandard_2 = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard-2")
+);
+const BlogDetailsStandard_3 = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard-3")
+);
+const BlogDetailsStandard_4 = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard-4")
+);
+const BlogDetailsStandard_5 = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard-5")
+);
+const BlogDetailsStandard_6 = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard-6")
+);
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
@@ -233,7 +248,7 @@ const App = (props) => {
 
                 {/* Blog pages */}
                 <Route
-                  path={publicUrl + "/blog-standard"}
+                  path={publicUrl + "/blog"}
                   component={BlogStandard}
                 />
                 <Route
@@ -248,7 +263,30 @@ const App = (props) => {
                   path={publicUrl + "/blog-details-standard"}
                   component={BlogDetailsStandard}
                 />
-
+                <Route
+                  path={publicUrl + "/blog-1"}
+                  component={BlogDetailsStandard}
+                />
+                <Route
+                  path={publicUrl + "/blog-2"}
+                  component={BlogDetailsStandard_2}
+                />
+                <Route
+                  path={publicUrl + "/blog-3"}
+                  component={BlogDetailsStandard_3}
+                />
+                <Route
+                  path={publicUrl + "/blog-4"}
+                  component={BlogDetailsStandard_4}
+                />
+                <Route
+                  path={publicUrl + "/blog-5"}
+                  component={BlogDetailsStandard_5}
+                />
+                <Route
+                  path={publicUrl + "/blog-6"}
+                  component={BlogDetailsStandard_6}
+                />
                 {/* Other pages */}
                 <Route
                   path={publicUrl + "/gioi-thieu"}

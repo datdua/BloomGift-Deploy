@@ -10,13 +10,10 @@ const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
     >
       <div className="container">
         <div className="welcome-content text-center">
-          <h5>Who Are We</h5>
-          <h1>Welcome To Flone</h1>
+          <h1>Chào mừng đến với BloomGift</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt labor et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commo consequat irure{" "}
+          BloomGift là một website thương mại điện tử chuyên biệt, 
+          nơi các cửa hàng hoa và quà tặng có thể dễ dàng đăng tải sản phẩm, quản lý bán hàng và vận hành kinh doanh hiệu quả. Chúng tôi mang đến giải pháp toàn diện giúp các doanh nghiệp nhỏ, tối ưu hóa quy trình bán hàng và quảng bá sản phẩm đến một lượng lớn khách hàng trực tuyến.{" "}
           </p>
         </div>
       </div>

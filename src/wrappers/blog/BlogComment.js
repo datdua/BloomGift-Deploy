@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 const BlogComment = () => {
   return (
     <Fragment>
-      <div className="blog-comment-wrapper mt-55">
+      {/* <div className="blog-comment-wrapper mt-55">
         <h4 className="blog-dec-title">comments : 02</h4>
         <div className="single-comment-wrapper mt-35">
           <div className="blog-comment-img">
@@ -62,7 +62,7 @@ const BlogComment = () => {
             </div>
           </div>
         </form>
-      </div>
+      </div> */}
     </Fragment>
   );
 };

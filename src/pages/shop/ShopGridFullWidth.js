@@ -125,7 +125,7 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
       </MetaTags>
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Shop</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Của Hàng</BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}

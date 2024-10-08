@@ -15,7 +15,7 @@ const Contact = ({ location }) => {
         <title>BloomGift | Liên hệ</title>
         <meta
           name="description"
-          content="Contact of flone react minimalist eCommerce template."
+          content="Liên hệ với chúng tôi. BloomGift"
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
@@ -39,7 +39,7 @@ const Contact = ({ location }) => {
                     </div>
                     <div className="contact-info-dec">
                       <p>+84 9055 558 630</p>
-                      <p>+012 345 678 102</p>
+                      <p>+84 812 203 135</p>
                     </div>
                   </div>
                   <div className="single-contact-info">
@@ -82,16 +82,6 @@ const Contact = ({ location }) => {
                         </a>
                       </li>
                       <li>
-                        <a href="//thumblr.com">
-                          <i className="fa fa-tumblr" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//vimeo.com">
-                          <i className="fa fa-vimeo" />
-                        </a>
-                      </li>
-                      <li>
                         <a href="//twitter.com">
                           <i className="fa fa-twitter" />
                         </a>
@@ -103,12 +93,12 @@ const Contact = ({ location }) => {
               <div className="col-lg-8 col-md-7">
                 <div className="contact-form">
                   <div className="contact-title mb-30">
-                    <h2>Get In Touch</h2>
+                    <h2>Liên hệ</h2>
                   </div>
                   <form className="contact-form-style">
                     <div className="row">
                       <div className="col-lg-6">
-                        <input name="name" placeholder="Name*" type="text" />
+                        <input name="name" placeholder="Họ và tên*" type="text" />
                       </div>
                       <div className="col-lg-6">
                         <input name="email" placeholder="Email*" type="email" />
@@ -116,18 +106,18 @@ const Contact = ({ location }) => {
                       <div className="col-lg-12">
                         <input
                           name="subject"
-                          placeholder="Subject*"
+                          placeholder="Tiêu đề*"
                           type="text"
                         />
                       </div>
                       <div className="col-lg-12">
                         <textarea
                           name="message"
-                          placeholder="Your Message*"
+                          placeholder="Nội dung*"
                           defaultValue={""}
                         />
                         <button className="submit" type="submit">
-                          SEND
+                          GỬI
                         </button>
                       </div>
                     </div>

@@ -10,7 +10,7 @@ const BannerOne = ({ spaceTopClass, spaceBottomClass }) => {
         spaceBottomClass ? spaceBottomClass : ""
       }`}
     >
-      <div className="container">
+      {/* <div className="container">
         <div className="row">
           {bannerData &&
             bannerData.map((single, key) => {
@@ -23,7 +23,7 @@ const BannerOne = ({ spaceTopClass, spaceBottomClass }) => {
               );
             })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

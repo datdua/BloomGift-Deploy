@@ -49,7 +49,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu, currentLanguageCode }) 
             </Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
+            <Link to={process.env.PUBLIC_URL + "/blog"}>
               {getString("blog")}
             </Link>
           </li>

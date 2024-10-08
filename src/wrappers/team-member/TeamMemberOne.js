@@ -13,23 +13,10 @@ const TeamMemberOne = ({ spaceTopClass, spaceBottomClass }) => {
     >
       <div className="container">
         {/* section title */}
-        <SectionTitleTwo
-          titleText="Team Members"
-          subTitleText="Lorem ipsum dolor sit amet conse ctetu."
-          positionClass="text-center"
-          spaceClass="mb-60"
-        />
 
         <div className="row">
           {teamMemberData &&
             teamMemberData.map((single, key) => {
-              return (
-                <TeamMemberOneSingle
-                  data={single}
-                  spaceBottomClass="mb-30"
-                  key={key}
-                />
-              );
             })}
         </div>
       </div>
