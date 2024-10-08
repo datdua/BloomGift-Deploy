@@ -7,12 +7,14 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { getOrder } from '../../redux/actions/orderAction.js'; // Assume this is where your action is
+import { useHistory } from 'react-router-dom';
 
 const OrderHistory = ({ orders, location }) => {
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortedOrders, setSortedOrders] = useState([]);
   const { pathname } = location;
+  const history = useHistory();
 
   useEffect(() => {
     if (Array.isArray(orders)) {
@@ -31,7 +33,7 @@ const OrderHistory = ({ orders, location }) => {
       setSortDirection('asc');
     }
 
-    setSortedOrders(prevOrders => 
+    setSortedOrders(prevOrders =>
       [...prevOrders].sort((a, b) => {
         if (a[field] < b[field]) return sortDirection === 'asc' ? -1 : 1;
         if (a[field] > b[field]) return sortDirection === 'asc' ? 1 : -1;
@@ -43,6 +45,13 @@ const OrderHistory = ({ orders, location }) => {
   const formatDate = (dateString) => {
     return format(new Date(dateString), 'dd/MM/yyyy HH:mm');
   };
+
+  const handleViewOrder = (orderID) => {
+    history.push(`/chitietdonhang/${orderID}`)
+  }
+  const handlePayOrder = (orderID) => {
+    history.push(`/thanhtoandonhang/${orderID}`)
+  }
 
   return (
     <Fragment>
@@ -73,19 +82,19 @@ const OrderHistory = ({ orders, location }) => {
                     <table>
                       <thead>
                         <tr>
-                          <th onClick={() => handleSort('orderID')} style={{cursor: 'pointer'}}>
+                          <th onClick={() => handleSort('orderID')} style={{ cursor: 'pointer' }}>
                             Mã đơn hàng <ArrowUpDown className="ml-2 h-4 w-4" />
                           </th>
-                          <th onClick={() => handleSort('oderPrice')} style={{cursor: 'pointer'}}>
+                          <th onClick={() => handleSort('oderPrice')} style={{ cursor: 'pointer' }}>
                             Giá đơn hàng <ArrowUpDown className="ml-2 h-4 w-4" />
                           </th>
-                          <th onClick={() => handleSort('orderStatus')} style={{cursor: 'pointer'}}>
+                          <th onClick={() => handleSort('orderStatus')} style={{ cursor: 'pointer' }}>
                             Trạng thái <ArrowUpDown className="ml-2 h-4 w-4" />
                           </th>
-                          <th onClick={() => handleSort('startDate')} style={{cursor: 'pointer'}}>
+                          <th onClick={() => handleSort('startDate')} style={{ cursor: 'pointer' }}>
                             Ngày đặt hàng <ArrowUpDown className="ml-2 h-4 w-4" />
                           </th>
-                          <th onClick={() => handleSort('deliveryDateTime')} style={{cursor: 'pointer'}}>
+                          <th onClick={() => handleSort('deliveryDateTime')} style={{ cursor: 'pointer' }}>
                             Ngày giao hàng <ArrowUpDown className="ml-2 h-4 w-4" />
                           </th>
                           <th>Địa chỉ giao hàng</th>
@@ -106,11 +115,11 @@ const OrderHistory = ({ orders, location }) => {
                             <td>
                               <div className="cart-shiping-update-wrapper">
                                 <div className="cart-shiping-update">
-                                <div className='cart-clear'>
-                                  <button className="cart-btn-2" type="button">
-                                    <CreditCard className="h-4 w-4 mr-2" />
-                                    Thanh toán
-                                  </button>
+                                  <div className='cart-clear'>
+                                    <button className="cart-btn-2" type="button" onClick={() => handlePayOrder(order.orderID)}>
+                                      <CreditCard className="h-4 w-4 mr-2" />
+                                      Thanh toán
+                                    </button>
                                   </div>
                                 </div>
                                 <div className="cart-clear">
@@ -120,7 +129,7 @@ const OrderHistory = ({ orders, location }) => {
                                   </button>
                                 </div>
                                 <div className="cart-clear">
-                                  <button className="cart-btn-2" type="button">
+                                  <button className="cart-btn-2" type="button" onClick={() => handleViewOrder(order.orderID)}>
                                     <Eye className="h-4 w-4 mr-2" />
                                     Xem
                                   </button>

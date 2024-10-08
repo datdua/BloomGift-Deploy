@@ -30,9 +30,9 @@ const ProductGrid = ({
             addToCart={addToCart}
             addToWishlist={addToWishlist}
             addToCompare={addToCompare}
-            cartItem={cartItems.find(cartItem => cartItem.productID === product.productID)}  // Updated here
-            wishlistItem={wishlistItems.find(wishlistItem => wishlistItem.productID === product.productID)}
-            compareItem={compareItems.find(compareItem => compareItem.productID === product.productID)}
+            cartItem={cartItems.find(cartItem => cartItem.productID === product.productID)} 
+            wishlistItem={wishlistItems.find(wishlistItem => wishlistItem?.productID === product.productID)}
+            compareItem={compareItems.find(compareItem => compareItem?.productID === product.productID)}
             key={`${product.productID}-${index}`}
           />
         );

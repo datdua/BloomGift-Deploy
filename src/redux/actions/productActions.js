@@ -108,8 +108,7 @@ export const getProductDetail = (addToast, productId) => {
     try {
       const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/product/${productId}`,{
         headers: {
-          'Content-Type': 'application/json',
-           
+          'Content-Type': 'application/json',   
       }});
       dispatch({
         type: GET_PRODUCT_DETAIL,
@@ -127,13 +126,12 @@ export const getProductDetail = (addToast, productId) => {
 export const getProductBestSeller = (addToast, top) => {
   return async (dispatch) => {
     try {
-      // Use string concatenation to prevent axios from encoding the curly braces
+
       const url = 'https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/get-product-best-seller/{Top}?top=' + top;
       
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          
+          'Content-Type': 'application/json',      
       }});
       
       dispatch({

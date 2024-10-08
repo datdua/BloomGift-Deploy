@@ -98,7 +98,7 @@ const TabProduct = ({
                 <ProductGrid
                   category={category}
                   products={featureProducts} // Pass featured products to ProductGrid
-                  limit={8}
+                  limit={20}
                   spaceBottomClass="mb-25"
                 />
               </div>

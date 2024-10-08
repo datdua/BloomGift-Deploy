@@ -29,9 +29,9 @@ const ProductGridListSingle = ({
     ? +(discountedPrice * currency.currencyRate).toFixed(2)
     : null;
 
-  const cartItem = cartItems.find((item) => item.productID === product.productID);
-  const wishlistItem = wishlistItems.find((item) => item.productID === product.productID);
-  const compareItem = compareItems.find((item) => item.productID === product.productID);
+  const cartItem = cartItems.find((item) => item?.productID === product.productID);
+  const wishlistItem = wishlistItems.find((item) => item?.productID === product.productID);
+  const compareItem = compareItems.find((item) => item?.productID === product.productID);
 
   return (
     <Fragment>
