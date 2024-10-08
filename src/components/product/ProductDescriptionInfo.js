@@ -28,6 +28,14 @@ const ProductDescriptionInfo = ({
   const [productStock, setProductStock] = useState(0);
   const [quantityCount, setQuantityCount] = useState(1);
   const { productId } = useParams();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    setIsLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     if (product) {
@@ -50,13 +58,17 @@ const ProductDescriptionInfo = ({
       return;
     }
     if (newQuantity > productStock) {
-      addToast(`Sản phẩm không đủ hàng! Chỉ còn ${productStock} sản phẩm tồn kho`, { appearance: "error" });
+      addToast(`Sản phẩm không đủ hàng! Chỉ còn ${productStock} sản phẩm tồn kho`, { appearance: "error", autoDismiss: true });
       return;
     }
     setQuantityCount(newQuantity);
   };
 
   const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      addToast("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!", { appearance: "error", autoDismis: true });
+      return;
+    }
     if (product.sizes && product.sizes.length > 0) {
       if (!selectedProductSize) {
         addToast("Vui lòng chọn kích thước", { appearance: "error" });

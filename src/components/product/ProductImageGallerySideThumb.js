@@ -81,6 +81,8 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
                   ""
                 )}
                 {product.new ? <span className="purple">New</span> : ""}
+                {product.featured ? <span className="purple">Featured</span> : ""}
+                {product.storeName ? <span className="black">{product.storeName}</span>: ""}
               </div>
             ) : (
               ""

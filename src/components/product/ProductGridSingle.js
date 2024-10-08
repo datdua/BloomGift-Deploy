@@ -72,6 +72,8 @@ const ProductGridSingle = ({
                   ""
                 )}
                 {product.new ? <span className="purple">New</span> : ""}
+                {product.featured ? <span className="purple">Featured</span> : ""}
+                {product.storeName ? <span className="black">{product.storeName}</span>: ""}
               </div>
             ) : (
               ""
@@ -107,28 +109,11 @@ const ProductGridSingle = ({
                     Select Option
                   </Link>
                 ) : product.quantity && product.quantity > 0 ? (
-                  <button
-                    onClick={handleAddToCart}
-                    className={
-                      cartItem !== undefined && cartItem.quantity > 0
-                        ? "active"
-                        : ""
-                    }
-                    disabled={cartItem !== undefined && cartItem.quantity > 0}
-                    title={
-                      cartItem !== undefined ? "Added to cart" : "Add to cart"
-                    }
-                  >
-                    {" "}
-                    <i className="pe-7s-cart"></i>{" "}
-                    {cartItem !== undefined && cartItem.quantity > 0
-                      ? "Added"
-                      : "Add to cart"}
-                  </button>
+                  <Link to={`${process.env.PUBLIC_URL}/product/${product.productID}`}>
+                    View Product
+                  </Link>
                 ) : (
-                  <button disabled className="active">
-                    Out of Stock
-                  </button>
+                  <button disabled className="active">Out of Stock</button>
                 )}
               </div>
               <div className="pro-same-action pro-quickview">

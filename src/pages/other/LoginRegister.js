@@ -158,6 +158,22 @@ const LoginRegister = ({ location }) => {
     if (storeAvatar) {
       formData.append('storeAvatar', storeAvatar);
     }
+    
+    if (addToast) {
+      addToast(
+        <div>
+          Đăng ký thành công! Vui lòng truy cập trang web{' '} 
+          <a href="https://banhang.bloomgift.shop" target="_blank" rel="noopener noreferrer">
+            banhang.bloomgift.shop
+          </a>
+          {' '}dành cho cửa hàng.
+        </div>,
+        {
+          appearance: 'success',
+          autoDismiss: true,
+        }
+      );
+    }
 
     // Dispatch the store registration request (including avatar if provided)
     dispatch(registerStoreAccount(formData, addToast))
@@ -264,7 +280,7 @@ const LoginRegister = ({ location }) => {
       return;
     } else if (!file.type.startsWith('image/')) {
       addToast("File phải là định dạng hình ảnh", { appearance: 'error', autoDismiss: true });
-    } 
+    }
     setStoreAvatar(file);
     setStoreImage(Object.assign(file, {
       preview: URL.createObjectURL(file)
@@ -413,7 +429,8 @@ const LoginRegister = ({ location }) => {
                                 />
                                 <input name="user-fullname" placeholder="Họ tên" type="text" required />
                                 <input name="user-email" placeholder="Email" type="email" required />
-                                <input name="user-phone" placeholder="Số điện thoại" type="tel" required />
+                                <input name="user-phone" placeholder="Số điện thoại" type="tel" required pattern="^[1-9]\d{8}$"
+                                  title="Số điện thoại phải có đúng 9 chữ số và không được bắt đầu bằng số 0" />
                                 <input name="user-address" placeholder="Địa chỉ" type="text" required />
                                 <div className="gender-birthday-container">
                                   <div className="form-group">
@@ -470,7 +487,14 @@ const LoginRegister = ({ location }) => {
                                   <option value="Quà">Quà tặng</option>
                                   <option value="Hoa và quà">Hoa và quà</option>
                                 </select>
-                                <input name="store-phone" placeholder="Số điện thoại" type="tel" required />
+                                <input
+                                  name="store-phone"
+                                  placeholder="Số điện thoại"
+                                  type="tel"
+                                  pattern="^[1-9]\d{8}$"
+                                  title="Số điện thoại phải có đúng 9 chữ số và không được bắt đầu bằng số 0"
+                                  required
+                                />
                                 <input name="store-store-address" placeholder="Địa chỉ cửa hàng" type="text" required />
                                 <input name="store-email" placeholder="Email" type="email" required />
                                 <div className="card">
@@ -511,7 +535,14 @@ const LoginRegister = ({ location }) => {
                                     </div>
                                   </div>
                                 </div>
-                                <input name="store-tax-number" placeholder="Mã số thuế" type="text" required />
+                                <input
+                                  name="store-tax-number"
+                                  placeholder="Mã số thuế"
+                                  type="text"
+                                  pattern="\d{10,13}"
+                                  title="Mã số thuế phải có từ 10 đến 13 chữ số"
+                                  required
+                                />
                                 <input name="store-password" placeholder="Mật khẩu" type="password" required />
                                 <input
                                   name="store-confirm-password"
