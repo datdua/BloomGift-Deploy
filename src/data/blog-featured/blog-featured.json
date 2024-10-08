@@ -1,29 +1,23 @@
 [
   {
     "id": 1,
-    "image": "/assets/img/blog/blog-1.jpg",
-    "category": ["lifestyle", "men"],
-    "title": "A guide to latest trends",
-    "url": "/blog-details-standard",
-    "author": "Admin",
-    "authorUrl": "/blog-standard"
+    "image": "https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Fblog%2Fblog-1.png?alt=media&token=26e799cb-bc5e-4a56-bc88-d05d8733e7ce",
+    "title": "Bí quyết dưỡng hoa tươi lâu trong những ngày nắng nóng",
+    "url": "/blog-1",
+    "author": "Admin"
   },
   {
     "id": 2,
-    "image": "/assets/img/blog/blog-2.jpg",
-    "category": ["lifestyle"],
-    "title": "Five ways to lead a happy life",
-    "url": "/blog-details-standard",
-    "author": "Admin",
-    "authorUrl": "/blog-standard"
+    "image": "https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Fblog%2Fblog-2%2Fblog-2.png?alt=media&token=ef458813-4f60-439f-b0bf-477ad929a6cb",
+    "title": "Chọn màu hoa thế nào cho phù hợp với độ tuổi?",
+    "url": "/blog-2",
+    "author": "Admin"
   },
   {
     "id": 3,
-    "image": "/assets/img/blog/blog-3.jpg",
-    "category": ["lifestyle"],
-    "title": "Tips on having a happy life",
-    "url": "/blog-details-standard",
-    "author": "Admin",
-    "authorUrl": "/blog-standard"
+    "image": "https://firebasestorage.googleapis.com/v0/b/bloom-gift-67f83.appspot.com/o/element-layout%2Fblog%2Fblog-3%2Fblog-3.png?alt=media&token=b5bb4a37-ffa4-475d-8dac-66fa32ec1c0e",
+    "title": "Tặng mẹ hoa gì vào ngày Phụ nữ Việt Nam?",
+    "url": "/blog-3",
+    "author": "Admin"
   }
 ]

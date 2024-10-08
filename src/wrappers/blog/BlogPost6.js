@@ -22,7 +22,7 @@ const BlogPost6 = () => {
               </li>
             </ul>
           </div>
-          <h3>Bí quyết cắm hoa hồng đẹp tại nhà</h3>
+          <h3>Chọn màu hoa hồng sao cho đúng?</h3>
           <p>
           Hoa hồng luôn là biểu tượng của tình yêu và sự lãng mạn. Nhưng bạn có biết rằng mỗi màu hoa hồng đều mang trong mình một ý nghĩa riêng không? Hãy cùng mình tìm hiểu về các màu hoa hồng phổ biến và ý nghĩa của chúng nhé!            {" "}          </p><br></br>
           <p>
