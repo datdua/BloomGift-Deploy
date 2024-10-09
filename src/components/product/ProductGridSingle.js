@@ -22,10 +22,8 @@ const ProductGridSingle = ({
   const { addToast } = useToasts();
 
   const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  const finalProductPrice = +(product.price);
+  const finalDiscountedPrice = +(discountedPrice);
 
   const handleAddToCart = () => {
     addToCart(
@@ -73,7 +71,7 @@ const ProductGridSingle = ({
                 )}
                 {product.new ? <span className="purple">New</span> : ""}
                 {product.featured ? <span className="purple">Featured</span> : ""}
-                {product.storeName ? <span className="black">{product.storeName}</span>: ""}
+                {product.storeName ? <span className="yellow">{product.storeName}</span>: ""}
               </div>
             ) : (
               ""
@@ -139,13 +137,13 @@ const ProductGridSingle = ({
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{finalDiscountedPrice + "VND"}</span>{" "}
                   <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
+                    {finalProductPrice + "VND"}
                   </span>
                 </Fragment>
               ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
+                <span>{finalProductPrice + "VND"} </span>
               )}
             </div>
           </div>

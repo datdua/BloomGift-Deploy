@@ -146,8 +146,7 @@ export const regenerateOTP = (email, addToast) => {
 export const signInWithGoogle = (addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get("https://bloomgift-bloomgift.azuremicroservices.io/api/auth/signInWithGoogle", { withCredentials: true });
-            
+            const response = await axios.get("https://bloomgift-bloomgift.azuremicroservices.io/api/auth/signInWithGoogle", { withCredentials: true });        
             dispatch({
                 type: LOGIN_GOOGLE,
                 payload: response.data

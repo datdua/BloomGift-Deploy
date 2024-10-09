@@ -55,12 +55,9 @@ const ProductImageGallery = ({ product }) => {
   return (
     <Fragment>
       <div className="product-large-image-wrapper">
-        {(product?.discount || product?.new) && (
+        {product?.discount > 0 && (
           <div className="product-img-badges">
-            {product.discount ? (
-              <span className="pink">-{product.discount}%</span>
-            ) : null}
-            {product.new ? <span className="purple">New</span> : null}
+            <span className="pink">-{product.discount}%</span>
           </div>
         )}
         <LightgalleryProvider>
@@ -81,7 +78,7 @@ const ProductImageGallery = ({ product }) => {
                       <img
                         src={single.productImage}
                         className="img-fluid"
-                        alt=""
+                        alt={`${product.productName} - Image ${key + 1}`}
                       />
                     </div>
                   </div>
@@ -100,7 +97,7 @@ const ProductImageGallery = ({ product }) => {
                     <img
                       src={single.productImage}
                       className="img-fluid"
-                      alt=""
+                      alt={`${product.productName} - Thumbnail ${key + 1}`}
                     />
                   </div>
                 </div>

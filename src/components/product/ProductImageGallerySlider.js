@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
 
 const ProductImageGallerySlider = ({ product }) => {
+  const [swiper, setSwiper] = useState(null);
+
   // swiper slider settings
   const gallerySwiperParams = {
     spaceBetween: 15,
@@ -35,20 +37,32 @@ const ProductImageGallerySlider = ({ product }) => {
       320: {
         slidesPerView: 1
       }
+    },
+    on: {
+      init: () => {
+        setSwiper(swiper);
+      }
     }
   };
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.destroy();
+    }
+  }, [product]);
+
   return (
     <div className="product-large-image-wrapper product-large-image-wrapper--slider">
       <Swiper {...gallerySwiperParams}>
-        {product.image &&
-          product.image.map((single, key) => {
+        {product.images &&
+          product.images.map((single, key) => {
             return (
               <div key={key}>
                 <div className="single-image">
                   <img
-                    src={process.env.PUBLIC_URL + single}
+                    src={single.productImage}
                     className="img-fluid"
-                    alt=""
+                    alt={`${product.productName} - Image ${key + 1}`}
                   />
                 </div>
               </div>

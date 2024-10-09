@@ -42,7 +42,7 @@ const MenuCart = ({ cartData, currency }) => {
                     </Link>
                   </h4>
                   <h6>Qty: {item.quantity}</h6>
-                  <span>{currency.currencySymbol + item.price.toFixed(2)}</span>
+                  <span>{item.price.toFixed(2) + "VND"}</span>
                   <div className="cart-item-variation">
                     <span>Size: {item.sizeText}</span>
                     <span>Store: {item.storeName}</span>
@@ -60,7 +60,7 @@ const MenuCart = ({ cartData, currency }) => {
             <h4>
               Total:{" "}
               <span className="shop-total">
-                {currency.currencySymbol + totalPriceCart.toFixed(2)}
+                {totalPriceCart.toFixed(2) + "VND"}
               </span>
             </h4>
           </div>

@@ -170,7 +170,7 @@ const LoginRegister = ({ location }) => {
         </div>,
         {
           appearance: 'success',
-          autoDismiss: true,
+          autoDismiss: false,
         }
       );
     }

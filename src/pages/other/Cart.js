@@ -119,7 +119,7 @@ const Cart = ({
                                 </td>
                                 <td className="product-price-cart">
                                   <span className="amount">
-                                    {currency.currencySymbol + item.price.toFixed(2)}
+                                    {item.price.toFixed(2) + "VND"}
                                   </span>
                                 </td>
                                 <td className="product-quantity">
@@ -145,7 +145,7 @@ const Cart = ({
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {currency.currencySymbol + (item.price * item.quantity).toFixed(2)}
+                                  {(item.price * item.quantity).toFixed(2) + "VND"}
                                 </td>
                                 <td className="product-remove">
                                   <button onClick={() => deleteFromCart(item, addToast)}>
@@ -203,7 +203,7 @@ const Cart = ({
                         <ul>
                           <li>
                             Total{" "}
-                            <span>{currency.currencySymbol + totalPriceCart.toFixed(2)}</span>
+                            <span>{totalPriceCart.toFixed(2) + "VND"}</span>
                           </li>
                         </ul>                    
                       </div>

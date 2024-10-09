@@ -62,6 +62,9 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
     }
   };
 
+  // Add a key to the Swiper component to force it to re-render when the product changes
+  const swiperKey = `swiper-${product.productID}`;
+
   return (
     <Fragment>
       <div className="row row-5">
@@ -82,20 +85,20 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
                 )}
                 {product.new ? <span className="purple">New</span> : ""}
                 {product.featured ? <span className="purple">Featured</span> : ""}
-                {product.storeName ? <span className="black">{product.storeName}</span>: ""}
+                {product.storeName ? <span className="yellow">{product.storeName}</span>: ""}
               </div>
             ) : (
               ""
             )}
             <LightgalleryProvider>
-              <Swiper {...gallerySwiperParams}>
-                {product.image &&
-                  product.image.map((single, key) => {
+              <Swiper key={swiperKey} {...gallerySwiperParams}>
+                {product.images &&
+                  product.images.map((single, key) => {
                     return (
                       <div key={key}>
                         <LightgalleryItem
                           group="any"
-                          src={process.env.PUBLIC_URL + single}
+                          src={single.productImage}
                         >
                           <button>
                             <i className="pe-7s-expand1"></i>
@@ -103,7 +106,7 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
                         </LightgalleryItem>
                         <div className="single-image">
                           <img
-                            src={process.env.PUBLIC_URL + single}
+                            src={single.productImage}
                             className="img-fluid"
                             alt=""
                           />
@@ -123,14 +126,14 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
           }`}
         >
           <div className="product-small-image-wrapper product-small-image-wrapper--side-thumb">
-            <Swiper {...thumbnailSwiperParams}>
-              {product.image &&
-                product.image.map((single, key) => {
+            <Swiper key={swiperKey} {...thumbnailSwiperParams}>
+              {product.images &&
+                product.images.map((single, key) => {
                   return (
                     <div key={key}>
                       <div className="single-image">
                         <img
-                          src={process.env.PUBLIC_URL + single}
+                          src={single.productImage}
                           className="img-fluid"
                           alt=""
                         />
@@ -148,7 +151,6 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
 
 ProductImageGalleryLeftThumb.propTypes = {
   product: PropTypes.object,
-  thumbPosition: PropTypes.string
-};
+  thumbPosition: PropTypes.string };
 
 export default ProductImageGalleryLeftThumb;
