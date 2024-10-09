@@ -62,7 +62,7 @@ const TabProduct = ({
     <div
       className={`product-area ${spaceTopClass ? spaceTopClass : ""} ${spaceBottomClass ? spaceBottomClass : ""} ${bgColorClass ? bgColorClass : ""}`}
     >
-      <div className="container">
+      <div className="container-fluid">
         <SectionTitle titleText="TOP SẢN PHẨM ĐỀ XUẤT!" positionClass="text-center" />
         <Tab.Container defaultActiveKey="featureItems">
           <Nav variant="pills" className="product-tab-list pt-30 pb-55 text-center">
@@ -98,7 +98,7 @@ const TabProduct = ({
                 <ProductGrid
                   category={category}
                   products={featureProducts} // Pass featured products to ProductGrid
-                  limit={20}
+                  limit={24}
                   spaceBottomClass="mb-25"
                 />
               </div>

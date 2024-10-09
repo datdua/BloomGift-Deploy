@@ -78,7 +78,7 @@ export const addToCart = (item, addToast, quantityCount) => {
   };
 };
 
-// Function to add to cart with size
+// Function to Thêm Giỏ hàng with size
 export const addToCartWithSize = (item, addToast, quantityCount, selectedProductSize) => {
   return async (dispatch, getState) => {
     try {

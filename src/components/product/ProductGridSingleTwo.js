@@ -98,7 +98,7 @@ const ProductGridSingleTwo = ({
                   }
                   disabled={cartItem !== undefined && cartItem.quantity > 0}
                   title={
-                    cartItem !== undefined ? "Added to cart" : "Add to cart"
+                    cartItem !== undefined ? "Added to cart" : "Thêm Giỏ hàng"
                   }
                 >
                   {" "}

@@ -38,7 +38,7 @@ const ProductGridSingle = ({
   return (
     <Fragment>
       <div
-        className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${
+        className={`col-xl-2 col-md-6 col-lg-4 col-sm-6 ${
           sliderClassName ? sliderClassName : ""
         }`}
       >
@@ -108,7 +108,7 @@ const ProductGridSingle = ({
                   </Link>
                 ) : product.quantity && product.quantity > 0 ? (
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.productID}`}>
-                    View Product
+                    Xem Sản Phẩm
                   </Link>
                 ) : (
                   <button disabled className="active">Out of Stock</button>
