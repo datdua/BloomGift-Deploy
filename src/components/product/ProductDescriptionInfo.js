@@ -10,10 +10,7 @@ import Rating from "./sub-components/ProductRating";
 
 const ProductDescriptionInfo = ({
   product,
-  discountedPrice,
   currency,
-  finalDiscountedPrice,
-  finalProductPrice,
   cartItems,
   wishlistItem,
   compareItem,
@@ -24,15 +21,21 @@ const ProductDescriptionInfo = ({
   addToCompare
 }) => {
   const [selectedProductColor, setSelectedProductColor] = useState("");
-  const [selectedProductSize, setSelectedProductSize] = useState("");
+  const [selectedProductSize, setSelectedProductSize] = useState(product.sizes[0]);
   const [productStock, setProductStock] = useState(0);
   const [quantityCount, setQuantityCount] = useState(1);
   const { productId } = useParams();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     if (product) {
       setSelectedProductColor(product.colour ? product.colour.trim() : "");
-      setSelectedProductSize(product.sizes && product.sizes[0] ? product.sizes[0].sizeID : "");
+      setSelectedProductSize(product.sizes && product.sizes[0] ? product.sizes[0] : "");
       setProductStock(product.sizes && product.sizes[0] ? product.sizes[0].sizeQuantity : product.quantity);
     }
   }, [product]);
@@ -50,13 +53,19 @@ const ProductDescriptionInfo = ({
       return;
     }
     if (newQuantity > productStock) {
-      addToast(`Sản phẩm không đủ hàng! Chỉ còn ${productStock} sản phẩm tồn kho`, { appearance: "error" });
+      addToast(`Sản phẩm không đủ hàng! Chỉ còn ${productStock} sản phẩm tồn kho`, { appearance: "error", autoDismiss: true });
       return;
     }
     setQuantityCount(newQuantity);
   };
 
+  const sizeID = selectedProductSize.sizeID;
+
   const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      addToast("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!", { appearance: "error", autoDismis: true });
+      return;
+    }
     if (product.sizes && product.sizes.length > 0) {
       if (!selectedProductSize) {
         addToast("Vui lòng chọn kích thước", { appearance: "error" });
@@ -66,7 +75,7 @@ const ProductDescriptionInfo = ({
         product,
         addToast,
         quantityCount,
-        selectedProductSize
+        sizeID
       );
     } else {
       addToCart(
@@ -81,19 +90,27 @@ const ProductDescriptionInfo = ({
     return <div>Loading...</div>;
   }
 
+  const handleSizeChange = (sizeOption) => {
+    setSelectedProductSize(sizeOption);
+    setProductStock(sizeOption.sizeQuantity);
+    setQuantityCount(1);
+  };
+
   return (
     <div className="product-details-content ml-70">
       <h2>{product.productName}</h2>
       <div className="product-details-price">
         {product.discount > 0 ? (
           <Fragment>
-            <span>{currency.currencySymbol + (product.price * (1 - product.discount / 100)).toFixed(2)}</span>{" "}
+            <span>
+              {currency.currencySymbol + (selectedProductSize && selectedProductSize.price * (1 - product.discount / 100)).toFixed(2)}
+            </span>{" "}
             <span className="old">
-              {currency.currencySymbol + product.price}
+              {currency.currencySymbol + (selectedProductSize && selectedProductSize.price)}
             </span>
           </Fragment>
         ) : (
-          <span>{currency.currencySymbol + product.price} </span>
+          <span>{currency.currencySymbol + (selectedProductSize && selectedProductSize.price)} </span>
         )}
       </div>
 
@@ -141,14 +158,10 @@ const ProductDescriptionInfo = ({
                   <input
                     type="radio"
                     value={sizeOption.sizeID}
-                    checked={sizeOption.sizeID === selectedProductSize}
-                    onChange={() => {
-                      setSelectedProductSize(sizeOption.sizeID);
-                      setProductStock(sizeOption.sizeQuantity);
-                      setQuantityCount(1);
-                    }}
+                    checked={sizeOption.sizeID === selectedProductSize.sizeID}
+                    onChange={() => handleSizeChange(sizeOption)}
                   />
-                  <span className="size-name">{sizeOption.text}</span>
+                  <span className="size-name">{sizeOption.text.trim()}</span>
                 </label>
               ))}
             </div>
@@ -178,10 +191,10 @@ const ProductDescriptionInfo = ({
           </button>
         </div>
         <div className="pro-details-cart btn-hover">
-          {product.quantity > 0 ? (
+          {productStock > 0 ? (
             <button
               onClick={handleAddToCart}
-              disabled={productCartQty >= product.quantity}
+              disabled={productCartQty >= productStock}
             >
               {" "}
               Add To Cart{" "}
@@ -219,6 +232,7 @@ const ProductDescriptionInfo = ({
           </button>
         </div>
       </div>
+
       <div className="pro-details-meta">
         <span>Category:</span>
         <ul>
@@ -248,7 +262,7 @@ const ProductDescriptionInfo = ({
       <div className="pro-details-meta">
         <span>Quantity:</span>
         <ul>
-          <li>{product.quantity}</li>
+          <li>{productStock}</li>
         </ul>
       </div>
       <div className="pro-details-meta">

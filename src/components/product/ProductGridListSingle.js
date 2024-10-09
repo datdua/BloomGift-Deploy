@@ -68,6 +68,7 @@ const ProductGridListSingle = ({
                   ""
                 )}
                 {product.featured ? <span className="purple">Featured</span> : ""}
+                {product.storeName ? <span className="yellow">{product.storeName}</span>: ""}
               </div>
             ) : (
               ""
