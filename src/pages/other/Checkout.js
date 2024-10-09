@@ -267,30 +267,33 @@ const Checkout = ({ location, cartItems, currency, createOrder }) => {
                             <ul>
                               {cartItems.map((cartItem, index) => {
                                 const discountedPrice = getDiscountedPrice(cartItem.price, cartItem.discount);
-                                const finalDiscountedPrice = +(discountedPrice * currency.currencyRate).toFixed(2);
+                                const finalDiscountedPrice = +(discountedPrice).toFixed(2);
                                 cartTotalPrice += finalDiscountedPrice * cartItem.quantity;
+
+                                const formattedPrice = new Intl.NumberFormat('vi-VN', {
+                                  style: 'currency',
+                                  currency: 'VND',
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 0
+                                }).format(finalDiscountedPrice * cartItem.quantity)
 
                                 return (
                                   <li key={index}>
                                     <Link to={process.env.PUBLIC_URL + "/product/" + cartItem.productID}>
                                       {cartItem.productName} × {cartItem.quantity}
                                     </Link>
-                                    <span>
-                                      {currency.currencySymbol}
-                                      {(finalDiscountedPrice * cartItem.quantity).toFixed(2)}
-                                    </span>
+                                    <span>{formattedPrice}</span>
                                   </li>
                                 );
                               })}
                             </ul>
                           </div>
-
                           <div className="your-order-bottom">
                             <ul>
                               <li>Tổng cộng</li>
-                              <li className="total">
-                                {currency.currencySymbol}
+                              <li className="total">                               
                                 {cartTotalPrice.toFixed(2)}
+                                {"VND"}
                               </li>
                             </ul>
                           </div>
@@ -305,7 +308,7 @@ const Checkout = ({ location, cartItems, currency, createOrder }) => {
                       <div className="cart-tax" style={{marginTop: "20px"}}>
                         <div className="title-wrap">
                           <h4 className="cart-bottom-title section-bg-gray ">
-                            Estimate Shipping And Tax
+                            Chi phí giao hàng
                           </h4>
                         </div>
                         <div className="tax-wrapper">

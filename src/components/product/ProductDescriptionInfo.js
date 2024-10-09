@@ -59,7 +59,7 @@ const ProductDescriptionInfo = ({
     setQuantityCount(newQuantity);
   };
 
-  const sizeID = selectedProductSize.sizeID;
+  const sizeID = selectedProductSize ? selectedProductSize.sizeID : null;
 
   const handleAddToCart = () => {
     if (!isLoggedIn) {
@@ -103,14 +103,14 @@ const ProductDescriptionInfo = ({
         {product.discount > 0 ? (
           <Fragment>
             <span>
-              {currency.currencySymbol + (selectedProductSize && selectedProductSize.price * (1 - product.discount / 100)).toFixed(2)}
+              {(selectedProductSize && selectedProductSize.price * (1 - product.discount / 100)) + "VND"}
             </span>{" "}
             <span className="old">
-              {currency.currencySymbol + (selectedProductSize && selectedProductSize.price)}
+              {(selectedProductSize && selectedProductSize.price) + "VND"}
             </span>
           </Fragment>
         ) : (
-          <span>{currency.currencySymbol + (selectedProductSize && selectedProductSize.price)} </span>
+          <span>{(selectedProductSize && selectedProductSize.price) + "VND"} </span>
         )}
       </div>
 

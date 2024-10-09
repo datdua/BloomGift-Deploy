@@ -24,9 +24,9 @@ const ProductGridListSingle = ({
   const discountedPrice = product.discount > 0
     ? product.price * (1 - product.discount / 100)
     : null;
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const finalProductPrice = +(product.price);
   const finalDiscountedPrice = discountedPrice
-    ? +(discountedPrice * currency.currencyRate).toFixed(2)
+    ? +(discountedPrice)
     : null;
 
   const cartItem = cartItems.find((item) => item?.productID === product.productID);
@@ -124,13 +124,13 @@ const ProductGridListSingle = ({
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{finalDiscountedPrice + "VND"}</span>{" "}
                   <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
+                    {finalProductPrice + "VND"}
                   </span>
                 </Fragment>
               ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
+                <span>{finalProductPrice + "VND"} </span>
               )}
             </div>
           </div>
@@ -184,14 +184,14 @@ const ProductGridListSingle = ({
                   {discountedPrice !== null ? (
                     <Fragment>
                       <span>
-                        {currency.currencySymbol + finalDiscountedPrice}
+                        {finalDiscountedPrice + "VND" }
                       </span>{" "}
                       <span className="old">
-                        {currency.currencySymbol + finalProductPrice}
+                        {finalProductPrice + "VND"}
                       </span>
                     </Fragment>
                   ) : (
-                    <span>{currency.currencySymbol + finalProductPrice} </span>
+                    <span>{finalProductPrice + "VND"} </span>
                   )}
                 </div>
                 {product.rating ? (
