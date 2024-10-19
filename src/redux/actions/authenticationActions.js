@@ -13,7 +13,7 @@ export const LOGIN_GOOGLE = "LOGIN_GOOGLE"
 export const registerAccount = (userData, addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('https://bloomgift-bloomgift.azuremicroservices.io/api/auth/register', userData, {
+            const response = await axios.post('https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/register', userData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -38,7 +38,7 @@ export const registerAccount = (userData, addToast) => {
 export const loginAccount = (userData, addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post("https://bloomgift-bloomgift.azuremicroservices.io/api/auth/login", {
+            const response = await axios.post("https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/login", {
                 email: userData.email,
                 password: userData.password,
             });
@@ -69,7 +69,7 @@ export const verifyAccount = (userData, addToast) => {
                 otp: userData.otp
             }).toString();
 
-            const response = await axios.put(`https://bloomgift-bloomgift.azuremicroservices.io/api/auth/verify-account?${query}`, {
+            const response = await axios.put(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/verify-account?${query}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -90,7 +90,7 @@ export const verifyAccount = (userData, addToast) => {
 export const forgotPassword = (email, addToast) => {
     return async (dispatch) => {
         try {
-            const url = `https://bloomgift-bloomgift.azuremicroservices.io/api/auth/forget-password?email=${encodeURIComponent(email)}`;
+            const url = `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/forget-password?email=${encodeURIComponent(email)}`;
             console.log("Forgot Password URL:", url);
 
             const response = await axios.post(url);
@@ -111,7 +111,7 @@ export const forgotPassword = (email, addToast) => {
 export const resetPassword = (userData, addToast) => {
     return async (dispatch) => {
         try {
-            const url = `https://bloomgift-bloomgift.azuremicroservices.io/api/auth/set-password?email=${encodeURIComponent(userData.email)}&newPassword=${encodeURIComponent(userData.newPassword)}`;
+            const url = `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/set-password?email=${encodeURIComponent(userData.email)}&newPassword=${encodeURIComponent(userData.newPassword)}`;
             const response = await axios.put(url);
 
             dispatch({
@@ -130,7 +130,7 @@ export const resetPassword = (userData, addToast) => {
 export const regenerateOTP = (email, addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.put(`https://bloomgift-bloomgift.azuremicroservices.io/api/auth/regenerate-otp?email=${encodeURIComponent(email)}`);
+            const response = await axios.put(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/regenerate-otp?email=${encodeURIComponent(email)}`);
             dispatch({
                 type: REGENERATE_OTP,
                 payload: response.data
@@ -146,7 +146,7 @@ export const regenerateOTP = (email, addToast) => {
 export const signInWithGoogle = (addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get("https://bloomgift-bloomgift.azuremicroservices.io/api/auth/signInWithGoogle", { withCredentials: true });        
+            const response = await axios.get("https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/signInWithGoogle", { withCredentials: true });        
             dispatch({
                 type: LOGIN_GOOGLE,
                 payload: response.data
@@ -170,7 +170,7 @@ export const signInWithGoogle = (addToast) => {
 export const registerStoreAccount = (storeData, addToast) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('https://bloomgift-bloomgift.azuremicroservices.io/api/auth/store/register', storeData, {
+            const response = await axios.post('https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/auth/store/register', storeData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

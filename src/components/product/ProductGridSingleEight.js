@@ -131,7 +131,7 @@ const ProductGridSingleEight = ({
                     }
                     disabled={cartItem !== undefined && cartItem.quantity > 0}
                     title={
-                      cartItem !== undefined ? "Added to cart" : "Add to cart"
+                      cartItem !== undefined ? "Added to cart" : "Thêm Giỏ hàng"
                     }
                   >
                     <i className="pe-7s-cart"></i>

@@ -61,7 +61,7 @@ const Wishlist = ({
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Unit Price</th>
-                            <th>Add To Cart</th>
+                            <th>Thêm Giỏ hàng</th>
                             <th>action</th>
                           </tr>
                         </thead>
@@ -130,9 +130,9 @@ const Wishlist = ({
                                       onClick={() => addToCart(wishlistItem, addToast)}
                                       className={cartItem !== undefined && cartItem.quantity > 0 ? "active" : ""}
                                       disabled={cartItem !== undefined && cartItem.quantity > 0}
-                                      title={cartItem !== undefined ? "Added to cart" : "Add to cart"}
+                                      title={cartItem !== undefined ? "Added to cart" : "Thêm Giỏ hàng"}
                                     >
-                                      {cartItem !== undefined && cartItem.quantity > 0 ? "Added" : "Add to cart"}
+                                      {cartItem !== undefined && cartItem.quantity > 0 ? "Added" : "Thêm Giỏ hàng"}
                                     </button>
                                   ) : (
                                     <button disabled className="active">

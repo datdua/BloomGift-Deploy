@@ -37,7 +37,7 @@ const createProductFailure = (error) => ({
 export const getAllProducts = (addToast) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/list-product-by-customer", {
+      const response = await axios.get("https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/product/list-product-by-customer", {
         headers: {
           'Content-Type': 'application/json',
           
@@ -81,7 +81,7 @@ export const searchProduct = (
       params.size = size;
 
       const response = await axios.get(
-        "https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/search-product",
+        "https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/product/search-product",
         { params }, {
           headers: {
             'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export const searchProduct = (
 export const getProductDetail = (addToast, productId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/product/${productId}`,{
+      const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/product/${productId}`,{
         headers: {
           'Content-Type': 'application/json',   
       }});
@@ -127,7 +127,7 @@ export const getProductBestSeller = (addToast, top) => {
   return async (dispatch) => {
     try {
 
-      const url = 'https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/get-product-best-seller/{Top}?top=' + top;
+      const url = 'https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/product/get-product-best-seller/{Top}?top=' + top;
       
       const response = await axios.get(url, {
         headers: {
@@ -153,7 +153,7 @@ export const getProductBestSeller = (addToast, top) => {
 export const getNewProduct = (addToast) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/new-product`,{
+      const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/product/new-product`,{
         headers: {
           'Content-Type': 'application/json',
            
@@ -174,7 +174,7 @@ export const getNewProduct = (addToast) => {
 export const getFeatureProduct = (addToast) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/customer/product/get-product-feature-true`,{
+      const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/product/get-product-feature-true`,{
         headers: {
           'Content-Type': 'application/json',
            
@@ -195,7 +195,7 @@ export const getFeatureProduct = (addToast) => {
 export const getProductByStatusFalse = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('https://bloomgift-bloomgift.azuremicroservices.io/api/product/products/status?productStatus=false');
+      const response = await axios.get('https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/product/products/status?productStatus=false');
       if (response.status !== 200) {
         throw new Error(`Lỗi khi nhận dữ liệu: ${response.status}`);
       }
@@ -215,7 +215,7 @@ export const getProductByStatusFalse = () => {
 export const getProductByStatusTrue = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('https://bloomgift-bloomgift.azuremicroservices.io/api/product/products/status?productStatus=true');
+      const response = await axios.get('https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/product/products/status?productStatus=true');
       if (response.status !== 200) {
         throw new Error(`Lỗi khi nhận dữ liệu: ${response.status}`);
       }
@@ -244,7 +244,7 @@ export const createProduct = (productRequest, imageFiles) => {
         formData.append('imageFiles', file);
       });
       const response = await axios.post(
-        'https://bloomgift-bloomgift.azuremicroservices.io/api/product/create',
+        'https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/product/create',
         formData,
         {
           headers: {
@@ -268,7 +268,7 @@ export const createProduct = (productRequest, imageFiles) => {
 export const getProductImages = (productID) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`https://bloomgift-bloomgift.azuremicroservices.io/api/product-images/${productID}/images`,{
+      const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/product-images/${productID}/images`,{
         headers: {
           'Content-Type': 'application/json',
            

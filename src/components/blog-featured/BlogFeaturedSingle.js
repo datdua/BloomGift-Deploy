@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const BlogFeaturedSingle = ({ singlePost }) => {
   return (
-    <div className="col-lg-4 col-sm-6">
+    <div className="col-lg-3 col-sm-6">
       <div className="blog-wrap mb-30 scroll-zoom">
         <div className="blog-img">
           <Link to={process.env.PUBLIC_URL + singlePost.url}>
