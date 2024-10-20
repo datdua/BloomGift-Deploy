@@ -21,7 +21,7 @@ export const createOrder = (formData, addToast) => {
         try {
             const accountID = getAccountIDFromToken();  // Assuming you're getting the account ID from the token
             const response = await axios.post(
-                `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/order/create-order?accountID=${accountID}`,
+                `https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/order/create-order?accountID=${accountID}`,
                 formData,
                 {
                     headers: {
@@ -58,7 +58,7 @@ export const getOrder = ( addToast) => {
     return async (dispatch) => {
         const accountID = getAccountIDFromToken();
         try {
-            const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/order/history-order/${accountID}`, {
+            const response = await axios.get(`https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/order/history-order/${accountID}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -88,7 +88,7 @@ export const getOrderDetail = (orderID, addToast) => {
     return async (dispatch) => {
       dispatch({ type: 'GET_ORDER_DETAIL_REQUEST' });
       try {
-        const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/order/get-order-by-id/${orderID}`, {
+        const response = await axios.get(`https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/order/get-order-by-id/${orderID}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -115,7 +115,7 @@ export const getOrderDetail = (orderID, addToast) => {
   export const calculateShippingFee = (storeIDs, specificAddress, deliveryProvince, deliveryDistrict, deliveryWard, addToast) => async (dispatch) => {
     try {
       const response = await axios.post(
-        'https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/order/calculate-cost-many-shop',
+        'https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/order/calculate-cost-many-shop',
         {
           specificAddress,
           deliveryProvince,

@@ -31,7 +31,7 @@ export const addToCart = (item, addToast, quantityCount) => {
         throw new Error("No valid account ID found");
       }
 
-      const url = `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/cart/add`;
+      const url = `https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/cart/add`;
       
       const response = await axios.post(
         url,
@@ -87,7 +87,7 @@ export const addToCartWithSize = (item, addToast, quantityCount, selectedProduct
         throw new Error("No valid account ID found");
       }
 
-      const url = `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/cart/add-with-size`;
+      const url = `https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/cart/add-with-size`;
       
       const response = await axios.post(
         url,
@@ -144,7 +144,7 @@ export const updateCartQuantity = (item, newQuantity, addToast) => {
       }
 
       const response = await axios.put(
-        `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/cart/update-quantity?accountId=${accountID}&productId=${item.productID}&quantity=${newQuantity}`,
+        `https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/cart/update-quantity?accountId=${accountID}&productId=${item.productID}&quantity=${newQuantity}`,
         {},
         {
           headers: {
@@ -188,7 +188,7 @@ export const deleteFromCart = (item, addToast) => {
         throw new Error('No valid account ID found');
       }
 
-      await axios.delete(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/cart/remove?accountId=${accountID}&productId=${item.productID}`, {
+      await axios.delete(`https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/cart/remove?accountId=${accountID}&productId=${item.productID}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -246,7 +246,7 @@ export const cartItemStock = async (productId) => {
       throw new Error('No valid account ID found');
     }
 
-    const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/cart/view/${accountID}`, {
+    const response = await axios.get(`https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/cart/view/${accountID}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -281,7 +281,7 @@ export const getCartItems = (addToast) => {
       }
 
       const response = await axios.get(
-        `https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/cart/view/${accountID}`,
+        `https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/cart/view/${accountID}`,
         {
           headers: {
             "Content-Type": "application/json",

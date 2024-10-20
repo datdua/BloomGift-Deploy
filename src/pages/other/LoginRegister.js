@@ -378,7 +378,7 @@ const LoginRegister = ({ location }) => {
                                     <span>Đăng Nhập</span>
                                   </button>
                                   <button
-                                    onClick={() => window.location.href = 'https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/oauth2/authorization/google'}
+                                    onClick={() => window.location.href = 'https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/oauth2/authorization/google'}
                                     className="ml-5"
                                   >
                                     Đăng nhập với Google

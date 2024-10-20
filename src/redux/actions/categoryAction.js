@@ -6,7 +6,7 @@ export const getCategory = () => {
     return async (dispatch) => {
       try {
         const response = await axios.get(
-          'https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/category/list-category'
+          'https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/customer/category/list-category'
         );
         if (response.status !== 200) {
           throw new Error(`Error fetching data: ${response.status}`);
