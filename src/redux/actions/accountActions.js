@@ -21,7 +21,7 @@ export const getAccount = () => {
     return async (dispatch) => {
         try {
             const accountID = getAccountIDFromToken();
-            const response = await axios.get(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/accounts/${accountID}`, {
+            const response = await axios.get(`https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/accounts/${accountID}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -43,7 +43,7 @@ export const updateAccount = (accountRequest) => {
     return async (dispatch) => {
         try {
             const accountID = getAccountIDFromToken();
-            const response = await axios.put(`https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/accounts/update-account/${accountID}`, accountRequest, {
+            const response = await axios.put(`https://bloomgift2-hkdra9cyapase2cy.southeastasia-01.azurewebsites.net/api/accounts/update-account/${accountID}`, accountRequest, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
