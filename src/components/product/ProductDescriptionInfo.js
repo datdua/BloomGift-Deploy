@@ -25,6 +25,7 @@ const ProductDescriptionInfo = ({
   const [productStock, setProductStock] = useState(0);
   const [quantityCount, setQuantityCount] = useState(1);
   const { productId } = useParams();
+  const productDefaultPrice = (product.price);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -102,15 +103,23 @@ const ProductDescriptionInfo = ({
       <div className="product-details-price">
         {product.discount > 0 ? (
           <Fragment>
-            <span>
-              {(selectedProductSize && selectedProductSize.price * (1 - product.discount / 100)) + "VND"}
-            </span>{" "}
-            <span className="old">
-              {(selectedProductSize && selectedProductSize.price) + "VND"}
-            </span>
-          </Fragment>
+          <span>
+            {selectedProductSize
+              ? (selectedProductSize.price * (1 - product.discount / 100)) + "VND"
+              : (productDefaultPrice * (1 - product.discount / 100)) + "VND"}{" "}
+          </span>{" "}
+          <span className="old">
+            {selectedProductSize
+              ? selectedProductSize.price + "VND"
+              : productDefaultPrice + "VND"}
+          </span>
+        </Fragment>
         ) : (
-          <span>{(selectedProductSize && selectedProductSize.price) + "VND"} </span>
+          <span>
+            {selectedProductSize
+              ? selectedProductSize.price + "VND"
+              : product.price + "VND"}
+          </span>
         )}
       </div>
 

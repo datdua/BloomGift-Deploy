@@ -353,7 +353,7 @@ const App = (props) => {
                   component={OrderDetail}
                 />
                 <Route
-                  path={publicUrl + "/thanhtoan/:orderID"}
+                  path={publicUrl + "/thanhtoandonhang/:orderID"}
                   component={PaymentPage}
                 />
                 <Route path="/seller">
