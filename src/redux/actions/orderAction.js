@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 // Function to extract accountID from JWT
 const getAccountIDFromToken = () => {
-    const token = localStorage.getItem('token'); // Assume the token is stored in localStorage
+    const token = localStorage.getItem('token'); 
     if (!token) return null;
 
     try {
@@ -109,5 +109,48 @@ export const getOrderDetail = (orderID, addToast) => {
           payload: error.response ? error.response.data : error.message,
         });
       }
+    }
+  };
+
+  export const calculateShippingFee = (storeIDs, specificAddress, deliveryProvince, deliveryDistrict, deliveryWard, addToast) => async (dispatch) => {
+    try {
+      const response = await axios.post(
+        'https://bloomgift-e5hva0bgc6aubaen.eastus-01.azurewebsites.net/api/customer/order/calculate-cost-many-shop',
+        {
+          specificAddress,
+          deliveryProvince,
+          deliveryDistrict,
+          deliveryWard
+        },
+        {
+          params: storeIDs.reduce((acc, id, index) => ({
+            ...acc,
+            [`storeIDs`]: storeIDs 
+          }), {}),
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          paramsSerializer: params => {
+            // Custom serializer to ensure proper URL formatting
+            const storeIDsParam = params.storeIDs.map(id => `storeIDs=${id}`).join('&');
+            return storeIDsParam;
+          }
+        }
+      );
+
+      const shippingFee = response.data;
+      dispatch({
+        type: 'CALCULATE_SHIPPING_FEE_SUCCESS',
+        payload: shippingFee
+      });
+      addToast('Tiền ship đã được tính toán', { appearance: 'success', autoDismiss: true });
+      return shippingFee;
+    } catch (error) {
+      console.error('Error calculating shipping fee:', error);
+      dispatch({
+        type: 'CALCULATE_SHIPPING_FEE_FAILURE',
+        payload: error.response ? error.response.data : error.message
+      });
+      addToast('Lỗi khi tính toán tiền ship', { appearance: 'error', autoDismiss: true });
     }
   };

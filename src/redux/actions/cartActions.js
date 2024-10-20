@@ -295,15 +295,13 @@ export const getCartItems = (addToast) => {
       }
     } catch (error) {
       console.error("Error fetching cart items:", error);
-      if (addToast) {
-        addToast("Lỗi khi lấy dữ liệu giỏ hàng", {
-          appearance: "error",
-          autoDismiss: true,
-        });
+      // if (addToast) {
+      //   addToast("Lỗi khi lấy dữ liệu giỏ hàng", {
+      //     appearance: "error",
+      //     autoDismiss: true,
+        };
       }
     }
-  };
-};
 
 export const clearCart = () => {
   return {
