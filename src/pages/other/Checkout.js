@@ -16,7 +16,6 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const { addToast } = useToasts();
   const [shippingFee, setShippingFee] = useState(0);
   const [isShippingCalculated, setIsShippingCalculated] = useState(false);
-  const [isPickup, setIsPickup] = useState(false); // New state for pickup option
 
   const getDiscountedPrice = (price, discount) => {
     return discount ? price - (price * discount / 100) : price;
@@ -53,9 +52,9 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-
+    
     // Reset shipping calculation when address-related fields change
-    if (['specificAddress', 'deliveryDistrict', 'deliveryWard'].includes(name)) {
+    if(['specificAddress', 'deliveryDistrict', 'deliveryWard'].includes(name)) {
       setIsShippingCalculated(false);
       setShippingFee(0);
     }
@@ -64,20 +63,19 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
-    if (!isPickup && !isShippingCalculated) {
-      addToast('Vui lòng tính phí vận chuyển trước khi đặt hàng', {
-        appearance: 'error',
-        autoDismiss: true
+    if (!isShippingCalculated) {
+      addToast('Vui lòng tính phí vận chuyển trước khi đặt hàng', { 
+        appearance: 'error', 
+        autoDismiss: true 
       });
       return;
     }
 
     try {
-      // Add shipping fee to the form data only if not pickup
+      // Add shipping fee to the form data
       const orderDataWithShipping = {
         ...formData,
-        shippingFee: isPickup ? 0 : shippingFee,
-        isPickup: isPickup
+        shippingFee: shippingFee
       };
 
       const isSuccess = await createOrder(orderDataWithShipping, addToast);
@@ -87,7 +85,7 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
     } catch (error) {
       console.error("Error creating order:", error);
     }
-  }, [formData, createOrder, addToast, history, isShippingCalculated, shippingFee, isPickup]);
+  }, [formData, createOrder, addToast, history, isShippingCalculated, shippingFee]);
 
   const districts = {
     "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Phạm Ngũ Lão", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Cầu Kho"],
@@ -128,9 +126,9 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
     e.preventDefault();
 
     if (!formData.deliveryDistrict || !formData.deliveryWard || !formData.specificAddress) {
-      addToast('Vui lòng điền đầy đủ thông tin địa chỉ', {
-        appearance: 'error',
-        autoDismiss: true
+      addToast('Vui lòng điền đầy đủ thông tin địa chỉ', { 
+        appearance: 'error', 
+        autoDismiss: true 
       });
       return;
     }
@@ -148,17 +146,17 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
       );
       setShippingFee(fee || 0);
       setIsShippingCalculated(true);
-      addToast('Đã tính phí vận chuyển thành công', {
-        appearance: 'success',
-        autoDismiss: true
+      addToast('Đã tính phí vận chuyển thành công', { 
+        appearance: 'success', 
+        autoDismiss: true 
       });
     } catch (error) {
       console.error('Error calculating shipping fee:', error);
       setShippingFee(0);
       setIsShippingCalculated(false);
-      addToast('Không thể tính phí vận chuyển', {
-        appearance: 'error',
-        autoDismiss: true
+      addToast('Không thể tính phí vận chuyển', { 
+        appearance: 'error', 
+        autoDismiss: true 
       });
     }
   };
