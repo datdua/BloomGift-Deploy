@@ -146,10 +146,6 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
       );
       setShippingFee(fee || 0);
       setIsShippingCalculated(true);
-      addToast('Đã tính phí vận chuyển thành công', { 
-        appearance: 'success', 
-        autoDismiss: true 
-      });
     } catch (error) {
       console.error('Error calculating shipping fee:', error);
       setShippingFee(0);
