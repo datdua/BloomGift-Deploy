@@ -15,14 +15,14 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const history = useHistory();
   const { addToast } = useToasts();
   const [shippingFee, setShippingFee] = useState(0);
+  const [isShippingCalculated, setIsShippingCalculated] = useState(false);
 
   const getDiscountedPrice = (price, discount) => {
     return discount ? price - (price * discount / 100) : price;
   };
   let cartTotalPrice = 0;
 
-   // Calculate cart total price
-   const getCartTotalPrice = () => {
+  const getCartTotalPrice = () => {
     return cartItems.reduce((total, item) => {
       const discountedPrice = getDiscountedPrice(item.price, item.discount);
       return total + discountedPrice * item.quantity;
@@ -50,23 +50,42 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const today = new Date().toISOString().split("T")[0];
 
   const handleChange = useCallback((e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  }, [formData]);
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Reset shipping calculation when address-related fields change
+    if(['specificAddress', 'deliveryDistrict', 'deliveryWard'].includes(name)) {
+      setIsShippingCalculated(false);
+      setShippingFee(0);
+    }
+  }, []);
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+
+    if (!isShippingCalculated) {
+      addToast('Vui lòng tính phí vận chuyển trước khi đặt hàng', { 
+        appearance: 'error', 
+        autoDismiss: true 
+      });
+      return;
+    }
+
     try {
-      const isSuccess = await createOrder(formData, addToast);
+      // Add shipping fee to the form data
+      const orderDataWithShipping = {
+        ...formData,
+        shippingFee: shippingFee
+      };
+
+      const isSuccess = await createOrder(orderDataWithShipping, addToast);
       if (isSuccess) {
         history.push('/donhang');
       }
     } catch (error) {
       console.error("Error creating order:", error);
     }
-  }, [formData, createOrder, addToast, history]);
+  }, [formData, createOrder, addToast, history, isShippingCalculated, shippingFee]);
 
   const districts = {
     "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Phạm Ngũ Lão", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Cầu Kho"],
@@ -96,21 +115,24 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const [selectedDistrict, setSelectedDistrict] = useState("Quận 1");
   const [wards, setWards] = useState(districts["Quận 1"]);
 
-
   useEffect(() => {
     setWards(districts[selectedDistrict] || []);
     setFormData(prev => ({ ...prev, deliveryWard: '' }));
+    setIsShippingCalculated(false);
+    setShippingFee(0);
   }, [selectedDistrict]);
 
   const handleCalculateShipping = async (e) => {
     e.preventDefault();
 
     if (!formData.deliveryDistrict || !formData.deliveryWard || !formData.specificAddress) {
-      addToast('Vui lòng điền đầy đủ thông tin địa chỉ', { appearance: 'error', autoDismiss: true });
+      addToast('Vui lòng điền đầy đủ thông tin địa chỉ', { 
+        appearance: 'error', 
+        autoDismiss: true 
+      });
       return;
     }
 
-    // Get unique store IDs from cart items
     const storeIDs = [...new Set(cartItems.map(item => item.storeID))];
 
     try {
@@ -122,11 +144,16 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
         formData.deliveryWard,
         addToast
       );
-      setShippingFee(fee || 0); // Ensure we always set a number
+      setShippingFee(fee || 0);
+      setIsShippingCalculated(true);
     } catch (error) {
       console.error('Error calculating shipping fee:', error);
       setShippingFee(0);
-      addToast('Không thể tính phí vận chuyển', { appearance: 'error', autoDismiss: true });
+      setIsShippingCalculated(false);
+      addToast('Không thể tính phí vận chuyển', { 
+        appearance: 'error', 
+        autoDismiss: true 
+      });
     }
   };
 
@@ -140,8 +167,8 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   };
 
   const renderOrderSummary = () => {
-    const cartTotalPrice = getCartTotalPrice(); 
-    const totalPriceWithShipping = cartTotalPrice + shippingFee; 
+    const cartTotalPrice = getCartTotalPrice();
+    const totalPriceWithShipping = cartTotalPrice + shippingFee;
 
     return (
       <div className="your-order-bottom">
@@ -155,7 +182,7 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
           <li className="order-total">
             <th>Tổng cộng</th>
             <td>
-              {formatCurrency(totalPriceWithShipping)} 
+              {formatCurrency(totalPriceWithShipping)}
             </td>
           </li>
         </ul>
@@ -334,8 +361,13 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
                           <button
                             className="btn-hover"
                             type="submit"
+                            disabled={!isShippingCalculated}
+                            style={{
+                              backgroundColor: !isShippingCalculated ? '#ccc' : undefined,
+                              cursor: !isShippingCalculated ? 'not-allowed' : 'pointer'
+                            }}
                           >
-                            Đặt hàng
+                            {!isShippingCalculated ? 'Vui lòng tính phí vận chuyển' : 'Đặt hàng'}
                           </button>
                         </div>
                       </div>
