@@ -160,7 +160,7 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
                 <div className="pro-pagination-style text-center mt-30">
                   {sortedProducts && Array.isArray(sortedProducts) && (
                     <Paginator
-                      totalRecords={sortedProducts.length} // Safely access the length
+                      totalRecords={sortedProducts.length} 
                       pageLimit={pageLimit}
                       pageNeighbours={2}
                       setOffset={setOffset}

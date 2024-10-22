@@ -118,6 +118,9 @@ const PaymentPage = ({ location }) => {
           placeholder="Nhập mã giao dịch của bạn"
           value={transactionCode}
           onChange={(e) => setTransactionCode(e.target.value)}
+          pattern="\d{11}"
+          title="Mã giao dịch phải có đúng 11 chữ số"
+          maxLength={11}
         />
         <p className="text-sm text-gray-500 mt-1">
           *Vui lòng nhập mã giao dịch bạn nhận được sau khi chuyển khoản
