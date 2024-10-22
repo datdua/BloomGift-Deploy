@@ -137,8 +137,8 @@ const ProductDescriptionInfo = ({
         <p>{product.description}</p>
       </div>
 
-      <div className="pro-details-size-color">
-        {product.colour && (
+      {/* <div className="pro-details-size-color"> */}
+        {/* {product.colour && (
           <div className="pro-details-color-wrap">
             <span>Color</span>
             <div className="pro-details-color-content">
@@ -153,9 +153,9 @@ const ProductDescriptionInfo = ({
               </label>
             </div>
           </div>
-        )}
+        )} */}
 
-        {product.sizes && product.sizes.length > 0 && (
+        {/* {product.sizes && product.sizes.length > 0 && (
           <div className="pro-details-size">
             <span>Size</span>
             <div className="pro-details-size-content">
@@ -176,7 +176,7 @@ const ProductDescriptionInfo = ({
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="pro-details-quality">
         <div className="cart-plus-minus">
@@ -243,7 +243,7 @@ const ProductDescriptionInfo = ({
       </div>
 
       <div className="pro-details-meta">
-        <span>Category:</span>
+        <span>Danh mục:</span>
         <ul>
           <li>
             <Link to={process.env.PUBLIC_URL + "/cuahang"}>
@@ -253,7 +253,7 @@ const ProductDescriptionInfo = ({
         </ul>
       </div>
       <div className="pro-details-meta">
-        <span>Store:</span>
+        <span>Cửa hàng:</span>
         <ul>
           <li>
             <Link to={process.env.PUBLIC_URL + "/cuahang"}>
@@ -263,25 +263,25 @@ const ProductDescriptionInfo = ({
         </ul>
       </div>
       <div className="pro-details-meta">
-        <span>Product Status:</span>
+        <span>Trạng thái:</span>
         <ul>
-          <li>{product.productStatus ? "Active" : "Inactive"}</li>
+          <li>{product.productStatus ? "Đang hoạt động" : "Không hoạt động"}</li>
         </ul>
       </div>
       <div className="pro-details-meta">
-        <span>Quantity:</span>
+        <span>Số lượng:</span>
         <ul>
           <li>{productStock}</li>
         </ul>
       </div>
       <div className="pro-details-meta">
-        <span>Sold:</span>
+        <span>Đã bán:</span>
         <ul>
           <li>{product.sold}</li>
         </ul>
       </div>
       <div className="pro-details-meta">
-        <span>Created Date:</span>
+        <span>Ngày tạo:</span>
         <ul>
           <li>{new Date(product.createDate).toLocaleDateString()}</li>
         </ul>

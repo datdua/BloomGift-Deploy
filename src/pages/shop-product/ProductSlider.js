@@ -24,7 +24,7 @@ const ProductSlider = ({ location, product }) => {
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Shop Product
+        Cửa hàng
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">

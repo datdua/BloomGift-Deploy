@@ -49,229 +49,233 @@ const Cart = ({
     //   });
     // }
   }
+
+  const formatMoney = (amount) => {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
   
-    const updatedCartItems = cartData ? cartData : {};
+  const updatedCartItems = cartData ? cartData : {};
 
-    const cartItemsArray = Object.values(updatedCartItems);
+  const cartItemsArray = Object.values(updatedCartItems);
 
-    const totalPriceCart = cartItemsArray.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+  const totalPriceCart = cartItemsArray.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
-    console.log('cartData:', cartData);
-    console.log('updatedCartItems:', updatedCartItems);
-  
-    return (
-      <Fragment>
-        <MetaTags>
-          <title>BloomGift | Giỏ hàng</title>
-          <meta
-            name="description"
-            content="Cart page of BloomGift eCommerce template."
-          />
-        </MetaTags>
-        <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
-        <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-          Giỏ hàng
-        </BreadcrumbsItem>
-        <LayoutOne headerTop="visible">
-          <Breadcrumb />
-          <div className="cart-main-area pt-90 pb-100">
-            <div className="container">
-              {cartItemsArray.length >= 1 ? (
-                <Fragment>
-                  <h3 className="cart-page-title">Your cart items</h3>
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="table-content table-responsive cart-table-content">
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Hình ảnh</th>
-                              <th>Tên</th>
-                              <th>Giá</th>
-                              <th>Số lượng</th>
-                              <th>Tổng tiền</th>
-                              <th>Hành động</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {cartItemsArray.map((item) => (
-                              <tr key={item.productID}>
-                                <td className="product-thumbnail">
-                                  <Link to={process.env.PUBLIC_URL + "/product/" + item.productID}>
-                                    <img
-                                      className="img-fluid"
-                                      src={item.image1}
-                                      alt={item.productName}
-                                    />
-                                  </Link>
-                                </td>
-                                <td className="product-name">
-                                  <Link to={process.env.PUBLIC_URL + "/product/" + item.productID}>
-                                    {item.productName}
-                                  </Link>
-                                  <div className="cart-item-variation">
-                                    <span>Size: {item.sizeText}</span>
-                                    <span>Store: {item.storeName}</span>
-                                  </div>
-                                </td>
-                                <td className="product-price-cart">
-                                  <span className="amount">
-                                    {item.price.toFixed(2) + "VND"}
-                                  </span>
-                                </td>
-                                <td className="product-quantity">
-                                  <div className="cart-plus-minus">
-                                    <button
-                                      className="dec qtybutton"
-                                      onClick={() => handleQuantityChange(item, -1)}
-                                    >
-                                      -
-                                    </button>
-                                    <input
-                                      className="cart-plus-minus-box"
-                                      type="text"
-                                      value={item.quantity}
-                                      readOnly
-                                    />
-                                    <button
-                                      className="inc qtybutton"
-                                      onClick={() => handleQuantityChange(item, 1)}
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                </td>
-                                <td className="product-subtotal">
-                                  {(item.price * item.quantity).toFixed(2) + "VND"}
-                                </td>
-                                <td className="product-remove">
-                                  <button onClick={() => deleteFromCart(item, addToast)}>
-                                    <i className="fa fa-times"></i>
+  console.log('cartData:', cartData);
+  console.log('updatedCartItems:', updatedCartItems);
+
+  return (
+    <Fragment>
+      <MetaTags>
+        <title>BloomGift | Giỏ hàng</title>
+        <meta
+          name="description"
+          content="Cart page of BloomGift eCommerce template."
+        />
+      </MetaTags>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+        Giỏ hàng
+      </BreadcrumbsItem>
+      <LayoutOne headerTop="visible">
+        <Breadcrumb />
+        <div className="cart-main-area pt-90 pb-100">
+          <div className="container">
+            {cartItemsArray.length >= 1 ? (
+              <Fragment>
+                <h3 className="cart-page-title">Sản phẩm trong giỏ hàng</h3>
+                <div className="row">
+                  <div className="col-12">
+                    <div className="table-content table-responsive cart-table-content">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th>Hành động</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cartItemsArray.map((item) => (
+                            <tr key={item.productID}>
+                              <td className="product-thumbnail">
+                                <Link to={process.env.PUBLIC_URL + "/product/" + item.productID}>
+                                  <img
+                                    className="img-fluid"
+                                    src={item.image1}
+                                    alt={item.productName}
+                                  />
+                                </Link>
+                              </td>
+                              <td className="product-name">
+                                <Link to={process.env.PUBLIC_URL + "/product/" + item.productID}>
+                                  {item.productName}
+                                </Link>
+                                <div className="cart-item-variation">
+                                  <span>Kích thước: {item.sizeText}</span>
+                                  <span>Cửa hàng: {item.storeName}</span>
+                                </div>
+                              </td>
+                              <td className="product-price-cart">
+                                <span className="amount">
+                                  {formatMoney(item.price)} VND
+                                  {/* {item.price.toFixed(2) + " VND"} */}
+                                </span>
+                              </td>
+                              <td className="product-quantity">
+                                <div className="cart-plus-minus">
+                                  <button
+                                    className="dec qtybutton"
+                                    onClick={() => handleQuantityChange(item, -1)}
+                                  >
+                                    -
                                   </button>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                                  <input
+                                    className="cart-plus-minus-box"
+                                    type="text"
+                                    value={item.quantity}
+                                    readOnly
+                                  />
+                                  <button
+                                    className="inc qtybutton"
+                                    onClick={() => handleQuantityChange(item, 1)}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </td>
+                              <td className="product-subtotal">
+                                {formatMoney(item.price * item.quantity)} VND
+                                {/* {(item.price * item.quantity).toFixed(2) + " VND"} */}
+                              </td>
+                              <td className="product-remove">
+                                <button onClick={() => deleteFromCart(item, addToast)}>
+                                  <i className="fa fa-times"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                  {/* Cart Total */}
-                  <div className="row">
+                </div>
+                {/* Tổng giỏ hàng */}
+                <div className="row">
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                        >
-                          Continue Shopping
+                        <Link to={process.env.PUBLIC_URL + "/cuahang"}>
+                          Tiếp tục mua sắm
                         </Link>
                       </div>
                       <div className="cart-clear">
-                      <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                          Proceed to checkout
+                        <Link to={process.env.PUBLIC_URL + "/checkout"}>
+                          Tiến hành thanh toán
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-lg-4 col-md-6">
+                {/* <div className="row"> */}
+                  {/* <div className="col-lg-4 col-md-6">
                     <div className="discount-code-wrapper">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
+                          Sử dụng mã giảm giá
                         </h4>
                       </div>
                       <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
+                        <p>Nhập mã giảm giá nếu bạn có.</p>
                         <form>
                           <input type="text" required name="name" />
                           <button className="cart-btn-2" type="submit">
-                            Apply Coupon
+                            Áp dụng mã
                           </button>
                         </form>
                       </div>
                     </div>
-                  </div>                
-                    <div className="col-lg-4 col-md-6 ml-auto">
-                      <div className="cart-page-total">
-                        <h2>Cart totals</h2>
-                        <ul>
-                          <li>
-                            Total{" "}
-                            <span>{totalPriceCart.toFixed(2) + "VND"}</span>
-                          </li>
-                        </ul>                    
-                      </div>
+                  </div> */}
+                  {/* <div className="col-lg-4 col-md-6 ml-auto">
+                    <div className="cart-page-total">
+                      <h2>Tổng giỏ hàng</h2>
+                      <ul>
+                        <li>
+                          Tổng tiền{" "}
+                          <span>{totalPriceCart.toFixed(2) + " VND"}</span>
+                        </li>
+                      </ul>
                     </div>
-                </div>
-                </Fragment>
-              ) : (
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="item-empty-area text-center">
-                      <div className="item-empty-area__icon mb-30">
-                        <i className="pe-7s-cart"></i>
-                      </div>
-                      <div className="item-empty-area__text">
-                        Không có sản phẩm trong giỏ hàng <br />{" "}
-                        <Link to={process.env.PUBLIC_URL + "/cuahang"}>
-                          Shop Now
-                        </Link>
-                      </div>
+                  </div> */}
+                {/* </div> */}
+              </Fragment>
+            ) : (
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="item-empty-area text-center">
+                    <div className="item-empty-area__icon mb-30">
+                      <i className="pe-7s-cart"></i>
+                    </div>
+                    <div className="item-empty-area__text">
+                      Không có sản phẩm trong giỏ hàng <br />{" "}
+                      <Link to={process.env.PUBLIC_URL + "/cuahang"}>
+                        Mua ngay
+                      </Link>
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-        </LayoutOne>
-      </Fragment>
-    );
-  };
+        </div>
+      </LayoutOne>
+    </Fragment>
+  );
+};
 
-  Cart.propTypes = {
-    addToCart: PropTypes.func,
-    cartItems: PropTypes.array,
-    currency: PropTypes.object,
-    decreaseQuantity: PropTypes.func,
-    location: PropTypes.object,
-    deleteAllFromCart: PropTypes.func,
-    deleteFromCart: PropTypes.func,
-    cartData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  };
+Cart.propTypes = {
+  addToCart: PropTypes.func,
+  cartItems: PropTypes.array,
+  currency: PropTypes.object,
+  decreaseQuantity: PropTypes.func,
+  location: PropTypes.object,
+  deleteAllFromCart: PropTypes.func,
+  deleteFromCart: PropTypes.func,
+  cartData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+};
 
-  const mapStateToProps = state => {
-    return {
-      cartData: state.cartData,
-      currency: state.currencyData
-    };
+const mapStateToProps = state => {
+  return {
+    cartData: state.cartData,
+    currency: state.currencyData
   };
+};
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      addToCart: (item, addToast, quantityCount) => {
-        dispatch(addToCart(item, addToast, quantityCount));
-      },
-      updateCartQuantity: (item, newQuantity, addToast) => {
-        if (newQuantity > 0) {
-          dispatch(updateCartQuantity(item, newQuantity, addToast));
-        } else {
-          addToast("Số lượng phải là số dương", { appearance: "error", autoDismiss: true });
-        }
-      },
-      deleteFromCart: (item, addToast) => {
-        dispatch(deleteFromCart(item, addToast));
-      },
-      deleteAllFromCart: addToast => {
-        dispatch(deleteAllFromCart(addToast));
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: (item, addToast, quantityCount) => {
+      dispatch(addToCart(item, addToast, quantityCount));
+    },
+    updateCartQuantity: (item, newQuantity, addToast) => {
+      if (newQuantity > 0) {
+        dispatch(updateCartQuantity(item, newQuantity, addToast));
+      } else {
+        addToast("Số lượng phải là số dương", { appearance: "error", autoDismiss: true });
       }
-    };
+    },
+    deleteFromCart: (item, addToast) => {
+      dispatch(deleteFromCart(item, addToast));
+    },
+    deleteAllFromCart: addToast => {
+      dispatch(deleteAllFromCart(addToast));
+    }
   };
+};
 
 
-  export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
