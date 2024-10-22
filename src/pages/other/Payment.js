@@ -117,7 +117,12 @@ const PaymentPage = ({ location }) => {
         <Input 
           placeholder="Nhập mã giao dịch của bạn"
           value={transactionCode}
-          onChange={(e) => setTransactionCode(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d{0,11}$/.test(value)) {
+              setTransactionCode(value);
+            }
+          }}
           pattern="\d{11}"
           title="Mã giao dịch phải có đúng 11 chữ số"
           maxLength={11}
@@ -141,7 +146,7 @@ const PaymentPage = ({ location }) => {
           className="mt-2 w-full"
           onClick={handlePaymentConfirmation}
           loading={isLoading}
-          disabled={isRobot || !transactionCode}
+          disabled={isRobot || transactionCode.length !== 11}
         >
           Xác nhận đã thanh toán
         </Button>

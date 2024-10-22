@@ -10,6 +10,9 @@ const MenuCart = ({ cartData, currency }) => {
   const dispatch = useDispatch();
   const cartItemsArray = Object.values(cartData);
   const totalPriceCart = cartItemsArray.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const formatMoney = (amount) => {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
  
   useEffect(() => {
     dispatch(getCartItems(addToast));
@@ -42,7 +45,7 @@ const MenuCart = ({ cartData, currency }) => {
                     </Link>
                   </h4>
                   <h6>SL: {item.quantity}</h6>
-                  <span>{item.price.toFixed(2) + " VND"}</span>
+                  <span>{formatMoney(item.price) + " VND"}</span>
                   <div className="cart-item-variation">
                     {/* <span>Kích thước: {item.sizeText}</span> */}
                     <span>Cửa hàng: {item.storeName}</span>
@@ -60,7 +63,7 @@ const MenuCart = ({ cartData, currency }) => {
             <h4>
               Tổng tiền:{" "}
               <span className="shop-total">
-                {totalPriceCart.toFixed(2) + " VND"}
+                {formatMoney(totalPriceCart) + " VND"}
               </span>
             </h4>
           </div>

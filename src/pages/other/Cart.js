@@ -42,12 +42,6 @@ const Cart = ({
         autoDismiss: true,
       });
     }
-    // if (newQuantity > item.quantity) {
-    //   addToast("Số lượng hàng không đủ!", {
-    //     appearance: "error",
-    //     autoDismiss: true
-    //   });
-    // }
   }
 
   const formatMoney = (amount) => {
