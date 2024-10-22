@@ -41,11 +41,11 @@ const MenuCart = ({ cartData, currency }) => {
                       {item.productName}
                     </Link>
                   </h4>
-                  <h6>Qty: {item.quantity}</h6>
-                  <span>{item.price.toFixed(2) + "VND"}</span>
+                  <h6>SL: {item.quantity}</h6>
+                  <span>{item.price.toFixed(2) + " VND"}</span>
                   <div className="cart-item-variation">
-                    <span>Size: {item.sizeText}</span>
-                    <span>Store: {item.storeName}</span>
+                    {/* <span>Kích thước: {item.sizeText}</span> */}
+                    <span>Cửa hàng: {item.storeName}</span>
                   </div>
                 </div>
                 <div className="shopping-cart-delete">
@@ -58,18 +58,18 @@ const MenuCart = ({ cartData, currency }) => {
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total:{" "}
+              Tổng tiền:{" "}
               <span className="shop-total">
-                {totalPriceCart.toFixed(2) + "VND"}
+                {totalPriceCart.toFixed(2) + " VND"}
               </span>
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">
             <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
-              View Cart
+              Xem giỏ hàng
             </Link>
             <Link className="default-btn" to={process.env.PUBLIC_URL + "/checkout"}>
-              Checkout
+              Thanh toán
             </Link>
           </div>
         </Fragment>

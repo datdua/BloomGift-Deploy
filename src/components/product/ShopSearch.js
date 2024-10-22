@@ -21,12 +21,12 @@ const ShopSearch = ({ handleSearch, isSearching }) => {
           <input
             type="text"
             name="productName"
-            placeholder="Search by product name..."
+            placeholder="Tìm kiếm tên sản phẩm..."
             value={searchTerm}
             onChange={onChange}
           />
           <button type="submit" disabled={isSearching === true}>
-            {isSearching === true ? "Searching..." : <i className="pe-7s-search" />}
+            {isSearching === true ? "Đang tìm kiếm..." : <i className="pe-7s-search" />}
           </button>
         </form>
       </div>

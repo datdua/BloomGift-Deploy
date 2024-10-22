@@ -27,7 +27,7 @@ const Product = ({ location, product, getProductDetail, match }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>BloomGift | Trang sản phẩm</title>
+        <title>BloomGift | Sản phẩm</title>
         <meta
           name="description"
           content="Product page of flone react minimalist eCommerce template."
@@ -36,7 +36,7 @@ const Product = ({ location, product, getProductDetail, match }) => {
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Shop Product
+        Cửa hàng
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -48,18 +48,6 @@ const Product = ({ location, product, getProductDetail, match }) => {
           spaceTopClass="pt-100"
           spaceBottomClass="pb-100"
           product={product}
-        />
-
-        {/* product description tab */}
-        <ProductDescriptionTab
-          spaceBottomClass="pb-90"
-          productFullDesc={product}
-        />
-
-        {/* related product slider */}
-        <RelatedProductSlider
-          spaceBottomClass="pb-95"
-          category={product.categoryName}
         />
       </LayoutOne>
     </Fragment>

@@ -17,7 +17,7 @@ const ShopCategories = ({ getSortParams }) => {
 
   return (
     <div className="sidebar-widget">
-      <h4 className="pro-sidebar-title">Categories</h4>
+      <h4 className="pro-sidebar-title">Danh mục</h4>
       <div className="sidebar-widget-list mt-30">
         {categories && categories.length > 0 ? (
           <ul>
@@ -29,7 +29,7 @@ const ShopCategories = ({ getSortParams }) => {
                     setActiveSort(e);
                   }}
                 >
-                  <span className="checkmark" /> All Categories
+                  <span className="checkmark" /> Tất cả danh mục
                 </button>
               </div>
             </li>
@@ -49,7 +49,7 @@ const ShopCategories = ({ getSortParams }) => {
             ))}
           </ul>
         ) : (
-          "No categories found"
+          "Không tìm thấy danh mục nào"
         )}
       </div>
     </div>
