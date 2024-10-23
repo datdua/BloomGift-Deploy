@@ -21,6 +21,7 @@ import PaymentPage from "./pages/other/Payment";
 
 
 
+
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
 const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
@@ -344,7 +345,7 @@ const App = (props) => {
                   path={publicUrl + "/not-found"}
                   component={NotFound}
                 />
-                <Route 
+                <Route
                   path={publicUrl + "/donhang"}
                   component={OrderHistory}
                 />

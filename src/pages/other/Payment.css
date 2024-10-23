@@ -12,3 +12,141 @@
     align-items: center;
     width: 100%;
   }
+  .order-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .product-header {
+    margin-bottom: 8px;
+  }
+  
+  .product-details {
+    margin-bottom: 16px;
+  }
+  
+  .total-row {
+    margin: 16px 0;
+  }
+  
+  .payment-methods {
+    margin: 24px 0;
+    width: 100%;
+  }
+  
+  .payment-logo {
+    height: 20px;
+    object-fit: contain;
+  }
+  
+  .payment-instruction {
+    display: block;
+    margin-bottom: 16px;
+  }
+  
+  .order-button {
+    margin: 16px 0;
+  }
+  
+  .order-note {
+    display: block;
+    margin-top: 16px;
+  }
+  .payment-image{
+    max-width: 300px;
+    max-height: 300px;
+  }
+  .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* To ensure it takes the full height of the viewport */
+  }
+  
+  .payment-card {
+    width: 100%;
+    max-width: 500px; /* Constrain the width */
+    margin: 0 auto; /* Center horizontally */
+    padding: 2rem; /* Add padding for spacing */
+  }
+  
+  .payment-steps {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .step-item {
+    margin-bottom: 2rem; /* Add spacing between steps */
+    width: 100%;
+    text-align: center; /* Center text content */
+  }
+  
+  .payment-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .payment-image {
+    width: 200px;
+    height: auto;
+  }
+  
+  .centered-input {
+    width: 100%;
+    max-width: 400px; /* Constrain the width of the input */
+  }
+  
+  .confirm-button {
+    margin-top: 1rem;
+  }
+  
+  .recaptcha {
+    margin: 1rem auto;
+  }
+  
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .selected-radio .ant-radio-inner {
+    border-color: #f56285 !important;
+  }
+  
+  .selected-radio .ant-radio-inner::after {
+    background-color: #f56285 !important;
+  }
+  
+  .selected-radio .ant-radio-checked .ant-radio-inner {
+    border-color: #f56285 !important;
+  }
+  
+  .selected-radio .ant-radio-checked .ant-radio-inner::after {
+    background-color: #f56285 !important;
+  }
+  
+  .selected-radio .ant-radio-wrapper:hover .ant-radio,
+  .selected-radio .ant-radio:hover .ant-radio-inner,
+  .selected-radio .ant-radio-input:focus + .ant-radio-inner {
+    border-color: #f56285 !important;
+  }
+  
+  .selected-radio .ant-radio-wrapper:hover .ant-radio-inner::after,
+  .selected-radio .ant-radio:hover .ant-radio-inner::after,
+  .selected-radio .ant-radio-input:focus + .ant-radio-inner::after {
+    background-color: #f56285 !important;
+  }
+  
+  .selected-radio .ant-radio-wrapper {
+    color: #f56285 !important;
+  }
+  
+  .selected-radio span {
+    color: #f56285 !important;
+  }
+  

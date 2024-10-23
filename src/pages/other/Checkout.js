@@ -9,6 +9,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { calculateShippingFee, createOrder } from "../../redux/actions/orderAction";
 import { useToasts } from "react-toast-notifications";
+import axios from "axios";
 
 const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) => {
   const { pathname } = location;
@@ -16,6 +17,10 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const { addToast } = useToasts();
   const [shippingFee, setShippingFee] = useState(0);
   const [isShippingCalculated, setIsShippingCalculated] = useState(false);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getDiscountedPrice = (price, discount) => {
     return discount ? price - (price * discount / 100) : price;
@@ -49,17 +54,6 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
 
   const today = new Date().toISOString().split("T")[0];
 
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Reset shipping calculation when address-related fields change
-    if(['specificAddress', 'deliveryDistrict', 'deliveryWard'].includes(name)) {
-      setIsShippingCalculated(false);
-      setShippingFee(0);
-    }
-  }, []);
-
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
@@ -87,40 +81,60 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
     }
   }, [formData, createOrder, addToast, history, isShippingCalculated, shippingFee]);
 
-  const districts = {
-    "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Phạm Ngũ Lão", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Cầu Kho"],
-    "Quận 2": ["Phường Thảo Điền", "Phường An Phú", "Phường Bình An", "Phường Bình Trưng Đông", "Phường Bình Trưng Tây", "Phường Bình Khánh", "Phường An Khánh", "Phường Cát Lái", "Phường Thạnh Mỹ Lợi", "Phường An Lợi Đông", "Phường Thủ Thiêm"],
-    "Quận 3": ["Phường 07", "Phường 14", "Phường 12", "Phường 11", "Phường 13", "Phường 06", "Phường 09", "Phường 10", "Phường 04", "Phường 05", "Phường 03", "Phường 02", "Phường 01"],
-    "Quận Bình Tân": ["Phường Bình Hưng Hòa", "Phường Bình Hưng Hoà A", "Phường Bình Hưng Hoà B", "Phường Bình Trị Đông", "Phường Bình Trị Đông A", "Phường Bình Trị Đông B", "Phường Tân Tạo", "Phường Tân Tạo A", "Phường An Lạc", "Phường An Lạc A"],
-    "Huyện Bình Chánh": ["Xã Phạm Văn Hai", "Xã Vĩnh Lộc A", "Xã Vĩnh Lộc B", "Xã Bình Lợi", "Xã Lê Minh Xuân", "Xã Bình Hưng", "Xã Phong Phú", "Xã An Phú Tây", "Xã Hưng Long", "Xã Đa Phước", "Xã Tân Quý Tây", "Xã Bình Chánh", "Xã Tân Kiên", "Xã Tân Nhựt", "Thị trấn Tân Túc"],
-    "Huyện Cần Giờ": ["Thị trấn Cần Thạnh", "Xã Bình Khánh", "Xã Tam Thôn Hiệp", "Xã An Thới Đông", "Xã Thạnh An", "Xã Long Hòa", "Xã Lý Nhơn", "Xã Lý Thạnh", "Xã Tam Thôn Hiep", "Xã An Thới Đông", "Xã Thạnh An", "Xã Long Hòa", "Xã Lý Nhơn", "Xã Lý Thạnh"],
-    "Quận 4": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 06", "Phường 08", "Phường 07", "Phường 09", "Phường 10", "Phường 13", "Phường 14", "Phường 15", "Phường 12", "Phường 05", "Phường 11"],
-    "Quận 5": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 08", "Phường 09", "Phường 10", "Phường 07", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận 6": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 08", "Phường 09", "Phường 10", "Phường 07", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận 7": ["Phường Tân Thuận Đông", "Phường Tân Thuận Tây", "Phường Tân Kiểng", "Phường Tân Hưng", "Phường Bình Thuận", "Phường Tân Quy", "Phường Phú Thuận", "Phường Tân Phú", "Phường Tân Phong", "Phường Phú Mỹ", "Phường Tân Hưng", "Phường Bình Thuận", "Phường Tân Kiểng"],
-    "Quận 8": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận 9": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận 10": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận 11": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận 12": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận Bình Thạnh": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận Gò Vấp": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận Phú Nhuận": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận Tân Bình": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Quận Tân Phú": ["Phường 01", "Phường 02", "Phường 03", "Phường 04", "Phường 05", "Phường 06", "Phường 07", "Phường 08", "Phường 09", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
-    "Thành phố Thủ Đức": ["Phường Linh Trung", "Phường Linh Tây", "Phường Linh Đông", "Phường Bình Chiểu", "Phường Tam Bình", "Phường Tam Phú", "Phường Hiệp Bình Phước", "Phường Hiệp Bình Chánh", "Phường Linh Chiểu", "Phường Linh Xuân", "Phường Linh Trung", "Phường Tam Phú", "Phường Bình Chiểu", "Phường Linh Đông", "Phường Tam Bình"],
-    "Quận Tân Phú": ["Phường Hiệp Tân", "Phường Hiệp Phú", "Phường Hiệp Đà", "Phường Thạnh Lộc", "Phường Thạnh Xuân", "Phường Thạnh Lộc", "Phường Phú Thọ Hòa", "Phường Phú Thạnh", "Phường Phú Trung", "Phường Phú Thọ", "Phường Phú Trung", "Phường Phú Thạnh", "Phường Phú Thọ Hòa", "Phường Hiệp Đà", "Phường Hiệp Phú"],
-  };
-
-  const [selectedDistrict, setSelectedDistrict] = useState("Quận 1");
-  const [wards, setWards] = useState(districts["Quận 1"]);
-
   useEffect(() => {
-    setWards(districts[selectedDistrict] || []);
-    setFormData(prev => ({ ...prev, deliveryWard: '' }));
+    const fetchLocationData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('https://provinces.open-api.vn/api/p/79?depth=3');
+        
+        // Check if the response is successful
+        if (response.status !== 200) {
+          throw new Error('Failed to fetch location data');
+        }
+        
+        // Access the data directly from response.data
+        const data = response.data;
+        setDistricts(data.districts);
+        setLoading(false);
+      } catch (err) {
+        // Log the entire error object for better debugging
+        console.error("Error fetching location data:", err);
+        setError(err.message);
+        setLoading(false);
+        addToast('Không thể tải dữ liệu địa chỉ', { 
+          appearance: 'error', 
+          autoDismiss: true 
+        });
+      }
+    };
+
+    fetchLocationData();
+  }, [addToast]);
+
+  // Update wards when district changes
+  useEffect(() => {
+    if (formData.deliveryDistrict) {
+      const selectedDistrict = districts.find(
+        district => district.name === formData.deliveryDistrict
+      );
+      if (selectedDistrict) {
+        setWards(selectedDistrict.wards);
+        setFormData(prev => ({ ...prev, deliveryWard: '' }));
+      }
+    }
     setIsShippingCalculated(false);
     setShippingFee(0);
-  }, [selectedDistrict]);
+  }, [formData.deliveryDistrict, districts]);
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if(['specificAddress', 'deliveryDistrict', 'deliveryWard'].includes(name)) {
+      setIsShippingCalculated(false);
+      setShippingFee(0);
+    }
+  }, []);
 
   const handleCalculateShipping = async (e) => {
     e.preventDefault();
@@ -169,21 +183,21 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
   const renderOrderSummary = () => {
     const cartTotalPrice = getCartTotalPrice();
     const totalPriceWithShipping = cartTotalPrice + shippingFee;
-
+  
     return (
       <div className="your-order-bottom">
         <ul>
           <li className="your-order-shipping">
-            <th>Phí vận chuyển</th>
-            <td>
+            <span style={{fontWeight: "bold"}}>Phí vận chuyển:</span>
+            <span style={{color: "#f56285"}}>
               {shippingFee > 0 ? formatCurrency(shippingFee) : "Chưa tính phí vận chuyển"}
-            </td>
+            </span>
           </li>
           <li className="order-total">
-            <th>Tổng cộng</th>
-            <td>
+            <span style={{fontWeight: "bold"}}>Tổng cộng:</span>
+            <span style={{color: "#f56285"}}>
               {formatCurrency(totalPriceWithShipping)}
-            </td>
+            </span>
           </li>
         </ul>
       </div>
@@ -196,7 +210,12 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
       <div className="tax-select-wrapper">
         <div className="tax-select">
           <label>Thành phố</label>
-          <select className="email s-email s-wid" name="deliveryProvince" value={formData.deliveryProvince}>
+          <select 
+            className="email s-email s-wid" 
+            name="deliveryProvince" 
+            value={formData.deliveryProvince}
+            disabled
+          >
             <option>Thành phố Hồ Chí Minh</option>
           </select>
         </div>
@@ -206,14 +225,13 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
             className="email s-email s-wid"
             name="deliveryDistrict"
             value={formData.deliveryDistrict}
-            onChange={(e) => {
-              setSelectedDistrict(e.target.value);
-              setFormData(prev => ({ ...prev, deliveryDistrict: e.target.value }));
-            }}
+            onChange={handleChange}
+            disabled={loading}
           >
-            {Object.keys(districts).map((district, index) => (
-              <option key={index} value={district}>
-                {district}
+            <option value="">Chọn Quận / Huyện</option>
+            {districts.map((district) => (
+              <option key={district.code} value={district.name}>
+                {district.name}
               </option>
             ))}
           </select>
@@ -224,12 +242,13 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
             className="email s-email s-wid"
             name="deliveryWard"
             value={formData.deliveryWard}
-            onChange={(e) => setFormData(prev => ({ ...prev, deliveryWard: e.target.value }))}
+            onChange={handleChange}
+            disabled={!formData.deliveryDistrict || loading}
           >
             <option value="">Chọn Phường / Xã</option>
-            {wards.map((ward, index) => (
-              <option key={index} value={ward}>
-                {ward}
+            {wards.map((ward) => (
+              <option key={ward.code} value={ward.name}>
+                {ward.name}
               </option>
             ))}
           </select>
@@ -238,9 +257,9 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
           className="cart-btn-2"
           type="button"
           onClick={handleCalculateShipping}
-          disabled={!formData.deliveryDistrict || !formData.deliveryWard || !formData.specificAddress}
+          disabled={!formData.deliveryDistrict || !formData.deliveryWard || !formData.specificAddress || loading}
         >
-          Tính phí giao hàng
+          {loading ? 'Đang tải...' : 'Tính phí giao hàng'}
         </button>
       </div>
     </div>
@@ -258,7 +277,14 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+            {loading ? (
+              <div>Đang tải dữ liệu địa chỉ...</div>
+            ) : cartItems && cartItems.length >= 1 ? (
               <form onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-lg-7">
@@ -266,7 +292,7 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
                       <h3>Thông tin hoá đơn</h3>
                       <div className="row">
                         <div className="col-lg-12">
-                          <div className="billing-info mb- 20">
+                          <div className="billing-info mb-20">
                             <label>Ngày và thời gian giao hàng</label>
                             <input
                               type="datetime-local"
@@ -310,7 +336,7 @@ const Checkout = ({ location, cartItems, createOrder, calculateShippingFee }) =>
                         <div className="additional-info">
                           <label>Ghi chú</label>
                           <textarea
-                            placeholder="Notes about your order, e.g. special notes for delivery."
+                            placeholder="Ghi chú cho đơn hàng của bạn."
                             name="note"
                             value={formData.note || ''}
                             onChange={handleChange}

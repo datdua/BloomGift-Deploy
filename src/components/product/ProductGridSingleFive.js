@@ -130,7 +130,7 @@ const ProductGridSingleFive = ({
                         }
                         title={
                           cartItem !== undefined
-                            ? "Added to cart"
+                            ? "Đã thêm giỏ hàng"
                             : "Thêm Giỏ hàng"
                         }
                       >

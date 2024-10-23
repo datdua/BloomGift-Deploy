@@ -1,0 +1,21 @@
+.table-wrapper {
+    position: relative;
+  }
+  
+  .pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    position: absolute;
+    right: 0;
+    bottom: -50px; /* Adjust this value as needed */
+    width: 100%;
+  }
+  
+  .custom-sort-icon {
+    color: #f56285;
+  }
+  
+  .custom-sort-icon:hover {
+    color: #d9534f;
+  }
