@@ -90,10 +90,10 @@ const ProductGridListSingle = ({
                     onClick={() => addToCart(product, addToast)}
                     className={cartItem ? "active" : ""}
                     disabled={!!cartItem}
-                    title={cartItem ? "Added to cart" : "Thêm Giỏ hàng"}
+                    title={cartItem ? "Đã thêm giỏ hàng" : "Thêm Giỏ hàng"}
                   >
                     <i className="pe-7s-cart"></i>{" "}
-                    {cartItem ? "Added" : "Thêm Giỏ hàng"}
+                    {cartItem ? "Đã thêm" : "Thêm Giỏ hàng"}
                   </button>
                 ) : (
                   <button disabled className="active">
@@ -216,10 +216,10 @@ const ProductGridListSingle = ({
                         onClick={() => addToCart(product, addToast)}
                         className={cartItem ? "active" : ""}
                         disabled={!!cartItem}
-                        title={cartItem ? "Added to cart" : "Thêm Giỏ hàng"}
+                        title={cartItem ? "Đã thêm giỏ hàng" : "Thêm Giỏ hàng"}
                       >
                         <i className="pe-7s-cart"></i>{" "}
-                        {cartItem ? "Added" : "Thêm Giỏ hàng"}
+                        {cartItem ? "Đã thêm" : "Thêm Giỏ hàng"}
                       </button>
                     ) : (
                       <button disabled className="active">
