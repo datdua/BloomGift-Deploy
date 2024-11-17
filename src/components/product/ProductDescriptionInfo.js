@@ -280,12 +280,12 @@ const ProductDescriptionInfo = ({
           <li>{product.sold}</li>
         </ul>
       </div>
-      <div className="pro-details-meta">
+      {/* <div className="pro-details-meta">
         <span>Ngày tạo:</span>
         <ul>
           <li>{new Date(product.createDate).toLocaleDateString()}</li>
         </ul>
-      </div>
+      </div> */}
 
       <div className="pro-details-social">
         <ul>
