@@ -17,7 +17,6 @@ const ProductGridListSingle = ({
   sliderClassName,
   spaceBottomClass
 }) => {
-  console.log('Rendering product:', product);
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
 
@@ -67,7 +66,7 @@ const ProductGridListSingle = ({
                 ) : (
                   ""
                 )}
-                {product.featured ? <span className="purple">Featured</span> : ""}
+                {product.featured ? <span className="purple">Đề xuất</span> : ""}
                 {product.storeName ? <span className="yellow">{product.storeName}</span>: ""}
               </div>
             ) : (

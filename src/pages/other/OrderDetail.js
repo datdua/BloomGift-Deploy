@@ -30,7 +30,13 @@ const OrderDetail = () => {
   }, [fetchOrderDetail, location.pathname]);
 
   if (loading) {
-    return <Spin size="large" />;
+    return <Spin size="large" style={{
+      display: "flex",
+      justifContent: "center",
+      alignItems: "center",
+      height: '100vh',
+    }
+    } />;
   }
 
   if (error) {
@@ -51,7 +57,7 @@ const OrderDetail = () => {
     { status: 'Đơn Hàng Đã Đặt', icon: <InboxOutlined />, time: startDate, enabled: true },
     { status: 'Đơn Hàng Bị Huỷ', icon: <InboxOutlined />, enabled: order.orderStatus === 'Đã hủy' },
     { status: 'Đã Xác Nhận Thông Tin Thanh Toán', icon: <DollarCircleOutlined />, enabled: order.orderStatus === 'Xác nhận đơn hàng' },
-    { status: 'Người Bán Đang Chuẩn Bị Hàng', icon: <DollarCircleOutlined />, enabled: order.orderStatus === 'Đang thực hiện' }, 
+    { status: 'Người Bán Đang Chuẩn Bị Hàng', icon: <DollarCircleOutlined />, enabled: order.orderStatus === 'Đang thực hiện' },
     { status: 'Đang Vận Chuyển', icon: <CarOutlined />, time: deliveryDateTime, enabled: order.orderStatus === 'Đang giao hàng' },
     { status: 'Đã giao hàng', icon: <InboxOutlined />, enabled: order.orderStatus === 'Đã hoàn tất' },
   ];
@@ -119,12 +125,6 @@ const OrderDetail = () => {
               </Col>
             </Row>
           </Card>
-          <Row justify="end" className="mt-4">
-            <Col>
-              <Button type="primary" className="mr-2">Liên Hệ Người Bán</Button>
-              <Button>Hủy Đơn Hàng</Button>
-            </Col>
-          </Row>
         </div>
       </LayoutOne>
     </Fragment>

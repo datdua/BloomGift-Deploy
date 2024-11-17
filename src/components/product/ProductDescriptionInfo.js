@@ -154,8 +154,8 @@ const ProductDescriptionInfo = ({
             </div>
           </div>
         )} */}
-
-        {/* {product.sizes && product.sizes.length > 0 && (
+      <div className="pro-details-size-color">
+        {product.sizes && product.sizes.length > 0 && (
           <div className="pro-details-size">
             <span>Size</span>
             <div className="pro-details-size-content">
@@ -176,7 +176,7 @@ const ProductDescriptionInfo = ({
             </div>
           </div>
         )}
-      </div> */}
+      </div>
 
       <div className="pro-details-quality">
         <div className="cart-plus-minus">

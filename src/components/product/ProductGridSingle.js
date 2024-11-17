@@ -70,7 +70,7 @@ const ProductGridSingle = ({
                   ""
                 )}
                 {product.new ? <span className="purple">New</span> : ""}
-                {product.featured ? <span className="purple">Featured</span> : ""}
+                {product.featured ? <span className="purple">Đề xuất</span> : ""}
                 {product.storeName ? <span className="yellow">{product.storeName}</span>: ""}
               </div>
             ) : (

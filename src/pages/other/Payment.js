@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Input, message, Typography, Radio, Space, Divider, Row, Col } from 'antd';
-import { WalletOutlined } from '@ant-design/icons';
+import { Card, Button, message, Typography, Radio, Space, Divider, Row, Col, Upload } from 'antd';
+import { WalletOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
 import MetaTags from 'react-meta-tags';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import LayoutOne from '../../layouts/LayoutOne';
@@ -17,11 +17,11 @@ const { Title, Text } = Typography;
 
 const PaymentPage = ({ location }) => {
   const [paymentMethod, setPaymentMethod] = useState(null);
-  const [transactionCode, setTransactionCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [orderData, setOrderData] = useState(null);
   const [countdown, setCountdown] = useState(60); // 60 seconds countdown
+  const [imageFile, setImageFile] = useState(null);
   const { orderID } = useParams();
   const { addToast } = useToasts();
   const dispatch = useDispatch();
@@ -68,11 +68,6 @@ const PaymentPage = ({ location }) => {
   };
 
   const handlePaymentConfirmation = async () => {
-    if (!transactionCode) {
-      message.error('Vui lòng nhập mã giao dịch');
-      return;
-    }
-
     if (!isVerified) {
       message.error('Vui lòng xác nhận bạn không phải robot');
       return;
@@ -83,6 +78,11 @@ const PaymentPage = ({ location }) => {
       return;
     }
 
+    if (!imageFile) {
+      message.error('Vui lòng tải lên hình ảnh biên lai');
+      return;
+    }
+
     const bankName = paymentMethod === 'momo' ? 'MOMO' : 'TPBANK';
 
     setIsLoading(true);
@@ -90,12 +90,12 @@ const PaymentPage = ({ location }) => {
       await paymentService.confirmPayment(
         orderData.paymentID,
         bankName,
-        transactionCode,
+        imageFile,
         addToast
       );
 
-      setTransactionCode('');
       setPaymentMethod(null);
+      setImageFile(null);
     } catch (error) {
       message.error('Xác nhận thanh toán thất bại');
     } finally {
@@ -105,6 +105,18 @@ const PaymentPage = ({ location }) => {
 
   const handleCaptchaChange = (value) => {
     setIsVerified(!!value);
+  };
+
+  const handleImageUpload = ({ file }) => {
+    if (file.size > 1024 * 1024) { // Check if file size is greater than 1MB
+      message.error('Kích thước hình ảnh phải nhỏ hơn 1MB');
+      return;
+    }
+    setImageFile(file);
+  };
+
+  const handleImageRemove = () => {
+    setImageFile(null);
   };
 
   const renderPaymentSteps = () => (
@@ -142,27 +154,31 @@ const PaymentPage = ({ location }) => {
         </div>
 
         <div className="step-item">
-          <Title level={5} className="text-center">Bước 2: Nhập mã giao dịch</Title>
-          <Input
-            placeholder="Nhập mã giao dịch của bạn"
-            value={transactionCode}
-            onChange={(e) => {
-              const value = e.target.value;
-              if (/^\d{0,11}$/.test(value)) {
-                setTransactionCode(value);
-              }
-            }}
-            pattern="\d{11}"
-            maxLength={11}
-            className="w-full centered-input"
-          />
-          <Text type="secondary" className="block mt-2 text-center">
-            *Vui lòng nhập mã giao dịch bạn nhận được sau khi chuyển khoản
-          </Text>
-          <br/>
-          <Text type="danger" className="block mt-4 text-center">
-            Vui lòng nhập đúng nội dung chuyển khoản: "DONHANG {orderID}"
-          </Text>
+          <Title level={5} className="text-center">Bước 2: Tải lên hình ảnh hoá đơn</Title>
+          <Upload
+            beforeUpload={() => false}
+            onChange={handleImageUpload}
+            maxCount={1}
+            accept="image/*"
+          >
+            <Button icon={<UploadOutlined />}>Chọn hình ảnh</Button>
+          </Upload>
+          {imageFile && (
+            <div className="mt-2 text-center">
+              <img
+                src={imageFile ? URL.createObjectURL(imageFile) : ''}
+                alt="Receipt"
+                style={{ maxWidth: '100%', maxHeight: '200px' }}
+              />
+              <Button
+                icon={<DeleteOutlined />}
+                onClick={handleImageRemove}
+                className="mt-2"
+              >
+                Xóa hình ảnh
+              </Button>
+            </div>
+          )}
         </div>
         <div className="step-item">
           <Title level={5} className="text-center">Bước 3: Xác nhận thanh toán</Title>
@@ -178,7 +194,7 @@ const PaymentPage = ({ location }) => {
             size="large"
             onClick={handlePaymentConfirmation}
             loading={isLoading}
-            disabled={!isVerified || transactionCode.length !== 11}
+            disabled={!isVerified || !imageFile}
             className="confirm-button centered-button"
           >
             Xác nhận đã thanh toán

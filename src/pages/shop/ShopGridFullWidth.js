@@ -27,7 +27,6 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
   const pageLimit = 10;
   const { pathname } = location;
 
-
   // New state for search parameters
   const [searchParams, setSearchParams] = useState({
     descriptionProduct: "",
@@ -46,31 +45,35 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
     setIsSearching(true);
     const apiCall = Object.values(searchParams).some(param => param !== "")
       ? searchProduct(
-        addToast,
-        searchParams.descriptionProduct,
-        searchParams.colourProduct,
-        searchParams.priceProduct,
-        searchParams.productName,
-        searchParams.categoryName,
-        searchParams.createDate,
-        searchParams.storeName,
-        searchParams.sizeProduct,
-        currentPage - 1,
-        pageLimit
-      )
+          addToast,
+          searchParams.descriptionProduct,
+          searchParams.colourProduct,
+          searchParams.priceProduct,
+          searchParams.productName,
+          searchParams.categoryName,
+          searchParams.createDate,
+          searchParams.storeName,
+          searchParams.sizeProduct,
+          currentPage - 1,
+          pageLimit
+        )
       : getAllProducts(currentPage - 1, pageLimit);
 
     apiCall
       .then((response) => {
+        // Store the full response content
         setSortedProducts(response.content);
-        setCurrentData(response.content);
+        // Apply any client-side sorting/filtering to the current page data
+        const sortedData = getSortedProducts(response.content, sortType, sortValue);
+        const filteredData = getSortedProducts(sortedData, filterSortType, filterSortValue);
+        setCurrentData(Array.isArray(filteredData) ? filteredData : []);
         setIsSearching(false);
       })
       .catch((error) => {
         console.error("Failed to load products", error);
         setIsSearching(false);
       });
-  }, [searchParams, currentPage, pageLimit, searchProduct, getAllProducts, addToast]);
+  }, [searchParams, currentPage, pageLimit, searchProduct, getAllProducts, addToast, sortType, sortValue, filterSortType, filterSortValue]);
 
   useEffect(() => {
     fetchProducts();
@@ -116,7 +119,6 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
     }
   }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
   
-
   return (
     <Fragment>
       <MetaTags>
@@ -150,7 +152,7 @@ const ShopGridFullWidth = ({ location, products, getAllProducts, searchProduct }
                   getLayout={getLayout}
                   getFilterSortParams={getFilterSortParams}
                   productCount={products.length}
-                  sortedProductCount={Array.isArray(currentData) ? currentData.length : 0} // Safely access length
+                  sortedProductCount={Array.isArray(products) ? products.length : 0}
                 />
 
                 {/* shop page content default */}

@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import ProductGridSingle from "../../components/product/ProductGridSingle";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
+import ProductGridListSingle from "../../components/product/ProductGridListSingle";
 
 const ProductGrid = ({
   products = [],
@@ -18,25 +18,28 @@ const ProductGrid = ({
   sliderClassName,
   spaceBottomClass
 }) => {
+  console.log('Products in ProductGrid:', products);
   return (
     <Fragment>
-      {products.map((product, index) => {
-        return (
-          <ProductGridSingle
-            sliderClassName={sliderClassName}
-            spaceBottomClass={spaceBottomClass}
+      {products.length > 0 ? (
+        products.map(product => (
+          <ProductGridListSingle
+            key={product.productID}
             product={product}
             currency={currency}
             addToCart={addToCart}
             addToWishlist={addToWishlist}
             addToCompare={addToCompare}
-            cartItem={cartItems.find(cartItem => cartItem.productID === product.productID)} 
-            wishlistItem={wishlistItems.find(wishlistItem => wishlistItem?.productID === product.productID)}
-            compareItem={compareItems.find(compareItem => compareItem?.productID === product.productID)}
-            key={`${product.productID}-${index}`}
+            cartItems={cartItems}
+            wishlistItems={wishlistItems}
+            compareItems={compareItems}
+            sliderClassName={sliderClassName}
+            spaceBottomClass={spaceBottomClass}
           />
-        );
-      })}
+        ))
+      ) : (
+        <p>No products found.</p>
+      )}
     </Fragment>
   );
 };
@@ -48,26 +51,39 @@ ProductGrid.propTypes = {
   cartItems: PropTypes.array,
   compareItems: PropTypes.array,
   currency: PropTypes.object,
-  products: PropTypes.array, // Ensure products array is passed correctly
+  products: PropTypes.array,
   sliderClassName: PropTypes.string,
   spaceBottomClass: PropTypes.string,
   wishlistItems: PropTypes.array
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     currency: state.currencyData,
-    cartItems: Object.values(state.cartData.cartItems || {}),
+    cartItems: state.cartData,
     wishlistItems: state.wishlistData,
     compareItems: state.compareData
   };
 };
 
-
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: (item, addToast, quantityCount, selectedProductColor, selectedProductSize) => {
-      dispatch(addToCart(item, addToast, quantityCount, selectedProductColor, selectedProductSize));
+    addToCart: (
+      item,
+      addToast,
+      quantityCount,
+      selectedProductColor,
+      selectedProductSize
+    ) => {
+      dispatch(
+        addToCart(
+          item,
+          addToast,
+          quantityCount,
+          selectedProductColor,
+          selectedProductSize
+        )
+      );
     },
     addToWishlist: (item, addToast) => {
       dispatch(addToWishlist(item, addToast));
