@@ -160,15 +160,16 @@ const PaymentPage = ({ location }) => {
             onChange={handleImageUpload}
             maxCount={1}
             accept="image/*"
+            hidden={!!imageFile}
           >
             <Button icon={<UploadOutlined />}>Chọn hình ảnh</Button>
           </Upload>
           {imageFile && (
             <div className="mt-2 text-center">
               <img
-                src={imageFile ? URL.createObjectURL(imageFile) : ''}
+                src={URL.createObjectURL(imageFile)}
                 alt="Receipt"
-                style={{ maxWidth: '100%', maxHeight: '200px' }}
+                style={{ maxWidth: '100%', maxHeight: '200px', visibility: imageFile ? 'visible' : 'hidden' }}
               />
               <Button
                 icon={<DeleteOutlined />}
