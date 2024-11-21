@@ -20,7 +20,7 @@ const PaymentPage = ({ location }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [orderData, setOrderData] = useState(null);
-  const [countdown, setCountdown] = useState(60); // 60 seconds countdown
+  const [countdown, setCountdown] = useState(300); 
   const [imageFile, setImageFile] = useState(null);
   const { orderID } = useParams();
   const { addToast } = useToasts();
@@ -203,10 +203,7 @@ const PaymentPage = ({ location }) => {
         </div>
       </div>
       <Text type="danger" className="block mt-4 text-center">
-        Vui lòng thanh toán đơn hàng trong vòng 1 phút!
-      </Text>
-      <Text type="danger" className="block mt-2 text-center">
-        {countdown} giây còn lại
+        Vui lòng thanh toán đơn hàng trong vòng 5 phút! Còn lại {countdown} giây 
       </Text>
     </Card>
   );

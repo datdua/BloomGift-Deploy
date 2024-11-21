@@ -121,7 +121,7 @@ const OrderHistory = ({ orders, location }) => {
                               <td>{order.phone}</td>
                               <td>
                                 <div className="cart-shiping-update-wrapper">
-                                  {(order.orderStatus === 'Xác nhận đơn hàng' || order.orderStatus === 'Đã Huỷ') && (
+                                  {(order.orderStatus === 'Chưa thanh toán' || order.orderStatus === 'Đã Huỷ') && (
                                     <div className="cart-shiping-update">
                                       <div className='cart-clear'>
                                         <button className="cart-btn-2" type="button" onClick={() => handlePayOrder(order.orderID)}>
