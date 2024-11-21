@@ -46,9 +46,9 @@ const MenuCart = ({ cartData, currency }) => {
                   </h4>
                   <h6>SL: {item.quantity}</h6>
                   <span>{formatMoney(item.price) + " VND"}</span>
-                  <div className="cart-item-variation">
-                    {/* <span>Kích thước: {item.sizeText}</span> */}
+                  <div className="cart-item-variation">                
                     <span>Cửa hàng: {item.storeName}</span>
+                    {item.sizeText && <span>Kích thước: {item.sizeText}</span>}
                   </div>
                 </div>
                 <div className="shopping-cart-delete">

@@ -3,12 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { getOrderDetail } from '../../redux/actions/orderAction';
 import { useToasts } from 'react-toast-notifications';
-import { Card, Row, Col, Timeline, Button, Table, Spin } from 'antd';
-import { CheckCircleOutlined, DollarCircleOutlined, CarOutlined, InboxOutlined, StarOutlined } from '@ant-design/icons';
+import { Card, Row, Col, Timeline, Spin, Table } from 'antd';
+import { CheckCircleOutlined, DollarCircleOutlined, CarOutlined, InboxOutlined, CloseCircleOutlined, LoadingOutlined, TruckOutlined } from '@ant-design/icons';
 import { MetaTags } from 'react-meta-tags';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import LayoutOne from '../../layouts/LayoutOne';
 import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
+
+const formatDateTime = (dateTime) => {
+  if (!dateTime) return 'N/A';
+  const date = new Date(dateTime);
+  return new Intl.DateTimeFormat('vi-VN', {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }).format(date);
+};
 
 const OrderDetail = () => {
   const dispatch = useDispatch();
@@ -30,7 +39,12 @@ const OrderDetail = () => {
   }, [fetchOrderDetail, location.pathname]);
 
   if (loading) {
-    return <Spin size="large" />;
+    return <Spin size="large" style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: '100vh',
+    }} />;
   }
 
   if (error) {
@@ -38,22 +52,59 @@ const OrderDetail = () => {
   }
 
   if (!order) {
-    return <p>No order details available</p>;
+    return <p>Không có đơn hàng</p>;
   }
+
   const formatMoney = (amount) => {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  const startDate = order?.startDate ?? 'N/A';
-  const deliveryDateTime = order?.deliveryDateTime ?? 'N/A';
+  const startDate = formatDateTime(order?.startDate);
+  const deliveryDateTime = formatDateTime(order?.deliveryDateTime);
+
+  // Define order status progression
+  const STATUS_PROGRESSION = {
+    'Chưa thanh toán': ['Chưa thanh toán'],
+    'Đã hủy': ['Chưa thanh toán','Đã hủy'],  
+    'Xác nhận đơn hàng': ['Chưa thanh toán', 'Xác nhận đơn hàng'],
+    'Đang thực hiện': ['Chưa thanh toán', 'Xác nhận đơn hàng', 'Đang thực hiện'],
+    'Đang giao hàng': ['Chưa thanh toán', 'Xác nhận đơn hàng', 'Đang thực hiện', 'Đang giao hàng'],
+    'Đã hoàn tất': ['Chưa thanh toán', 'Xác nhận đơn hàng', 'Đang thực hiện', 'Đang giao hàng', 'Đã hoàn tất']
+  };
 
   const orderStatus = [
-    { status: 'Đơn Hàng Đã Đặt', icon: <InboxOutlined />, time: startDate, enabled: true },
-    { status: 'Đơn Hàng Bị Huỷ', icon: <InboxOutlined />, enabled: order.orderStatus === 'Đã hủy' },
-    { status: 'Đã Xác Nhận Thông Tin Thanh Toán', icon: <DollarCircleOutlined />, enabled: order.orderStatus === 'Xác nhận đơn hàng' },
-    { status: 'Người Bán Đang Chuẩn Bị Hàng', icon: <DollarCircleOutlined />, enabled: order.orderStatus === 'Đang thực hiện' }, 
-    { status: 'Đang Vận Chuyển', icon: <CarOutlined />, time: deliveryDateTime, enabled: order.orderStatus === 'Đang giao hàng' },
-    { status: 'Đã giao hàng', icon: <InboxOutlined />, enabled: order.orderStatus === 'Đã hoàn tất' },
+    { 
+      status: 'Đơn Hàng Đã Đặt', 
+      icon: <InboxOutlined />, 
+      time: startDate, 
+      statusKey: 'Chưa thanh toán'
+    },
+    { 
+      status: 'Đơn Hàng Bị Huỷ', 
+      icon: <CloseCircleOutlined />, 
+      statusKey: 'Đã hủy'
+    },
+    { 
+      status: 'Đã Xác Nhận Thông Tin Thanh Toán', 
+      icon: <DollarCircleOutlined />, 
+      statusKey: 'Xác nhận đơn hàng'
+    },
+    { 
+      status: 'Người Bán Đang Chuẩn Bị Hàng', 
+      icon: <LoadingOutlined />, 
+      statusKey: 'Đang thực hiện'
+    },
+    { 
+      status: 'Đang Vận Chuyển', 
+      icon: <TruckOutlined />, 
+      time: deliveryDateTime, 
+      statusKey: 'Đang giao hàng'
+    },
+    { 
+      status: 'Đã giao hàng', 
+      icon: <CheckCircleOutlined />, 
+      statusKey: 'Đã hoàn tất'
+    },
   ];
 
   const columns = [
@@ -62,6 +113,15 @@ const OrderDetail = () => {
     { title: 'Số lượng', dataIndex: 'quantity', key: 'quantity' },
     { title: 'Đơn giá', dataIndex: 'productTotalPrice', key: 'productTotalPrice' },
   ];
+
+  // Determine if a status should be colored green or red
+  const getStatusColor = (statusKey) => {
+    if (statusKey === 'Đã hủy' && order.orderStatus === 'Đã hủy') {
+      return 'red';
+    }
+    const currentProgressionSteps = STATUS_PROGRESSION[order.orderStatus] || [];
+    return currentProgressionSteps.includes(statusKey) ? 'green' : 'gray';
+  };
 
   return (
     <Fragment>
@@ -83,10 +143,14 @@ const OrderDetail = () => {
               <Col span={16}>
                 <Timeline mode="alternate">
                   {orderStatus.map((item, index) => (
-                    item.enabled && (
-                      <Timeline.Item key={index} dot={item.icon} color={index < 3 ? 'green' : 'gray'}>
+                    (item.statusKey !== 'Đã hủy' || order.orderStatus === 'Đã hủy') && (
+                      <Timeline.Item 
+                        key={index} 
+                        dot={item.icon} 
+                        color={getStatusColor(item.statusKey)}
+                      >
                         {item.status}
-                        <p>{item.time}</p>
+                        {item.time && <p>{item.time}</p>}
                       </Timeline.Item>
                     )
                   ))}
@@ -119,12 +183,6 @@ const OrderDetail = () => {
               </Col>
             </Row>
           </Card>
-          <Row justify="end" className="mt-4">
-            <Col>
-              <Button type="primary" className="mr-2">Liên Hệ Người Bán</Button>
-              <Button>Hủy Đơn Hàng</Button>
-            </Col>
-          </Row>
         </div>
       </LayoutOne>
     </Fragment>

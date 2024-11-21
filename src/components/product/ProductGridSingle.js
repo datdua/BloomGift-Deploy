@@ -62,7 +62,7 @@ const ProductGridSingle = ({
                 ""
               )}
             </Link>
-            {product.discount || product.new ? (
+            {(product.discount || product.new || product.featured || product.storeName) && (
               <div className="product-img-badges">
                 {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
@@ -70,13 +70,10 @@ const ProductGridSingle = ({
                   ""
                 )}
                 {product.new ? <span className="purple">New</span> : ""}
-                {product.featured ? <span className="purple">Featured</span> : ""}
-                {product.storeName ? <span className="yellow">{product.storeName}</span>: ""}
+                {product.featured ? <span className="purple">Đề xuất</span> : ""}
+                {product.storeName ? <span className="yellow">{product.storeName}</span> : ""}
               </div>
-            ) : (
-              ""
             )}
-
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
                 <button

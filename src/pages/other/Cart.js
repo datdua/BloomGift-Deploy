@@ -111,7 +111,7 @@ const Cart = ({
                                   {item.productName}
                                 </Link>
                                 <div className="cart-item-variation">
-                                  <span>Kích thước: {item.sizeText}</span>
+                                  {item.sizeText && <span>Kích thước: {item.sizeText}</span>}
                                   <span>Cửa hàng: {item.storeName}</span>
                                 </div>
                               </td>

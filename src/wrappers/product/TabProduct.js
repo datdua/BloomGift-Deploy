@@ -80,6 +80,7 @@ const TabProduct = ({
                   products={newProducts} 
                   limit={8}
                   spaceBottomClass="mb-25"
+                  columnClass="col-xl-2 col-lg-3 col-md-4 col-sm-6" // Adjusted column classes for 6 products per row
                 />
               </div>
             </Tab.Pane>
@@ -90,6 +91,7 @@ const TabProduct = ({
                   products={bestSellerProducts} 
                   limit={8}
                   spaceBottomClass="mb-25"
+                  columnClass="col-xl-2 col-lg-3 col-md-4 col-sm-6" // Adjusted column classes for 6 products per row
                 />
               </div>
             </Tab.Pane>
@@ -97,9 +99,10 @@ const TabProduct = ({
               <div className="row">
                 <ProductGrid
                   category={category}
-                  products={featureProducts} // Pass featured products to ProductGrid
+                  products={featureProducts} 
                   limit={24}
                   spaceBottomClass="mb-25"
+                  columnClass="col-xl-2 col-lg-3 col-md-4 col-sm-6" // Adjusted column classes for 6 products per row
                 />
               </div>
             </Tab.Pane>

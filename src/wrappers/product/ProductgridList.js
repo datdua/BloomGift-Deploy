@@ -21,8 +21,8 @@ const ProductGrid = ({
   console.log('Products in ProductGrid:', products);
   return (
     <Fragment>
-      {products.map(product => {
-        return (
+      {products.length > 0 ? (
+        products.map(product => (
           <ProductGridListSingle
             key={product.productID}
             product={product}
@@ -36,8 +36,10 @@ const ProductGrid = ({
             sliderClassName={sliderClassName}
             spaceBottomClass={spaceBottomClass}
           />
-        );
-      })}
+        ))
+      ) : (
+        <p>No products found.</p>
+      )}
     </Fragment>
   );
 };
