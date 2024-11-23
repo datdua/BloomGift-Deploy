@@ -10,6 +10,7 @@ import { getOrder } from '../../redux/actions/orderAction.js';
 import { useHistory } from 'react-router-dom';
 import { Pagination } from 'antd'; 
 import './Order.css'; 
+import moment from 'moment';
 
 const OrderHistory = ({ orders, location }) => {
   const [sortField, setSortField] = useState('');
@@ -44,8 +45,10 @@ const OrderHistory = ({ orders, location }) => {
   };
 
   const formatDate = (dateString) => {
-    return format(new Date(dateString), 'dd/MM/yyyy HH:mm');
+    if (!dateString) return 'N/A';
+    return moment.utc(dateString).format('DD/MM/YYYY HH:mm');
   };
+  
 
   const handleViewOrder = (orderID) => {
     history.push(`/chitietdonhang/${orderID}`);

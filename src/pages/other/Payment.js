@@ -58,7 +58,7 @@ const PaymentPage = ({ location }) => {
       const timer = setInterval(() => {
         setCountdown(prev => prev - 1);
       }, 1000);
-      return () => clearInterval(timer); // Cleanup interval on unmount
+      return () => clearInterval(timer); 
     }
   }, [countdown, history]);
 
@@ -137,7 +137,7 @@ const PaymentPage = ({ location }) => {
                 <div className="mt-2">
                   <Text>TPBank</Text>
                   <br />
-                  <Text>0905269225</Text>
+                  <Text>08122031357</Text>
                 </div>
               )}
               <div className="mt-2">

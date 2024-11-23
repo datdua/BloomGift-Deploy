@@ -9,15 +9,13 @@ import { MetaTags } from 'react-meta-tags';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import LayoutOne from '../../layouts/LayoutOne';
 import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
+import moment from 'moment';
 
 const formatDateTime = (dateTime) => {
   if (!dateTime) return 'N/A';
-  const date = new Date(dateTime);
-  return new Intl.DateTimeFormat('vi-VN', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  }).format(date);
+  return moment.utc(dateTime).format('DD/MM/YYYY HH:mm');
 };
+
 
 const OrderDetail = () => {
   const dispatch = useDispatch();
