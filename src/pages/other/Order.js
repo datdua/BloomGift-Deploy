@@ -118,7 +118,7 @@ const OrderHistory = ({ orders, location }) => {
                               <td>{order.orderID}</td>
                               <td>{formatMoney(order.oderPrice)}đ</td>
                               <td>{order.orderStatus}</td>
-                              <td>{formatDate(order.startDate)}</td>
+                              <td>{formatDate(order.createAt)}</td>
                               <td>{formatDate(order.deliveryDateTime)}</td>
                               <td>{order.deliveryAddress}</td>
                               <td>{order.phone}</td>

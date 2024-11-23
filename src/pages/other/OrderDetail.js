@@ -57,7 +57,7 @@ const OrderDetail = () => {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  const startDate = formatDateTime(order?.startDate);
+  const createAt = formatDateTime(order?.createAt);
   const deliveryDateTime = formatDateTime(order?.deliveryDateTime);
 
   // Define order status progression
@@ -75,7 +75,7 @@ const OrderDetail = () => {
     { 
       status: 'Đơn Hàng Đã Đặt', 
       icon: <InboxOutlined />, 
-      time: startDate, 
+      time: createAt, 
       statusKey: 'Chưa thanh toán', 
     },
     { 
