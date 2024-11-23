@@ -4,20 +4,18 @@ import { useParams, useLocation } from 'react-router-dom';
 import { getOrderDetail } from '../../redux/actions/orderAction';
 import { useToasts } from 'react-toast-notifications';
 import { Card, Row, Col, Timeline, Spin, Table } from 'antd';
-import { CheckCircleOutlined, DollarCircleOutlined, CarOutlined, InboxOutlined, CloseCircleOutlined, LoadingOutlined, TruckOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, DollarCircleOutlined, CarOutlined, InboxOutlined, CloseCircleOutlined, LoadingOutlined, TruckOutlined, HistoryOutlined } from '@ant-design/icons';
 import { MetaTags } from 'react-meta-tags';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import LayoutOne from '../../layouts/LayoutOne';
 import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
+import moment from 'moment';
 
 const formatDateTime = (dateTime) => {
   if (!dateTime) return 'N/A';
-  const date = new Date(dateTime);
-  return new Intl.DateTimeFormat('vi-VN', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  }).format(date);
+  return moment.utc(dateTime).format('DD/MM/YYYY HH:mm');
 };
+
 
 const OrderDetail = () => {
   const dispatch = useDispatch();
@@ -65,11 +63,12 @@ const OrderDetail = () => {
   // Define order status progression
   const STATUS_PROGRESSION = {
     'Chưa thanh toán': ['Chưa thanh toán'],
+    'Đang chờ xác nhận': ['Chưa thanh toán','Đang chờ xác nhận'],
     'Đã hủy': ['Chưa thanh toán','Đã hủy'],  
-    'Xác nhận đơn hàng': ['Chưa thanh toán', 'Xác nhận đơn hàng'],
-    'Đang thực hiện': ['Chưa thanh toán', 'Xác nhận đơn hàng', 'Đang thực hiện'],
-    'Đang giao hàng': ['Chưa thanh toán', 'Xác nhận đơn hàng', 'Đang thực hiện', 'Đang giao hàng'],
-    'Đã hoàn tất': ['Chưa thanh toán', 'Xác nhận đơn hàng', 'Đang thực hiện', 'Đang giao hàng', 'Đã hoàn tất']
+    'Đã thanh toán': ['Chưa thanh toán', 'Đang chờ xác nhận', 'Đã thanh toán'],
+    'Đang thực hiện': ['Chưa thanh toán', 'Đang chờ xác nhận', 'Đã thanh toán', 'Đang thực hiện'],
+    'Đang vận chuyển': ['Chưa thanh toán','Đang chờ xác nhận', 'Đã thanh toán', 'Đang thực hiện', 'Đang vận chuyển'],
+    'Đã hoàn tất': ['Chưa thanh toán', 'Đang chờ xác nhận', 'Đã thanh toán', 'Đang thực hiện', 'Đang vận chuyển', 'Đã hoàn tất']
   };
 
   const orderStatus = [
@@ -77,17 +76,22 @@ const OrderDetail = () => {
       status: 'Đơn Hàng Đã Đặt', 
       icon: <InboxOutlined />, 
       time: startDate, 
-      statusKey: 'Chưa thanh toán'
+      statusKey: 'Chưa thanh toán', 
     },
     { 
       status: 'Đơn Hàng Bị Huỷ', 
       icon: <CloseCircleOutlined />, 
       statusKey: 'Đã hủy'
     },
+    {
+      status: 'Đang Chờ Xác Nhận',
+      icon: <HistoryOutlined />,
+      statusKey: 'Đang chờ xác nhận'
+    },
     { 
       status: 'Đã Xác Nhận Thông Tin Thanh Toán', 
       icon: <DollarCircleOutlined />, 
-      statusKey: 'Xác nhận đơn hàng'
+      statusKey: 'Đã thanh toán'
     },
     { 
       status: 'Người Bán Đang Chuẩn Bị Hàng', 
@@ -98,7 +102,7 @@ const OrderDetail = () => {
       status: 'Đang Vận Chuyển', 
       icon: <TruckOutlined />, 
       time: deliveryDateTime, 
-      statusKey: 'Đang giao hàng'
+      statusKey: 'Đang vận chuyển'
     },
     { 
       status: 'Đã giao hàng', 
